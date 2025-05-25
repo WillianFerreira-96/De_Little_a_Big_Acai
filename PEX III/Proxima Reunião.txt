@@ -1,0 +1,15 @@
+-Quais dos itens além do nome, deve ser obrigatório para a realização do cadastro de itens do estoque? 
+	-imagem do item
+	-*nome do item
+	-marca
+	-descrição
+	-categoria
+	-preço
+	-volume
+	-unidade de medida
+	-data de validade
+	-lote
+	-endereço de armazenamento
+	-motivo da saida
+
+-
