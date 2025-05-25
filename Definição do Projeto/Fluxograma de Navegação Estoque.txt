@@ -1,0 +1,46 @@
+Fluxograma de Navegação Estoque
+
+[Tela Inicial]
+	↓
+	→ [Estoque]
+		↓	
+		→ [Cadastrar Itens]
+
+			/*Os asteriscos(*) são entradas obrigatorias*/
+
+			-imagem do item [__________]
+			-*nome do item [__________]
+			-marca [__________]
+			-descrição [__________]
+			-categoria [__________]
+			-preço [__________]
+			-volume [__________]
+			-unidade de medida [__________]
+			-data de validade [__________]
+			-lote [__________]
+			-endereço de armazenamento [__________]
+			-motivo da saida [__________]
+
+			-[Salvar]   [Cancelar]
+
+		→ [Análise de Estoque]
+			↓
+		→ 
+		→ 
+		→ 
+	→ [Pedidos]
+	→ [Clientes]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
