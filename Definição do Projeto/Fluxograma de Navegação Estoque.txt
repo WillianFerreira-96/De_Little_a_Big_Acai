@@ -2,8 +2,7 @@ Fluxograma de Navegação Estoque
 
 [Tela Inicial]
 	↓
-	→ [Estoque]
-		↓	
+	→ [Estoque]	
 		→ [Cadastrar Itens]
 
 			/*Os asteriscos(*) são entradas obrigatorias*/
@@ -14,6 +13,7 @@ Fluxograma de Navegação Estoque
 			-descrição [__________]
 			-categoria [__________]
 			-preço [__________]
+			-quant[__________]
 			-volume [__________]
 			-unidade de medida [__________]
 			-data de validade [__________]
@@ -23,17 +23,63 @@ Fluxograma de Navegação Estoque
 
 			-[Salvar]   [Cancelar]
 
-		→ [Análise de Estoque]
-			↓
-		→ 
-		→ 
-		→ 
+		→ [Pesquisa de Itens]
+			
+			-barra de pesquisa[__________]
+			-filtros
+				-marca
+				-categoria
+				-preço(acima de)
+				-preço(abaixo de)
+				-quantidade
+				-volume(acima de)
+				-volume(abaixo de)
+				-unidade de medida
+				-dentro da validade
+				-fora da validade
+				-lote
+				-motivo da saida
+				-data de entrada
+				-data de saida	
+			-[Pesquisar]
+
+		→ [Saida de Itens]
+		→ [Análise de Estoque - Dashboards]
+		→ [Editar Itens]
+			
+			-barra de pesquisa[__________]
+			-filtros
+				-marca
+				-categoria
+				-preço(acima de)
+				-preço(abaixo de)
+				-quantidade
+				-volume(acima de)
+				-volume(abaixo de)
+				-unidade de medida
+				-dentro da validade
+				-fora da validade
+				-lote
+				-motivo da saida
+				-data de entrada
+				-data de saida	
+			-[Pesquisar]
+			
+			/*Tabela de resposta da pesquisa*/
+			|_____|_____|_____|_____|_____|_____|X|/*"X" para excluir um item*/
+			|_____|_____|_____|_____|_____|_____|X|
+			|_____|_____|_____|_____|_____|_____|X|
+			|_____|_____|_____|_____|_____|_____|X|
+			|_____|_____|_____|_____|_____|_____|X|
 	→ [Pedidos]
 	→ [Clientes]
 
 
 
-
+create ok
+read ok
+updade
+delete ok
 
 
 
