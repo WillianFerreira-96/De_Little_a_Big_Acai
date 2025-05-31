@@ -1,4 +1,5 @@
 Fluxograma de Navegação Estoque
+28/05/2025
 
 [Tela Inicial]
 	↓
@@ -14,14 +15,14 @@ Fluxograma de Navegação Estoque
 			-categoria [__________]
 			-preço [__________]
 			-quant[__________]
-			-volume [__________]
+			-volume por unidade [__________]
 			-unidade de medida [__________]
 			-data de validade [__________]
 			-lote [__________]
 			-endereço de armazenamento [__________]
 			-motivo da saida [__________]
 
-			-[Salvar]   [Cancelar]
+			-[Salvar]   [Cancelar] /*Cancelar retorna para a tela inicial*/
 
 		→ [Pesquisa de Itens]
 			
@@ -41,10 +42,63 @@ Fluxograma de Navegação Estoque
 				-motivo da saida
 				-data de entrada
 				-data de saida	
+
 			-[Pesquisar]
 
 		→ [Saida de Itens]
+			
+			-barra de pesquisa[__________]
+			-filtros
+				-marca
+				-categoria
+				-preço(acima de)
+				-preço(abaixo de)
+				-quantidade
+				-volume(acima de)
+				-volume(abaixo de)
+				-unidade de medida
+				-dentro da validade
+				-fora da validade
+				-lote
+				-motivo da saida
+				-data de entrada
+				-data de saida	
+
+			-[Pesquisar]
+
+			/*Tabela de resposta da pesquisa*/
+			|X|_____|Quant|_____|Motivo_saida|_____|_____|/*X = Caixa de seleção*/
+			|X|_____|Quant|_____|Motivo_saida|_____|_____|
+			|X|_____|Quant|_____|Motivo_saida|_____|_____|
+			|X|_____|Quant|_____|Motivo_saida|_____|_____|
+			|X|_____|Quant|_____|Motivo_saida|_____|_____|
+				/*A célula "Motivo_saida" abrirá uma caixa de seleção com valores pré determinados*/
+				-[Motivo_saida]
+					-Produto Vencido
+					-Devolução de Mercadoria
+					-Suprir Produção
+					-Perda/Avaria
+
+			[Salvar Alterações] [Cancelar] /*Cancelar retorna para a tela inicial*/
+			
+			/*Após salvar gera um SQL unico com todas as alterações para a API*/
+
+
+			
 		→ [Análise de Estoque - Dashboards]
+
+			-Total de itens em estoque
+			-Valor total do estoque (preço × quantidade)
+			-Total de perdas (Mês)
+			-Total de perdas (Ano)		
+
+			-Gráfico de barras/pizza: Distribuição por categoria
+			-Linha do tempo: Evolução de quantidade em estoque ao longo do tempo
+			-Tabela de alertas:
+				-Itens com baixa quantidade (abaixo de um limite mínimo)
+				-Itens vencidos
+				-Itens próximos da validade
+
 		→ [Editar Itens]
 			
 			-barra de pesquisa[__________]
@@ -63,23 +117,23 @@ Fluxograma de Navegação Estoque
 				-motivo da saida
 				-data de entrada
 				-data de saida	
+
 			-[Pesquisar]
 			
 			/*Tabela de resposta da pesquisa*/
 			|_____|_____|_____|_____|_____|_____|X|/*"X" para excluir um item*/
 			|_____|_____|_____|_____|_____|_____|X|
+			|_____|_____|_____|_____|_____|_____|X|/*Cada Célula é editável*/
 			|_____|_____|_____|_____|_____|_____|X|
 			|_____|_____|_____|_____|_____|_____|X|
-			|_____|_____|_____|_____|_____|_____|X|
+
+			[Salvar Alterações] [Cancelar] /*Cancelar retorna para a tela inicial*/
+			
+			/*Após salvar gera um SQL unico com todas as alterações para a API*/
 	→ [Pedidos]
 	→ [Clientes]
 
 
-
-create ok
-read ok
-updade
-delete ok
 
 
 
