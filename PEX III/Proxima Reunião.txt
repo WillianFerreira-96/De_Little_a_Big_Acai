@@ -10,6 +10,8 @@
 		-data de validade
 		-lote
 		-endereço de armazenamento
-		-motivo da saida
+		-*motivo da saida
+		-*data de entrada(Preenchido pelo sistema)
 
 (26/05/25)- Tirar Foto da ultima reunião sobre modelagem de dados
+(30/05/25)- Quais serão os valores fixos para as categorias, unidades de medida e motivo de saida?

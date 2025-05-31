@@ -20,7 +20,6 @@ Fluxograma de Navegação Estoque
 			-data de validade [__________]
 			-lote [__________]
 			-endereço de armazenamento [__________]
-			-motivo da saida [__________]
 
 			-[Salvar]   [Cancelar] /*Cancelar retorna para a tela inicial*/
 
