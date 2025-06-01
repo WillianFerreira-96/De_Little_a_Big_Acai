@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,13 +25,23 @@ public class ItemController{
         return itemService.getAll();
     }
 
-    @PostMapping(value = "/adicionarItem", consumes = "multipart/form-data")
-    private String adicionarItem (@RequestPart Item item, @RequestPart MultipartFile imagem) throws IOException {
+    @PostMapping(value = "/adicionarItem")
+    private void adicionarItem (
+        @RequestPart MultipartFile imagemItem,
+        @RequestPart String nomeItem,
+        @RequestPart String marca,
+        @RequestPart String descricaoItem,
+        @RequestPart String categoria,
+        @RequestPart double preçoUni,
+        @RequestPart int quant,
+        @RequestPart double volume,
+        @RequestPart String unidMedida,
+        @RequestPart Data dataValidade,
+        @RequestPart String lote,
+        @RequestPart String enderecoArmazen
+    )throws IOException {
 
-        byte[] imagemBytes = imagem.getBytes();
 
-        itemService.adicionarItem(item, imagemBytes);
-        return "Item adicionado com sucesso!";
     }
 
 

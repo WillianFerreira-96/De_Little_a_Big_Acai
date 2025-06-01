@@ -23,9 +23,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void adicionarItem(Item item,byte[] imagemBytes) {
-        item.setImagemItem(imagemBytes);
-        itemRepository.save(item);
+    public void adicionarItem(byte[] imagemBytes) {
     }
 
 }

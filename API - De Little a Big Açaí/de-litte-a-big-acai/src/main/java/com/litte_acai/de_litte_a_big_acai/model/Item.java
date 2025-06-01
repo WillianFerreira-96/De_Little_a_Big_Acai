@@ -63,6 +63,22 @@ public class Item {
         this.dataEntr = dataEntr;
     }
 
+    public Item(byte[]imagemItem, String nomeItem, String marca, String descricaoItem, String categoria, double precoUni, int quant, double volumeUni, String unidMedida, Date dataValidade, String lote, String enderecoArmazen, Date dataEntr) {
+        this.imagemItem = imagemItem;
+        this.nomeItem = nomeItem;
+        this.marca = marca;
+        this.descricaoItem = descricaoItem;
+        this.categoria = categoria;
+        this.precoUni = precoUni;
+        this.quant = quant;
+        this.volumeUni = volumeUni;
+        this.unidMedida = unidMedida;
+        this.dataValidade = dataValidade;
+        this.lote = lote;
+        this.enderecoArmazen = enderecoArmazen;
+        this.dataEntr = dataEntr;
+    }
+
     public long getIdItem() {
         return idItem;
     }
