@@ -6,35 +6,86 @@
     <title>Document</title>
 </head>
 <body>  
-    <form id="formulario" enctype="multipart/form-data" >
+    <form id="formulario" enctype="multipart/form-data"> 
         <input type="file" name="imagemItem"><br>
-        <input type="text" name="nomeItem" placeholder="nome" required><br>
+        <input type="text" name="nomeItem" placeholder="nome" ><br>
         <input type="text" name="marca" placeholder="marca"><br>
         <input type="text" name="descricaoItem" placeholder="descrição"><br>
         <input type="text" name="categoria" placeholder="categoria"><br>
-        <input type="number" name="preçoUni" placeholder="preço"><br>
+        <input type="number" step="any" name="precoUni" placeholder="preço"><br>
         <input type="number" name="quant" placeholder="quantidade"><br>
-        <input type="number" name="volume" placeholder="volume por unidade"><br>
+        <input type="number" step="any" name="volumeUni" placeholder="volume por unidade"><br>
         <input type="text" name="unidMedida" placeholder="unidade de medida"><br>
         <label for="dataValidade">Data de validade</label><br>
-        <input type="date" name="dataValidade"><br>
+        <input type="date" name="dataValidade">
         <input type="text" name="lote" placeholder="lote"><br>
         <input type="text" name="enderecoArmazen" placeholder="local de armazenamento"><br>
-        <input type="submit" value="enviar">
+        <input type="submit" value="enviar" id="btnEnviar">
     </form>    
 </body>
 <script>
+    /*
+    const btnEnviar = document.getElementById('btnEnviar')
+    btnEnviar.addEventListener("click", (e)=>{
+        e.preventDefault()
+        
+        var nomeItem = document.querySelector('nomeItem').value
+        console.log(nomeItem)
+        
+        })
+        */
+
+    /*
+    const btnEnviar = document.getElementById('btnEnviar')
+    btnEnviar.addEventListener("click", (e)=>{
+        e.preventDefault()
+        
+        /*
+        var nomeItem = document.querySelector('nomeItem').value
+        var marca = document.querySelector('marca').value
+        var descricaoItem = document.querySelector('descricaoItem').value
+        var categoria = document.querySelector('categoria').value
+        var precoUni = document.querySelector('precoUni').value
+        var quant = document.querySelector('quant').value
+        var volumeUni = document.querySelector('volumeUni').value
+        var unidMedida = document.querySelector('unidMedida').value
+        var dataValidade = document.querySelector('dataValidade').value
+        var lote = document.querySelector('lote').value
+        var enderecoArmazen = document.querySelector('enderecoArmazen').value*/
+
+        //console.log(nomeItem)
+
+        /*console.log({
+            'nomeItem': nomeItem,
+            'marca': marca,
+            'descricaoItem': descricaoItem,
+            'categoria': categoria,
+            'precoUni': precoUni,
+            'quant': quant,
+            'volumeUni': volumeUni,
+            'unidMedida': unidMedida,
+            'dataValidade': dataValidade,
+            'lote': lote,
+            'enderecoArmazen': enderecoArmazen
+        })*/
+    
     const form = document.getElementById('formulario')
     form.addEventListener("submit", (e)=>{
-        e.preventDefault
+        e.preventDefault()
 
         const formData = new FormData(form)
 
-        var url = 'http://localhost:8080/v2test/v2imagem'
-        fetch(url,{method: 'POST', body: formData})
-        .then(res => console.log(res.status()))
+        const url = 'http://localhost:8080/adicionarItem';
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => {
+            console.log('Status:', res.status);
+            return res.json();
+        })
         .then(data => console.log(data))
-        .catch(err => console.error(err))
+        .catch(err => console.error('Erro:', err));
 
     })
 </script>
