@@ -3,7 +3,7 @@ package com.litte_acai.de_litte_a_big_acai.model;
 import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.sql.Date;
 
 
 @Entity
@@ -16,7 +16,7 @@ public class Item {
     @Lob
     @Column(name = "imagemItem", columnDefinition = "MEDIUMBLOB")
     private byte[] imagemItem;
-    @Column(name = "nome_item", length = 50, nullable = false)
+    @Column(name = "nome_item", length = 50, nullable = true)
     private String nomeItem;
     @Column(length = 50)
     private String marca;
@@ -42,13 +42,33 @@ public class Item {
     private Date dataEntr;
     @Column(name = "data_said")
     private Date dataSaid;
-    @Column(name = "motivo_saida", length = 30, nullable = false)
+    @Column(name = "motivo_saida", length = 30, nullable = true)
     private String motivoSaida;
 
     public Item() {
     }
 
-    public Item(String nomeItem, String marca, String descricaoItem, String categoria, double precoUni, int quant, double volumeUni, String unidMedida, Date dataValidade, String lote, String enderecoArmazen, Date dataEntr) {
+/*
+    public Item(byte[] imagemItem, String nomeItem, String marca, String descricaoItem, String categoria, Double precoUni) {
+        this.imagemItem = imagemItem;
+        this.nomeItem = nomeItem;
+        this.marca = marca;
+        this.descricaoItem = descricaoItem;
+        this.categoria = categoria;
+        this.precoUni = precoUni;
+        //this.quant = quant;
+    }
+
+    public Item(String nomeItem,
+                String marca,
+                String descricaoItem,
+                String categoria,
+                double precoUni,
+                int quant,
+                double volumeUni,
+                String unidMedida,
+                String lote,
+                String enderecoArmazen) {
         this.nomeItem = nomeItem;
         this.marca = marca;
         this.descricaoItem = descricaoItem;
@@ -57,13 +77,21 @@ public class Item {
         this.quant = quant;
         this.volumeUni = volumeUni;
         this.unidMedida = unidMedida;
-        this.dataValidade = dataValidade;
         this.lote = lote;
         this.enderecoArmazen = enderecoArmazen;
-        this.dataEntr = dataEntr;
     }
 
-    public Item(byte[]imagemItem, String nomeItem, String marca, String descricaoItem, String categoria, double precoUni, int quant, double volumeUni, String unidMedida, Date dataValidade, String lote, String enderecoArmazen, Date dataEntr) {
+    public Item(byte[]imagemItem,
+                String nomeItem,
+                String marca,
+                String descricaoItem,
+                String categoria,
+                double precoUni,
+                int quant,
+                double volumeUni,
+                String unidMedida,
+                String lote,
+                String enderecoArmazen) {
         this.imagemItem = imagemItem;
         this.nomeItem = nomeItem;
         this.marca = marca;
@@ -73,11 +101,10 @@ public class Item {
         this.quant = quant;
         this.volumeUni = volumeUni;
         this.unidMedida = unidMedida;
-        this.dataValidade = dataValidade;
         this.lote = lote;
         this.enderecoArmazen = enderecoArmazen;
-        this.dataEntr = dataEntr;
     }
+    */
 
     public long getIdItem() {
         return idItem;

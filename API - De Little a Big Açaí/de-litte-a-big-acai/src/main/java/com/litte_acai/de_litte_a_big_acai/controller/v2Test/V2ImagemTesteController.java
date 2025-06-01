@@ -17,7 +17,7 @@ public class V2ImagemTesteController {
     V2ImagemTesteService v2ImagemTesteService;
 
 
-    @PostMapping(path = "/v2imagem")
+    @PostMapping(path = "/v2imagem", consumes = "multipart/form-data")
     //O nome do elemento MultipartFile, nesse caso "file", será o name do input do formulário HTML.
     private void v2testImagem(@RequestPart MultipartFile file,
                               @RequestPart String titulo,
