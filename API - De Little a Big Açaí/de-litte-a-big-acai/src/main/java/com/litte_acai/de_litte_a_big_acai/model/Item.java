@@ -1,7 +1,6 @@
 package com.litte_acai.de_litte_a_big_acai.model;
 
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 
@@ -14,7 +13,7 @@ public class Item {
     @Column(name = "id_item")
     private long idItem;
     @Lob
-    @Column(name = "imagemItem", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "imagemItem", columnDefinition = "LONGBLOB")
     private byte[] imagemItem;
     @Column(name = "nome_item", length = 50, nullable = true)
     private String nomeItem;
@@ -47,64 +46,6 @@ public class Item {
 
     public Item() {
     }
-
-/*
-    public Item(byte[] imagemItem, String nomeItem, String marca, String descricaoItem, String categoria, Double precoUni) {
-        this.imagemItem = imagemItem;
-        this.nomeItem = nomeItem;
-        this.marca = marca;
-        this.descricaoItem = descricaoItem;
-        this.categoria = categoria;
-        this.precoUni = precoUni;
-        //this.quant = quant;
-    }
-
-    public Item(String nomeItem,
-                String marca,
-                String descricaoItem,
-                String categoria,
-                double precoUni,
-                int quant,
-                double volumeUni,
-                String unidMedida,
-                String lote,
-                String enderecoArmazen) {
-        this.nomeItem = nomeItem;
-        this.marca = marca;
-        this.descricaoItem = descricaoItem;
-        this.categoria = categoria;
-        this.precoUni = precoUni;
-        this.quant = quant;
-        this.volumeUni = volumeUni;
-        this.unidMedida = unidMedida;
-        this.lote = lote;
-        this.enderecoArmazen = enderecoArmazen;
-    }
-
-    public Item(byte[]imagemItem,
-                String nomeItem,
-                String marca,
-                String descricaoItem,
-                String categoria,
-                double precoUni,
-                int quant,
-                double volumeUni,
-                String unidMedida,
-                String lote,
-                String enderecoArmazen) {
-        this.imagemItem = imagemItem;
-        this.nomeItem = nomeItem;
-        this.marca = marca;
-        this.descricaoItem = descricaoItem;
-        this.categoria = categoria;
-        this.precoUni = precoUni;
-        this.quant = quant;
-        this.volumeUni = volumeUni;
-        this.unidMedida = unidMedida;
-        this.lote = lote;
-        this.enderecoArmazen = enderecoArmazen;
-    }
-    */
 
     public long getIdItem() {
         return idItem;
