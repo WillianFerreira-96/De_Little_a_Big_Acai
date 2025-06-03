@@ -51,16 +51,12 @@ public class Item {
         return idItem;
     }
 
-    public void setIdItem(long idItem) {
-        this.idItem = idItem;
-    }
-
     public byte[] getImagemItem() {
         return imagemItem;
     }
 
     public void setImagemItem(byte[] imagemItem) {
-        this.imagemItem = imagemItem;
+            this.imagemItem = imagemItem;
     }
 
     public String getNomeItem() {
@@ -68,7 +64,7 @@ public class Item {
     }
 
     public void setNomeItem(String nomeItem) {
-        this.nomeItem = nomeItem;
+            this.nomeItem = nomeItem;
     }
 
     public String getMarca() {

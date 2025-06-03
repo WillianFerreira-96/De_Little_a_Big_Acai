@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,18 +24,18 @@ public class ItemController{
 
     @PostMapping(path = "/adicionarItem")
     private ResponseEntity<?> adicionarItem(
-        @RequestPart MultipartFile imagemItem,
+        @RequestPart(required = false) MultipartFile imagemItem,
         @RequestPart String nomeItem,
-        @RequestPart String marca,
-        @RequestPart String descricaoItem,
-        @RequestPart String categoria,
-        @RequestPart String precoUni,
-        @RequestPart String quant,
-        @RequestPart String volumeUni,
-        @RequestPart String unidMedida,
-        @RequestPart String dataValidade,
-        @RequestPart String lote,
-        @RequestPart String enderecoArmazen)throws IOException{
+        @RequestPart(required = false) String marca,
+        @RequestPart(required = false) String descricaoItem,
+        @RequestPart(required = false) String categoria,
+        @RequestParam(required = false) Double precoUni,
+        @RequestParam(required = false) Integer quant,
+        @RequestParam(required = false) Double volumeUni,
+        @RequestPart(required = false) String unidMedida,
+        @RequestParam(required = false) LocalDate dataValidadeLocalDate,
+        @RequestPart(required = false) String lote,
+        @RequestPart(required = false) String enderecoArmazen)throws IOException{
 
          return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(
                  imagemItem,
@@ -46,7 +47,7 @@ public class ItemController{
                  quant,
                  volumeUni,
                  unidMedida,
-                 dataValidade,
+                 dataValidadeLocalDate,
                  lote,
                  enderecoArmazen)
          );
