@@ -14,7 +14,7 @@ public interface ItemService {
                         String descricaoItem,
                         String categoria,
                         Double precoUni,
-                        Integer quant,
+                        Double quant,
                         Double volumeUni,
                         String unidMedida,
                         LocalDate dataValidadeLocalDate,
