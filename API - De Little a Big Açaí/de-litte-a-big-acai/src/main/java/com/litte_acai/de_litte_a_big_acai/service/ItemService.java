@@ -4,6 +4,7 @@ import com.litte_acai.de_litte_a_big_acai.model.Item;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ItemService {
@@ -12,11 +13,11 @@ public interface ItemService {
                         String marca,
                         String descricaoItem,
                         String categoria,
-                        String precoUni,
-                        String quant,
-                        String volumeUni,
+                        Double precoUni,
+                        Integer quant,
+                        Double volumeUni,
                         String unidMedida,
-                        String dataValidade,
+                        LocalDate dataValidadeLocalDate,
                         String lote,
                         String enderecoArmazen)throws IOException;
 
