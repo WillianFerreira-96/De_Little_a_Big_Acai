@@ -10,11 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -40,41 +38,39 @@ public class ItemServiceImpl implements ItemService {
                         String descricaoItem,
                         String categoria,
                         Double precoUni,
-                        Integer quant,
+                        Double quant,
                         Double volumeUni,
                         String unidMedida,
                         LocalDate dataValidadeLocalDate,
                         String lote,
                         String enderecoArmazen)throws IOException{
 
-        byte[] imagemItemBytes = imagemItem.getBytes();
-
         Item item = new Item();
-        item.setImagemItem(imagemItemBytes);
-        item.setNomeItem(nomeItem);
-        item.setMarca(marca);
-        item.setDescricaoItem(descricaoItem);
-        item.setCategoria(categoria);
-        item.setUnidMedida(unidMedida);
-        item.setLote(lote);
-        item.setEnderecoArmazen(enderecoArmazen);
+            item.setImagemItem(imagemItem.getBytes());
+            item.setNomeItem(nomeItem.trim().toLowerCase());
+            item.setMarca(marca.trim().toLowerCase());
+            item.setDescricaoItem(descricaoItem.trim().toLowerCase());
+            item.setCategoria(categoria.trim().toLowerCase());
+            item.setUnidMedida(unidMedida.trim().toLowerCase());
+            item.setLote(lote.trim().toLowerCase());
+            item.setEnderecoArmazen(enderecoArmazen.trim().toLowerCase());
 
-        if (precoUni != null) {
-            item.setPrecoUni(Double.valueOf(precoUni));
-        }
+            if (precoUni != null && precoUni instanceof Double) {
+                item.setPrecoUni(Double.valueOf(precoUni));
+            }
 
-        if(quant != null){
-            item.setQuant(Integer.valueOf(quant));
-        }
+            if(quant != null && quant instanceof Double){
+                item.setQuant(quant.intValue());
+            }
 
-        if(volumeUni != null){
-            item.setVolumeUni(Double.valueOf(volumeUni));
-        }
+            if(volumeUni != null && volumeUni instanceof Double) {
+                item.setVolumeUni(Double.valueOf(volumeUni));
+            }
 
-        if(dataValidadeLocalDate != null) {
-            Date dataValidade = Date.valueOf(dataValidadeLocalDate);
-            item.setDataValidade(dataValidade);
-        }
+            if(dataValidadeLocalDate != null) {
+                Date dataValidade = Date.valueOf(dataValidadeLocalDate);
+                item.setDataValidade(dataValidade);
+            }
 
         itemRepository.save(item);
         return item;
