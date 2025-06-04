@@ -40,7 +40,7 @@ public class ItemController{
 
     @GetMapping(path = "/buscarTodos")
     @ResponseBody
-    private List<String>getAll(){
+    private List<Item>getAll(){
         return itemService.getAll();
     }
 

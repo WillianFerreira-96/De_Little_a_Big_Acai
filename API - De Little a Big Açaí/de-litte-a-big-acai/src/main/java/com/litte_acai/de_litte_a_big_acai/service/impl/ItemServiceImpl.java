@@ -22,13 +22,8 @@ public class ItemServiceImpl implements ItemService {
     private StringHttpMessageConverter stringHttpMessageConverter;
 
     @Override
-    public List<String> getAll() {
-        List<String> nomes = new ArrayList<>();
-        itemRepository.findAll().forEach(item -> {
-            nomes.add(item.getNomeItem());
-        });
-
-        return nomes;
+    public List<Item> getAll() {
+        return itemRepository.findAll();
     }
 
     @Override

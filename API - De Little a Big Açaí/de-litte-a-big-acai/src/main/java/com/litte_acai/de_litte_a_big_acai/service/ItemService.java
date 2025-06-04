@@ -10,5 +10,5 @@ import java.util.List;
 public interface ItemService {
     public Item addItem(Item item);
 
-    List<String>getAll();
+    List<Item>getAll();
 }
