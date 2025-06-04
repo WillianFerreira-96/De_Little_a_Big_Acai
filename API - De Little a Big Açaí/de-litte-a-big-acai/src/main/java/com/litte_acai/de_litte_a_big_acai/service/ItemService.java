@@ -8,18 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ItemService {
-    public Item addItem(MultipartFile imagemItem,
-                        String nomeItem,
-                        String marca,
-                        String descricaoItem,
-                        String categoria,
-                        Double precoUni,
-                        Double quant,
-                        Double volumeUni,
-                        String unidMedida,
-                        LocalDate dataValidadeLocalDate,
-                        String lote,
-                        String enderecoArmazen)throws IOException;
+    public Item addItem(Item item);
 
     List<String>getAll();
 }

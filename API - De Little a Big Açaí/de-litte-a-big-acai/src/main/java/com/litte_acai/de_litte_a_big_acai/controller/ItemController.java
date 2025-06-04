@@ -1,28 +1,26 @@
 package com.litte_acai.de_litte_a_big_acai.controller;
 
+import com.litte_acai.de_litte_a_big_acai.model.Item;
 import com.litte_acai.de_litte_a_big_acai.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-@RestController
-@RequestMapping(path = "/estoque")
+@Controller
+@RequestMapping("/estoque")
 public class ItemController{
     @Autowired
     ItemService itemService;
-
-    @GetMapping(path = "/buscarTodos")
-    private List<String>getAll(){
-        return itemService.getAll();
-    }
 
     //initBinder para aceitar ponto ou virgula nas requisições Double ou Integer
     @InitBinder
@@ -40,10 +38,16 @@ public class ItemController{
         });
     }
 
+    @GetMapping(path = "/buscarTodos")
+    @ResponseBody
+    private List<String>getAll(){
+        return itemService.getAll();
+    }
+
     @PostMapping(path = "/adicionarItem")
     private ResponseEntity<?> adicionarItem(
         @RequestPart(required = false) MultipartFile imagemItem,
-        @RequestPart String nomeItem,
+        @RequestPart(required = false) String nomeItem,
         @RequestPart(required = false) String marca,
         @RequestPart(required = false) String descricaoItem,
         @RequestPart(required = false) String categoria,
@@ -53,21 +57,64 @@ public class ItemController{
         @RequestPart(required = false) String unidMedida,
         @RequestParam(required = false) LocalDate dataValidadeLocalDate,
         @RequestPart(required = false) String lote,
-        @RequestPart(required = false) String enderecoArmazen)throws IOException{
+        @RequestPart(required = false) String enderecoArmazen)throws IOException {
 
-         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(
-                 imagemItem,
-                 nomeItem,
-                 marca,
-                 descricaoItem,
-                 categoria,
-                 precoUni,
-                 quant,
-                 volumeUni,
-                 unidMedida,
-                 dataValidadeLocalDate,
-                 lote,
-                 enderecoArmazen)
-         );
+        Item item = new Item();
+        item.setImagemItem(imagemItem.getBytes());
+        try {
+            if (nomeItem != null && !nomeItem.isEmpty()) {
+                item.setNomeItem(nomeItem.trim().toLowerCase());
+            } else {
+                throw new Exception("O nome do item NÃO foi preenchido!");
+            }
+            if (marca != null && !marca.isEmpty()) {
+                item.setMarca(marca.trim().toLowerCase());
+            }
+            if (descricaoItem != null && !descricaoItem.isEmpty()) {
+                item.setDescricaoItem(descricaoItem.trim().toLowerCase());
+            }
+            if (categoria != null && !categoria.isEmpty()) {
+                item.setCategoria(categoria.trim().toLowerCase());
+            }
+            if (unidMedida != null && !unidMedida.isEmpty()) {
+                item.setUnidMedida(unidMedida.trim().toLowerCase());
+            }
+            if (lote != null && !lote.isEmpty()) {
+                item.setLote(lote.trim().toLowerCase());
+            }
+            if (enderecoArmazen != null && !enderecoArmazen.isEmpty()) {
+                item.setEnderecoArmazen(enderecoArmazen.trim().toLowerCase());
+            }
+            if (precoUni != null && precoUni instanceof Double) {
+                item.setPrecoUni(Double.valueOf(precoUni));
+            }
+
+            if (quant != null && quant instanceof Double) {
+                item.setQuant(quant.intValue());
+            }
+
+            if (volumeUni != null && volumeUni instanceof Double) {
+                item.setVolumeUni(Double.valueOf(volumeUni));
+            }
+
+            if (dataValidadeLocalDate != null) {
+                Date dataValidade = Date.valueOf(dataValidadeLocalDate);
+                item.setDataValidade(dataValidade);
+            }
+            return ResponseEntity.ok().body(itemService.addItem(item));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
+
+        //return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(item));
+        //return ResponseEntity.ok().body(itemService.addItem(item));
+
+
+    @GetMapping(path = "/pesquisa")
+    private String pesquisa(){
+        return "pesquisa";
+    }
+
 }
