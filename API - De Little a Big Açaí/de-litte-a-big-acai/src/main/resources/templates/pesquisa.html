@@ -3,9 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <title>Title</title>
 </head>
-<body>
-DDD
+<body class="container-fluid">
+    <table class="table table-bordered">
+        <caption class="caption-top">Pesquisa</caption>
+        <thead>
+            <tr>
+                <th>Imagem</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Preço p/ uni.</th>
+                <th>Quantidade</th>
+                <th>Volume p/ uni.</th>
+                <th>Unidade de Medida</th>
+                <th>Data de Validade</th>
+                <th>Lote</th>
+                <th>Endereço de Armazenamento</th>
+                <th>Data de Entrada</th>
+                <th>Data de Saída</th>
+                <th>Motivo da Saída</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr></tr>
+        </tbody>
+    </table>
 </body>
+<script>
+    window.addEventListener("load",()=>{
+        fetch('/estoque/buscarTodos')
+        .then(response => response.json())
+        .then(data=>{
+            data.forEach(item => {
+                console.log(item.nomeItem);
+            });
+            data.forEach(item => {
+
+                row = document.createElement("tr")
+                    tdImagem = document.createElement("td")
+                        //tdImagem.textContent = item.imagemItem
+                        row.appendChild(tdImagem)
+                    tdID = document.createElement("td")
+                        tdID.textContent = item.idItem
+                        row.appendChild(tdID)
+                    tdNome = document.createElement("td")
+                        tdNome.textContent = item.nomeItem
+                        row.appendChild(tdNome)
+                    tdMarca = document.createElement("td")
+                        tdMarca.textContent = item.marca
+                        row.appendChild(tdMarca)
+                    tdDescricao = document.createElement("td")
+                        tdDescricao.textContent = item.descricaoItem
+                        row.appendChild(tdDescricao)
+                    tdCategoria = document.createElement("td")
+                        tdCategoria.textContent = item.categoria
+                        row.appendChild(tdCategoria)
+                    tdPreço = document.createElement("td")
+                        tdPreço.textContent = item.precoUni
+                        row.appendChild(tdPreço)
+                    tdQuant = document.createElement("td")
+                        tdQuant.textContent = item.quant
+                        row.appendChild(tdQuant)
+                    tdVolume = document.createElement("td")
+                        tdVolume.textContent = item.volumeUni
+                        row.appendChild(tdVolume)
+                    tdUniMedida = document.createElement("td")
+                        tdUniMedida.textContent = item.unidMedida
+                        row.appendChild(tdUniMedida)
+                    tdDataValidade = document.createElement("td")
+                        tdDataValidade.textContent = item.dataValidade
+                        row.appendChild(tdDataValidade)
+                    tdLote = document.createElement("td")
+                        tdLote.textContent = item.lote
+                        row.appendChild(tdLote)
+                    tdEnderecoArmazen = document.createElement("td")
+                        tdEnderecoArmazen.textContent = item.enderecoArmazen
+                        row.appendChild(tdEnderecoArmazen)
+                    tdDataEntrada = document.createElement("td")
+                        tdDataEntrada.textContent = item.dataEntr
+                        row.appendChild(tdDataEntrada)
+                    tdDataSaida = document.createElement("td")
+                        tdDataSaida.textContent = item.dataSaid
+                        row.appendChild(tdDataSaida)
+                    tdMotivoSaida = document.createElement("td")
+                tdMotivoSaida.textContent = item.motivoSaida
+                row.appendChild(tdMotivoSaida)
+
+                document.querySelector("tbody").appendChild(row)
+
+            })
+        })
+        .catch(err =>{
+            console.error(err)
+        })
+    })
+</script>
 </html>

@@ -43,6 +43,17 @@
             })
                 .then(res => {
                     console.log('Status:', res.status);
+                    Swal.fire({
+                        title: 'Certin!',
+                        text: `Funfooooou`,
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        background: '#ffffff',
+                        color: '#000000',
+                        iconColor: '#11ff00',
+                        confirmButtonColor: '#0051ff'
+
+                    });
                     return res.json();
                 })
                 .then(data => console.log(data))
