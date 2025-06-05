@@ -8,7 +8,7 @@
     <title>Title</title>
 </head>
 <body class="container-fluid">
-    <table class="table table-bordered">
+    <table class="table table-dark  table-striped">
         <caption class="caption-top">Pesquisa</caption>
         <thead>
             <tr>
@@ -18,22 +18,24 @@
                 <th>Marca</th>
                 <th>Descrição</th>
                 <th>Categoria</th>
-                <th>Preço p/ uni.</th>
+                <th class="text-nowrap">Preço por unidade</th>
                 <th>Quantidade</th>
-                <th>Volume p/ uni.</th>
-                <th>Unidade de Medida</th>
-                <th>Data de Validade</th>
+                <th class="text-nowrap">Volume por unidade</th>
+                <th class="text-nowrap">Unidade de Medida</th>
+                <th class="text-nowrap">Data de Validade</th>
                 <th>Lote</th>
-                <th>Endereço de Armazenamento</th>
-                <th>Data de Entrada</th>
-                <th>Data de Saída</th>
-                <th>Motivo da Saída</th>
+                <th class="text-nowrap">Endereço de Armazenamento</th>
+                <th class="text-nowrap">Data de Entrada</th>
+                <th class="text-nowrap">Data de Saída</th>
+                <th class="text-nowrap">Motivo da Saída</th>
             </tr>
         </thead>
         <tbody>
-            <tr></tr>
         </tbody>
     </table>
+    <aside>
+        <div th:replace="fragments/filtro :: filtro"></div>
+    </aside>
 </body>
 <script>
     window.addEventListener("load",()=>{
@@ -46,22 +48,27 @@
             data.forEach(item => {
 
                 row = document.createElement("tr")
+                    row.className = "table-light"
                     tdImagem = document.createElement("td")
                         //tdImagem.textContent = item.imagemItem
                         row.appendChild(tdImagem)
                     tdID = document.createElement("td")
-                        tdID.textContent = item.idItem
+                        tdID.textContent = "000"+item.idItem
                         row.appendChild(tdID)
                     tdNome = document.createElement("td")
+                        tdNome.className = "text-nowrap"
                         tdNome.textContent = item.nomeItem
                         row.appendChild(tdNome)
                     tdMarca = document.createElement("td")
+                        tdMarca.className = "text-nowrap"
                         tdMarca.textContent = item.marca
                         row.appendChild(tdMarca)
                     tdDescricao = document.createElement("td")
                         tdDescricao.textContent = item.descricaoItem
+                        tdDescricao.className = "text-nowrap"
                         row.appendChild(tdDescricao)
                     tdCategoria = document.createElement("td")
+                        tdCategoria.className = "text-nowrap"
                         tdCategoria.textContent = item.categoria
                         row.appendChild(tdCategoria)
                     tdPreço = document.createElement("td")
@@ -83,6 +90,7 @@
                         tdLote.textContent = item.lote
                         row.appendChild(tdLote)
                     tdEnderecoArmazen = document.createElement("td")
+                        tdEnderecoArmazen.className = "text-nowrap"
                         tdEnderecoArmazen.textContent = item.enderecoArmazen
                         row.appendChild(tdEnderecoArmazen)
                     tdDataEntrada = document.createElement("td")
@@ -92,8 +100,9 @@
                         tdDataSaida.textContent = item.dataSaid
                         row.appendChild(tdDataSaida)
                     tdMotivoSaida = document.createElement("td")
-                tdMotivoSaida.textContent = item.motivoSaida
-                row.appendChild(tdMotivoSaida)
+                        tdMotivoSaida.className = "text-nowrap"
+                        tdMotivoSaida.textContent = item.motivoSaida
+                        row.appendChild(tdMotivoSaida)
 
                 document.querySelector("tbody").appendChild(row)
 
