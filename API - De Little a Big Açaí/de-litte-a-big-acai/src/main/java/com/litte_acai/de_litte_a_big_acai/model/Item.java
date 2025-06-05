@@ -15,7 +15,7 @@ public class Item {
     @Lob
     @Column(name = "imagemItem", columnDefinition = "LONGBLOB")
     private byte[] imagemItem;
-    @Column(name = "nome_item", length = 50, nullable = false)
+    @Column(name = "nome_item", length = 50, nullable = true)
     private String nomeItem;
     @Column(length = 50)
     private String marca;
