@@ -1,0 +1,36 @@
+.abrirFiltro{
+    display: block;
+    animation: abrirFiltro;
+    animation-duration: 0.5s ;
+}
+@keyframes abrirFiltro {
+    0% {
+        position: relative;
+        left : -280px;
+    }
+    100% {
+        position: relative;
+        left : 0;
+    }    
+}
+
+
+.fecharFiltro{
+    display: block;
+    animation: fecharFiltro;
+    animation-duration: 0.5s ;
+}
+@keyframes fecharFiltro {
+    0% {
+        position: relative;
+        left : 0;
+    }
+    100% {
+        position: relative;
+        left : -280px;
+    }    
+}
+
+
+
+    
