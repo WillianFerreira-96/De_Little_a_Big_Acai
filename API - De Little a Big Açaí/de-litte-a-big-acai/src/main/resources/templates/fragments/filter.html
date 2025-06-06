@@ -1,89 +1,126 @@
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/filtroStyleSheet.css">
-<div id="filtro_conteiner" xmlns:th="http://www.thymeleaf.org" th:fragment="filter" class="d-flex flex-row" style="position: fixed">
-  <div id="filtroBody" class="flex-shrink-0 p-3 bg-light" style="width: 280px; height: 100vh; display: none;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-      <span class="fs-5 fw-semibold">Filtro</span>
-    </a>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-          Home
-        </button>
-        <div class="collapse show" id="home-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">Overview</a></li>
-            <li><a href="#" class="link-dark rounded">Updates</a></li>
-            <li><a href="#" class="link-dark rounded">Reports</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-          Dashboard
-        </button>
-        <div class="collapse" id="dashboard-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">Overview</a></li>
-            <li><a href="#" class="link-dark rounded">Weekly</a></li>
-            <li><a href="#" class="link-dark rounded">Monthly</a></li>
-            <li><a href="#" class="link-dark rounded">Annually</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-          Orders
-        </button>
-        <div class="collapse" id="orders-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">New</a></li>
-            <li><a href="#" class="link-dark rounded">Processed</a></li>
-            <li><a href="#" class="link-dark rounded">Shipped</a></li>
-            <li><a href="#" class="link-dark rounded">Returned</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="border-top my-3"></li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-          Account
-        </button>
-        <div class="collapse" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">New...</a></li>
-            <li><a href="#" class="link-dark rounded">Profile</a></li>
-            <li><a href="#" class="link-dark rounded">Settings</a></li>
-            <li><a href="#" class="link-dark rounded">Sign out</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/static/css/filterStyleSheet.css">
+<div id="filtro_conteiner" xmlns:th="http://www.thymeleaf.org" th:fragment="filter" class="d-flex flex-row"
+  style="position: fixed">
 
+  <div class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1" id="offcanvasFilter"
+    aria-labelledby="offcanvasFilterLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasFilterLabel">Filtrar por...</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>    
+    <div class="offcanvas-body"><!--OffCanvas Body-->
+      <form>
+        <div class="form-floating mb-3"><!--Marca-->
+          <input type="text" class="form-control" id="filterMarca" name="filterMarca">
+          <label class="form-label" for="filterMarca">Marca</label>
+        </div>
+        <div class="form-floating mb-3"><!--Categoria-->
+          <select class="form-select" id="filterCategotia" name="filterCategotia">
+            <option selected>Escolha...</option>
+            <option value="frutas">Frutas</option>
+            <option value="bases/massas">Bases/Massas</option>
+            <option value="complementos">Complementos</option>
+          </select>
+          <label class="form-label" for="filterCategotia">Categoria</label>
+        </div>
+        <div class="form-floating mb-3"><!--Data de entrada-->
+          <input class="form-control" type="date" name="filterDataEntr" id="filterDataEntr">
+          <label for="filterDataEntr" class="form-label">Data de entrada</label>
+        </div>
+        <div class="form-floating mb-3"><!--Data de validade-->
+          <input class="form-control" type="date" name="filterDataValidade" id="filterDataValidade">
+          <label for="filterDataValidade" class="form-label">Data de validade</label>
+        </div>
+        <fieldset class="mt-4 border border-light-subtle rounded"><!--Preço por unidade-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoPreco" value="1">
+            <label class="form-check-label" for="maiorQue">Maior que</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoPreco" value="-1">
+            <label class="form-check-label" for="menorQue">Menor que</label>
+          </div>
+          <div class="form-floating">
+            <input class="form-control" type="number" step="any" name="filterPrecoUni" id="filterPrecoUni">
+            <label for="filterPrecoUni" class="form-label">Preço por unidade</label>
+          </div>
+        </fieldset>
+        <fieldset class="mt-3 border border-light-subtle rounded"><!--Quantidade-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoQuant" value="1">
+            <label class="form-check-label" for="maiorQue">Maior que</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoQuant" value="-1">
+            <label class="form-check-label" for="menorQue">Menor que</label>
+          </div>
+          <div class="form-floating">
+            <input class="form-control" type="number" name="filterQuant" id="filterQuant">
+            <label for="filterQuant" class="form-label">Quantidade</label>
+          </div>
+        </fieldset>
+        <fieldset class="mt-3 border border-light-subtle rounded"><!--Volume e Unidade de medida-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoVol" value="1">
+            <label class="form-check-label" for="maiorQue">Maior que</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoVol" value="-1">
+            <label class="form-check-label" for="menorQue">Menor que</label>
+          </div>
+          <div class="input-group form-floating">
+            <div class="input-group form-floating">
+              <input class="form-control" type="number" name="filterVol" id="filterVol">
+              <label for="filterVol" class="form-label">Volume por unidade</label>
+            </div>
+            <div class="input-group form-floating">
+              <select class="form-select" id="filterCategotia" name="filterCategotia">
+                <option selected>Escolha...</option>
+                <option value="Kilogramas(Kg)">Kilogramas(Kg)</option>
+                <option value="Gramas(g)">Gramas(g)</option>
+                <option value="Litros(l)">Litros(l)</option>
+                <option value="Mililitros(ml)">Mililitros(ml)</option>
+                <option value="Unidade(uni)">Unidades(uni)</option>
+              </select>
+              <label class="form-label" for="filterCategotia">Unidade de medida</label>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-floating mt-4"><!--Lote-->
+          <input type="text" class="form-control" id="filterLote" name="filterLote">
+          <label class="form-label" for="filterLote">Lote</label>
+        </div>
+        <div class="form-floating mt-4"><!--Endereço de Armazenamento-->
+          <input type="text" class="form-control" id="filterEnderecoArmazen" name="filterEnderecoArmazen">
+          <label class="form-label" for="filterEnderecoArmazen">Endereço de armazenamento</label>
+        </div>
+        <div class="form-floating mt-4"><!--Data de Saída-->
+          <input class="form-control" type="date" name="filterDataSaid" id="filterDataSaid">
+          <label for="filterDataSaid" class="form-label">Data de saída</label>
+        </div>
+        <div class="form-floating mt-4"><!--Motivo de Saída-->
+          <select class="form-select" id="filterMotivoSaida" name="filterMotivoSaida">
+            <option selected>Escolha...</option>
+            <option value="Perda">Perda</option>
+            <option value="Produção">Produção</option>
+            <option value="Devolução">Devolução</option>
+          </select>
+          <label class="form-label" for="filterMotivoSaida">Motivo de Saída</label>
+        </div>
+        <button type="submit" class="btn btn-outline-primary mt-4 col-12 fw-bold">Pesquisar</button>
+      </form>
+    </div>
+  </div>
   <!----------------------------------------------------------------------->
 
- 
-  <div id="filtroBtn" class="d-flex align-items-center justify-content-center rounded-circle" style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
-    <img src="/static/img/ico/filtroIco.ico" width="25px">  
-  </div>
-      
-  <script>
-    var filtro_conteiner = document.getElementById("filtro_conteiner")
-    var filtroBtn = document.getElementById("filtroBtn")
-    var filtroBody = document.getElementById("filtroBody")
-    filtroBtn.addEventListener("click",()=>{ 
-      if(filtroBody.style.display == "none"){
-        filtroBody.style.display = "block"        
-        filtro_conteiner.className = "abrirFiltro d-flex flex-row"
-      }else{
-        filtro_conteiner.className = "fecharFiltro d-flex flex-row"
-        setTimeout(() => {
-          filtroBody.style.display = 'none';
-        }, 400);
-      } 
-    })
-  </script>
+  <button class="btn d-flex align-items-center justify-content-center rounded-circle" type="button"
+    data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"
+    style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
+    <img src="/static/img/ico/filtroIco.ico" width="25px">
+  </button>
+
 </div>
