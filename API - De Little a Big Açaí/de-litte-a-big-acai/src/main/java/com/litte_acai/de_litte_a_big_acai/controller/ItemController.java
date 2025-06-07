@@ -38,6 +38,12 @@ public class ItemController{
         });
     }
 
+    @GetMapping(path = "buscarIdNome")
+    @ResponseBody
+    private ResponseEntity<?> buscarIdNome(@RequestParam String idNome){
+        return itemService.buscarIdOuNome(idNome);
+    }
+
     @GetMapping(path = "/buscarTodos")
     @ResponseBody
     private List<Item>getAll(){
@@ -108,13 +114,10 @@ public class ItemController{
         }
     }
 
-        //return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(item));
-        //return ResponseEntity.ok().body(itemService.addItem(item));
 
-
-    @GetMapping(path = "/pesquisa")
-    private String pesquisa(){
-        return "pesquisa";
+    @GetMapping(path = "/buscar")
+    private String buscar(){
+        return "buscar";
     }
 
 }

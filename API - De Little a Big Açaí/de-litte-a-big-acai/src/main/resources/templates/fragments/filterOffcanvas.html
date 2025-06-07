@@ -2,16 +2,15 @@
   integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/static/css/filterStyleSheet.css">
-<div id="filtro_conteiner" xmlns:th="http://www.thymeleaf.org" th:fragment="filter" class="d-flex flex-row"
-  style="position: fixed">
 
-  <div class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1" id="offcanvasFilter"
-    aria-labelledby="offcanvasFilterLabel">
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="filterOffcanvas" class="d-flex flex-row fixed-left">
+  <div class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1" id="filterOffcanvas"
+    aria-labelledby="filterOffcanvasLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasFilterLabel">Filtrar por...</h5>
+      <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filtrar por...</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>    
+    </div>
     <div class="offcanvas-body"><!--OffCanvas Body-->
       <form>
         <div class="form-floating mb-3"><!--Marca-->
@@ -37,12 +36,12 @@
         </div>
         <fieldset class="mt-4 border border-light-subtle rounded"><!--Preço por unidade-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoPreco" value="1">
-            <label class="form-check-label" for="maiorQue">Maior que</label>
+            <input class="form-check-input" type="radio" id="maiorQuePreco" name="comparacaoPreco" value="1">
+            <label class="form-check-label" for="maiorQuePreco">Maior que</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoPreco" value="-1">
-            <label class="form-check-label" for="menorQue">Menor que</label>
+            <input class="form-check-input" type="radio" id="menorQuePreco" name="comparacaoPreco" value="-1">
+            <label class="form-check-label" for="menorQuePreco">Menor que</label>
           </div>
           <div class="form-floating">
             <input class="form-control" type="number" step="any" name="filterPrecoUni" id="filterPrecoUni">
@@ -51,12 +50,12 @@
         </fieldset>
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Quantidade-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoQuant" value="1">
-            <label class="form-check-label" for="maiorQue">Maior que</label>
+            <input class="form-check-input" type="radio" id="maiorQueQuant" name="comparacaoQuant" value="1">
+            <label class="form-check-label" for="maiorQueQuant">Maior que</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoQuant" value="-1">
-            <label class="form-check-label" for="menorQue">Menor que</label>
+            <input class="form-check-input" type="radio" id="menorQueQuant" name="comparacaoQuant" value="-1">
+            <label class="form-check-label" for="menorQueQuant">Menor que</label>
           </div>
           <div class="form-floating">
             <input class="form-control" type="number" name="filterQuant" id="filterQuant">
@@ -65,12 +64,12 @@
         </fieldset>
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Volume e Unidade de medida-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQue" name="comparacaoVol" value="1">
-            <label class="form-check-label" for="maiorQue">Maior que</label>
+            <input class="form-check-input" type="radio" id="maiorQueVol" name="comparacaoVol" value="1">
+            <label class="form-check-label" for="maiorQueVol">Maior que</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQue" name="comparacaoVol" value="-1">
-            <label class="form-check-label" for="menorQue">Menor que</label>
+            <input class="form-check-input" type="radio" id="menorQueVol" name="comparacaoVol" value="-1">
+            <label class="form-check-label" for="menorQueVol">Menor que</label>
           </div>
           <div class="input-group form-floating">
             <div class="input-group form-floating">
@@ -78,7 +77,7 @@
               <label for="filterVol" class="form-label">Volume por unidade</label>
             </div>
             <div class="input-group form-floating">
-              <select class="form-select" id="filterCategotia" name="filterCategotia">
+              <select class="form-select" id="filterUnidMedida" name="filterUnidMedida">
                 <option selected>Escolha...</option>
                 <option value="Kilogramas(Kg)">Kilogramas(Kg)</option>
                 <option value="Gramas(g)">Gramas(g)</option>
@@ -86,7 +85,7 @@
                 <option value="Mililitros(ml)">Mililitros(ml)</option>
                 <option value="Unidade(uni)">Unidades(uni)</option>
               </select>
-              <label class="form-label" for="filterCategotia">Unidade de medida</label>
+              <label class="form-label" for="filterUnidMedida">Unidade de medida</label>
             </div>
           </div>
         </fieldset>
@@ -115,12 +114,13 @@
       </form>
     </div>
   </div>
-  <!----------------------------------------------------------------------->
+  
+  <!-------------------------------------------------------------------------------------------------->
 
-  <button class="btn d-flex align-items-center justify-content-center rounded-circle" type="button"
-    data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasFilter"
+  <button class="btn d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-3 ms-2 " type="button"
+    data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas"
     style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
-    <img src="/static/img/ico/filtroIco.ico" width="25px">
+    <img src="/img/ico/filtroIco.ico" width="25px">
   </button>
 
 </div>
