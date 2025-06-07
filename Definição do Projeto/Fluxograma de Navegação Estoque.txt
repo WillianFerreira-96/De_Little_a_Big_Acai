@@ -3,8 +3,22 @@ Fluxograma de Navegação Estoque
 
 [Tela Inicial]
 	↓
-	→ [Estoque]	
-		→ [Cadastrar Itens]
+	→ [Estoque]
+		→ [Tela Inicial Estoque: Análise de Estoque - Dashboards]
+
+			-Total de itens em estoque
+			-Valor total do estoque (preço × quantidade)
+			-Total de perdas (Mês)
+			-Total de perdas (Ano)		
+
+			-Gráfico de barras/pizza: Distribuição por categoria
+			-Linha do tempo: Evolução de quantidade em estoque ao longo do tempo
+			-Tabela de alertas:
+				-Itens com baixa quantidade (abaixo de um limite mínimo)
+				-Itens vencidos
+				-Itens próximos da validade
+	
+		→ [Cadastrar Item]
 
 			/*Os asteriscos(*) são entradas obrigatorias*/
 
@@ -24,7 +38,7 @@ Fluxograma de Navegação Estoque
 
 			-[Salvar]   [Cancelar] /*Cancelar retorna para a tela inicial*/
 
-		→ [Pesquisa de Itens]
+		→ [Buscar]
 			
 			-barra de pesquisa[__________]
 			-filtros
@@ -82,22 +96,6 @@ Fluxograma de Navegação Estoque
 			[Salvar Alterações] [Cancelar] /*Cancelar retorna para a tela inicial*/
 			
 			/*Após salvar gera um SQL unico com todas as alterações para a API*/
-
-
-			
-		→ [Análise de Estoque - Dashboards]
-
-			-Total de itens em estoque
-			-Valor total do estoque (preço × quantidade)
-			-Total de perdas (Mês)
-			-Total de perdas (Ano)		
-
-			-Gráfico de barras/pizza: Distribuição por categoria
-			-Linha do tempo: Evolução de quantidade em estoque ao longo do tempo
-			-Tabela de alertas:
-				-Itens com baixa quantidade (abaixo de um limite mínimo)
-				-Itens vencidos
-				-Itens próximos da validade
 
 		→ [Editar Itens]
 			
