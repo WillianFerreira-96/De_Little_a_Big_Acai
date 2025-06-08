@@ -63,7 +63,7 @@ public class ItemController{
         @RequestParam(required = false) String comparacaoPreco,
         @RequestParam(required = false) Double filterPrecoUni,
         @RequestParam(required = false) String comparacaoQuant,
-        @RequestParam(required = false) Double filterQuant,
+        @RequestParam(required = false) Integer filterQuant,
         @RequestParam(required = false) String comparacaoVol,
         @RequestParam(required = false) Double filterVol,
         @RequestPart(required = false) String filterUnidMedida,
@@ -73,117 +73,29 @@ public class ItemController{
         @RequestParam(required = false) LocalDate filterDataSaid,
         @RequestPart(required = false) String filterMotivoSaida){
 
-            FiltroItem filtroItem = new FiltroItem();
-        try {
-            if (filterNome != null && !filterNome.isEmpty()) {
-                filtroItem.setFilterNome(filterNome.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterNome(null);
-            }
+        FiltroItem filtro = new FiltroItem();
 
-            if (filterMarca != null && !filterMarca.isEmpty()) {
-                filtroItem.setFilterMarca(filterMarca.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterMarca(null);
-            }
+        filtro.setFilterNome(filterNome);
+        filtro.setFilterMarca(filterMarca);
+        filtro.setFilterCategotia(filterCategotia);
+        filtro.setComparaDataEntr(comparacaoDataEntr);
+        filtro.setFilterDataEntr(filterDataEntr);
+        filtro.setComparaDataValid(comparacaoDataValid);
+        filtro.setFilterDataValidade(filterDataValidade);
+        filtro.setComparaPreco(comparacaoPreco);
+        filtro.setFilterPrecoUni(filterPrecoUni);
+        filtro.setComparaQuant(comparacaoQuant);
+        filtro.setFilterQuant(filterQuant);
+        filtro.setComparaVol(comparacaoVol);
+        filtro.setFilterVol(filterVol);
+        filtro.setFilterUnidMedida(filterUnidMedida);
+        filtro.setFilterLote(filterLote);
+        filtro.setFilterEnderecoArmazen(filterEnderecoArmazen);
+        filtro.setComparaDataSaid(comparacaoDataSaid);
+        filtro.setFilterDataSaid(filterDataSaid);
+        filtro.setFilterMotivoSaida(filterMotivoSaida);
 
-            if (filterCategotia != null && !filterCategotia.isEmpty()) {
-                filtroItem.setFilterCategotia(filterCategotia.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterCategotia(null);
-            }
-
-            if(comparacaoDataEntr != null && !comparacaoDataEntr.isEmpty()) {
-                filtroItem.setComparaDataEntr(comparacaoDataEntr.trim().toLowerCase());
-            }else{
-                filtroItem.setComparaDataEntr(null);
-            }
-
-            if (filterDataEntr != null) {
-                Date dataEntr = Date.valueOf(filterDataEntr);
-                filtroItem.setFilterDataEntr(dataEntr);
-            }else {
-                filtroItem.setFilterDataEntr(null);
-            }
-
-            if(comparacaoDataValid != null && !comparacaoDataValid.isEmpty()) {
-                filtroItem.setComparaDataValid(comparacaoDataValid.trim().toLowerCase());
-            }
-            else {
-                filtroItem.setComparaDataValid(null);
-            }
-
-            if (filterDataValidade != null) {
-                Date dataValidade = Date.valueOf(filterDataValidade);
-                filtroItem.setFilterDataValidade(dataValidade);
-            }else {
-                filtroItem.setFilterDataValidade(null);
-            }
-
-            if (comparacaoPreco != null && !comparacaoPreco.isEmpty()) {
-                filtroItem.setComparaPreco(comparacaoPreco.trim().toLowerCase());
-            }
-
-            if (filterPrecoUni != null && filterPrecoUni instanceof Double) {
-                filtroItem.setFilterPrecoUni(Double.valueOf(filterPrecoUni));
-            }
-
-            if (comparacaoQuant != null && !comparacaoQuant.isEmpty()) {
-                filtroItem.setComparaQuant(comparacaoQuant.trim().toLowerCase());
-            }
-
-            if (filterQuant != null && filterQuant instanceof Double) {
-                filtroItem.setFilterQuant(filterQuant.intValue());
-            }
-
-            if (comparacaoVol != null && !comparacaoVol.isEmpty()) {
-                 filtroItem.setComparaVol(comparacaoVol.trim().toLowerCase());
-            }
-
-            if (filterVol != null && filterVol instanceof Double) {
-                filtroItem.setFilterVol(Double.valueOf(filterVol));
-            }
-
-            if (filterUnidMedida != null && !filterUnidMedida.isEmpty()) {
-                filtroItem.setFilterUnidMedida(filterUnidMedida.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterUnidMedida(null);
-            }
-
-            if (filterLote != null && !filterLote.isEmpty()) {
-                filtroItem.setFilterLote(filterLote.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterLote(null);
-            }
-
-            if (filterEnderecoArmazen != null && !filterEnderecoArmazen.isEmpty()) {
-                filtroItem.setFilterEnderecoArmazen(filterEnderecoArmazen.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterEnderecoArmazen(null);
-            }
-
-            if(comparacaoDataSaid != null && !comparacaoDataSaid.isEmpty()) {
-                filtroItem.setComparaDataSaid(comparacaoDataSaid.trim().toLowerCase());
-            }
-
-            if (filterDataSaid != null) {
-                Date dataSaid = Date.valueOf(filterDataSaid);
-                filtroItem.setFilterDataSaid(dataSaid);
-            }else {
-                filtroItem.setFilterDataSaid(null);
-            }
-
-            if (filterMotivoSaida != null && !filterMotivoSaida.isEmpty()) {
-                filtroItem.setFilterMotivoSaida(filterMotivoSaida.trim().toLowerCase());
-            }else {
-                filtroItem.setFilterMotivoSaida(null);
-            }
-
-            return itemService.filtrarBusca(filtroItem);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
+        return itemService.filtrarBusca(filtro);
     }
 
     @PostMapping(path = "/adicionarItem")

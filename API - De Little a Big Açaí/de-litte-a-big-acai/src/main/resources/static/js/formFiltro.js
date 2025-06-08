@@ -7,7 +7,6 @@ formFiltro.addEventListener("submit",async (e)=>{
     try{
         const response = await fetch("/estoque/filtroBusca", {method: "POST",body: formData})
         if (!response.ok) throw new Error("Erro na requisição")
-
         const data = await response.json()
         console.log(data)
 

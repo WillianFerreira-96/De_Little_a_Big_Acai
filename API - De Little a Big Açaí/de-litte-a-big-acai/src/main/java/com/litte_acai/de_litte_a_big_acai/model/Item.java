@@ -3,6 +3,7 @@ package com.litte_acai.de_litte_a_big_acai.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -13,38 +14,53 @@ public class Item {
     @Column(name = "id_item")
     private long idItem;
     @Lob
-    @Column(name = "imagemItem", columnDefinition = "LONGBLOB")
+    @Column(name = "imagemItem", columnDefinition = "LONGBLOB", nullable = false)
     private byte[] imagemItem;
-    @Column(name = "nome_item", length = 50, nullable = true)
+    @Column(name = "nome_item", length = 50, nullable = false)
     private String nomeItem;
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String marca;
-    @Column(name = "descricao_item", length = 300)
+    @Column(name = "descricao_item", length = 300, nullable = false)
     private String descricaoItem;
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String categoria;
-    @Column(name = "preco_uni")
+    @Column(name = "preco_uni", nullable = false)
     private double precoUni;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private int quant;
-    @Column(name = "volume_uni")
+    @Column(name = "volume_uni", nullable = false)
     private double volumeUni;
-    @Column(name = "unid_medida", length = 20)
+    @Column(name = "unid_medida", length = 20, nullable = false)
     private String unidMedida;
-    @Column(name = "data_validade")
+    @Column(name = "data_validade", nullable = false)
     private Date dataValidade;
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String lote;
-    @Column(name = "endereco_armazen", length = 100)
+    @Column(name = "endereco_armazen", length = 100, nullable = false)
     private String enderecoArmazen;
-    @Column(name = "data_entr", nullable = true)
+    @Column(name = "data_entr", nullable = false)
     private Date dataEntr;
-    @Column(name = "data_said")
+    @Column(name = "data_said", nullable = false)
     private Date dataSaid;
-    @Column(name = "motivo_saida", length = 30, nullable = true)
+    @Column(name = "motivo_saida", length = 30, nullable = false)
     private String motivoSaida;
 
     public Item() {
+        imagemItem = new byte[0];
+        nomeItem = "";
+        marca = "";
+        descricaoItem = "";
+        categoria = "";
+        precoUni = 0.0;
+        quant = 0;
+        volumeUni = 0;
+        unidMedida = "";
+        dataValidade = null;
+        lote = "";
+        enderecoArmazen = "";
+        dataEntr = null;
+        dataSaid = null;
+        motivoSaida = "";
     }
 
     public long getIdItem() {
@@ -64,7 +80,9 @@ public class Item {
     }
 
     public void setNomeItem(String nomeItem) {
-            this.nomeItem = nomeItem;
+        if (nomeItem != null && !nomeItem.isEmpty()) {
+            this.nomeItem = nomeItem.trim().toLowerCase();
+        }
     }
 
     public String getMarca() {
@@ -72,7 +90,9 @@ public class Item {
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        if (marca != null && !marca.isEmpty()) {
+            this.marca = marca.trim().toLowerCase();
+        }        ;
     }
 
     public String getDescricaoItem() {
@@ -80,7 +100,9 @@ public class Item {
     }
 
     public void setDescricaoItem(String descricaoItem) {
-        this.descricaoItem = descricaoItem;
+        if (descricaoItem != null && !descricaoItem.isEmpty()) {
+            this.descricaoItem = descricaoItem.trim().toLowerCase());
+        }
     }
 
     public String getCategoria() {
@@ -88,31 +110,39 @@ public class Item {
     }
 
     public void setCategoria(String categoria) {
-        this.categoria = categoria;
+        if (categoria != null && !categoria.isEmpty()) {
+            this.categoria = categoria.trim().toLowerCase();
+        }
     }
 
     public double getPrecoUni() {
         return precoUni;
     }
 
-    public void setPrecoUni(double precoUni) {
-        this.precoUni = precoUni;
+    public void setPrecoUni(Double precoUni) {
+        if (precoUni != null && precoUni instanceof Double) {
+            this.precoUni = Double.valueOf(precoUni);
+        }
     }
 
     public int getQuant() {
         return quant;
     }
 
-    public void setQuant(int quant) {
-        this.quant = quant;
+    public void setQuant(Double quant) {
+        if (quant != null && quant instanceof Double) {
+            this.quant = quant.intValue();
+        }        ;
     }
 
     public double getVolumeUni() {
         return volumeUni;
     }
 
-    public void setVolumeUni(double volumeUni) {
-        this.volumeUni = volumeUni;
+    public void setVolumeUni(Double volumeUni) {
+        if (volumeUni != null && volumeUni instanceof Double) {
+            this.volumeUni = Double.valueOf(volumeUni);
+        }
     }
 
     public String getUnidMedida() {
@@ -120,15 +150,19 @@ public class Item {
     }
 
     public void setUnidMedida(String unidMedida) {
-        this.unidMedida = unidMedida;
+        if (unidMedida != null && !unidMedida.isEmpty()) {
+            this.unidMedida = unidMedida.trim().toLowerCase();
+        }
     }
 
     public Date getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(Date dataValidade) {
-        this.dataValidade = dataValidade;
+    public void setDataValidade(LocalDate dataValidade) {
+        if (dataValidade != null) {
+            this.dataValidade = Date.valueOf(dataValidade);
+        }
     }
 
     public String getLote() {
@@ -136,7 +170,9 @@ public class Item {
     }
 
     public void setLote(String lote) {
-        this.lote = lote;
+        if (lote != null && !lote.isEmpty()) {
+            this.lote = lote.trim().toLowerCase();
+        }
     }
 
     public String getEnderecoArmazen() {
@@ -144,7 +180,9 @@ public class Item {
     }
 
     public void setEnderecoArmazen(String enderecoArmazen) {
-        this.enderecoArmazen = enderecoArmazen;
+        if (enderecoArmazen != null && !enderecoArmazen.isEmpty()) {
+            this.enderecoArmazen = enderecoArmazen.trim().toLowerCase());
+        }
     }
 
     public Date getDataEntr() {
