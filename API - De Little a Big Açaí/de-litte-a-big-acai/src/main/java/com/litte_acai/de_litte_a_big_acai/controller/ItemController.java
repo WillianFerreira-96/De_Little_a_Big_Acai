@@ -1,5 +1,6 @@
 package com.litte_acai.de_litte_a_big_acai.controller;
 
+import com.litte_acai.de_litte_a_big_acai.model.FiltroItem;
 import com.litte_acai.de_litte_a_big_acai.model.Item;
 import com.litte_acai.de_litte_a_big_acai.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/estoque")
@@ -38,16 +38,152 @@ public class ItemController{
         });
     }
 
-    @GetMapping(path = "buscarIdNome")
+    @GetMapping(path = "/buscarIdNome")
     @ResponseBody
     private ResponseEntity<?> buscarIdNome(@RequestParam String idNome){
-        return itemService.buscarIdOuNome(idNome);
+        return itemService.buscarIdOuNome(idNome.trim().toLowerCase());
     }
 
     @GetMapping(path = "/buscarTodos")
     @ResponseBody
-    private List<Item>getAll(){
+    private ResponseEntity<?> getAll(){
         return itemService.getAll();
+    }
+
+    @PostMapping(path = "/filtroBusca")
+    @ResponseBody
+    private ResponseEntity<?> filtroBusca(
+        @RequestPart(required = false) String filterNome,
+        @RequestPart(required = false) String filterMarca,
+        @RequestPart(required = false) String filterCategotia,
+        @RequestParam(required = false) String comparacaoDataEntr,
+        @RequestParam(required = false) LocalDate filterDataEntr,
+        @RequestParam(required = false) String comparacaoDataValid,
+        @RequestParam(required = false) LocalDate filterDataValidade,
+        @RequestParam(required = false) String comparacaoPreco,
+        @RequestParam(required = false) Double filterPrecoUni,
+        @RequestParam(required = false) String comparacaoQuant,
+        @RequestParam(required = false) Double filterQuant,
+        @RequestParam(required = false) String comparacaoVol,
+        @RequestParam(required = false) Double filterVol,
+        @RequestPart(required = false) String filterUnidMedida,
+        @RequestPart(required = false) String filterLote,
+        @RequestPart(required = false) String filterEnderecoArmazen,
+        @RequestParam(required = false) String comparacaoDataSaid,
+        @RequestParam(required = false) LocalDate filterDataSaid,
+        @RequestPart(required = false) String filterMotivoSaida){
+
+            FiltroItem filtroItem = new FiltroItem();
+        try {
+            if (filterNome != null && !filterNome.isEmpty()) {
+                filtroItem.setFilterNome(filterNome.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterNome(null);
+            }
+
+            if (filterMarca != null && !filterMarca.isEmpty()) {
+                filtroItem.setFilterMarca(filterMarca.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterMarca(null);
+            }
+
+            if (filterCategotia != null && !filterCategotia.isEmpty()) {
+                filtroItem.setFilterCategotia(filterCategotia.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterCategotia(null);
+            }
+
+            if(comparacaoDataEntr != null && !comparacaoDataEntr.isEmpty()) {
+                filtroItem.setComparaDataEntr(comparacaoDataEntr.trim().toLowerCase());
+            }else{
+                filtroItem.setComparaDataEntr(null);
+            }
+
+            if (filterDataEntr != null) {
+                Date dataEntr = Date.valueOf(filterDataEntr);
+                filtroItem.setFilterDataEntr(dataEntr);
+            }else {
+                filtroItem.setFilterDataEntr(null);
+            }
+
+            if(comparacaoDataValid != null && !comparacaoDataValid.isEmpty()) {
+                filtroItem.setComparaDataValid(comparacaoDataValid.trim().toLowerCase());
+            }
+            else {
+                filtroItem.setComparaDataValid(null);
+            }
+
+            if (filterDataValidade != null) {
+                Date dataValidade = Date.valueOf(filterDataValidade);
+                filtroItem.setFilterDataValidade(dataValidade);
+            }else {
+                filtroItem.setFilterDataValidade(null);
+            }
+
+            if (comparacaoPreco != null && !comparacaoPreco.isEmpty()) {
+                filtroItem.setComparaPreco(comparacaoPreco.trim().toLowerCase());
+            }
+
+            if (filterPrecoUni != null && filterPrecoUni instanceof Double) {
+                filtroItem.setFilterPrecoUni(Double.valueOf(filterPrecoUni));
+            }
+
+            if (comparacaoQuant != null && !comparacaoQuant.isEmpty()) {
+                filtroItem.setComparaQuant(comparacaoQuant.trim().toLowerCase());
+            }
+
+            if (filterQuant != null && filterQuant instanceof Double) {
+                filtroItem.setFilterQuant(filterQuant.intValue());
+            }
+
+            if (comparacaoVol != null && !comparacaoVol.isEmpty()) {
+                 filtroItem.setComparaVol(comparacaoVol.trim().toLowerCase());
+            }
+
+            if (filterVol != null && filterVol instanceof Double) {
+                filtroItem.setFilterVol(Double.valueOf(filterVol));
+            }
+
+            if (filterUnidMedida != null && !filterUnidMedida.isEmpty()) {
+                filtroItem.setFilterUnidMedida(filterUnidMedida.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterUnidMedida(null);
+            }
+
+            if (filterLote != null && !filterLote.isEmpty()) {
+                filtroItem.setFilterLote(filterLote.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterLote(null);
+            }
+
+            if (filterEnderecoArmazen != null && !filterEnderecoArmazen.isEmpty()) {
+                filtroItem.setFilterEnderecoArmazen(filterEnderecoArmazen.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterEnderecoArmazen(null);
+            }
+
+            if(comparacaoDataSaid != null && !comparacaoDataSaid.isEmpty()) {
+                filtroItem.setComparaDataSaid(comparacaoDataSaid.trim().toLowerCase());
+            }
+
+            if (filterDataSaid != null) {
+                Date dataSaid = Date.valueOf(filterDataSaid);
+                filtroItem.setFilterDataSaid(dataSaid);
+            }else {
+                filtroItem.setFilterDataSaid(null);
+            }
+
+            if (filterMotivoSaida != null && !filterMotivoSaida.isEmpty()) {
+                filtroItem.setFilterMotivoSaida(filterMotivoSaida.trim().toLowerCase());
+            }else {
+                filtroItem.setFilterMotivoSaida(null);
+            }
+
+            return itemService.filtrarBusca(filtroItem);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @PostMapping(path = "/adicionarItem")
@@ -114,8 +250,8 @@ public class ItemController{
         }
     }
 
-
     @GetMapping(path = "/buscar")
+    //@GetMappinp --> Pagina: buscar.html
     private String buscar(){
         return "buscar";
     }
