@@ -12,11 +12,11 @@ public class FiltroItem {
     private String comparaDataValid;
     private Date filterDataValidade;
     private String comparaPreco;
-    private Double filterPrecoUni;
+    private double filterPrecoUni;
     private String comparaQuant;
     private int filterQuant;
     private String comparaVol;
-    private Double filterVol;
+    private double filterVol;
     private String filterUnidMedida;
     private String filterLote;
     private String filterEnderecoArmazen;
@@ -25,6 +25,25 @@ public class FiltroItem {
     private String filterMotivoSaida;
 
     public FiltroItem() {
+        this.filterNome = "";
+        this.filterMarca = "";
+        this.filterCategotia = "";
+        this.comparaDataEntr = "";
+        this.filterDataEntr = null;
+        this.comparaDataValid = "";
+        this.filterDataValidade = null;
+        this.comparaPreco = "";
+        this.filterPrecoUni = 0.0;
+        this.comparaQuant = "";
+        this.filterQuant = 0;
+        this.comparaVol = "";
+        this.filterVol = 0;
+        this.filterUnidMedida = "";
+        this.filterLote = "";
+        this.filterEnderecoArmazen = "";
+        this.comparaDataSaid = "";
+        this.filterDataSaid = null;
+        this.filterMotivoSaida = "";
     }
 
     public String getFilterNome() {
@@ -32,7 +51,9 @@ public class FiltroItem {
     }
 
     public void setFilterNome(String filterNome) {
-        this.filterNome = filterNome;
+        if (filterNome != null && !filterNome.isBlank()) {
+            this.filterNome = filterNome.trim().toLowerCase();
+        }
     }
 
     public String getFilterMarca() {
@@ -40,7 +61,9 @@ public class FiltroItem {
     }
 
     public void setFilterMarca(String filterMarca) {
-        this.filterMarca = filterMarca;
+        if (filterMarca != null && !filterMarca.isBlank()) {
+            this.filterMarca = filterMarca.trim().toLowerCase();
+        }
     }
 
     public String getFilterCategotia() {
@@ -48,7 +71,9 @@ public class FiltroItem {
     }
 
     public void setFilterCategotia(String filterCategotia) {
-        this.filterCategotia = filterCategotia;
+        if (filterCategotia != null && !filterCategotia.isBlank()) {
+            this.filterCategotia = filterCategotia.trim().toLowerCase();
+        }
     }
 
     public String getComparaDataEntr() {
@@ -56,15 +81,19 @@ public class FiltroItem {
     }
 
     public void setComparaDataEntr(String comparaDataEntr) {
-        this.comparaDataEntr = comparaDataEntr;
+        if (comparaDataEntr != null && !comparaDataEntr.isBlank()) {
+            this.comparaDataEntr = comparaDataEntr.trim().toLowerCase();
+        }
     }
 
     public Date getFilterDataEntr() {
         return filterDataEntr;
     }
 
-    public void setFilterDataEntr(Date filterDataEntr) {
-        this.filterDataEntr = filterDataEntr;
+    public void setFilterDataEntr(LocalDate filterDataEntr) {
+        if (filterDataEntr != null) {
+            this.filterDataEntr = Date.valueOf(filterDataEntr);
+        }
     }
 
     public String getComparaDataValid() {
@@ -72,15 +101,19 @@ public class FiltroItem {
     }
 
     public void setComparaDataValid(String comparaDataValid) {
-        this.comparaDataValid = comparaDataValid;
+        if (comparaDataValid != null && !comparaDataValid.isBlank()) {
+            this.comparaDataValid = comparaDataValid.trim().toLowerCase();
+        }
     }
 
     public Date getFilterDataValidade() {
         return filterDataValidade;
     }
 
-    public void setFilterDataValidade(Date filterDataValidade) {
-        this.filterDataValidade = filterDataValidade;
+    public void setFilterDataValidade(LocalDate filterDataValidade) {
+        if (filterDataValidade != null) {
+            this.filterDataValidade = Date.valueOf(filterDataValidade);
+        }
     }
 
     public String getComparaPreco() {
@@ -88,7 +121,9 @@ public class FiltroItem {
     }
 
     public void setComparaPreco(String comparaPreco) {
-        this.comparaPreco = comparaPreco;
+        if (comparaPreco != null && !comparaPreco.isBlank()) {
+            this.comparaPreco = comparaPreco.trim().toLowerCase();
+        }
     }
 
     public Double getFilterPrecoUni() {
@@ -96,7 +131,9 @@ public class FiltroItem {
     }
 
     public void setFilterPrecoUni(Double filterPrecoUni) {
-        this.filterPrecoUni = filterPrecoUni;
+        if (filterPrecoUni != null) {
+            this.filterPrecoUni = Double.valueOf(filterPrecoUni);
+        }
     }
 
     public String getComparaQuant() {
@@ -104,15 +141,19 @@ public class FiltroItem {
     }
 
     public void setComparaQuant(String comparaQuant) {
-        this.comparaQuant = comparaQuant;
+        if (comparaQuant != null && !comparaQuant.isBlank()) {
+            this.comparaQuant = comparaQuant.trim().toLowerCase();
+        }
     }
 
-    public int getFilterQuant() {
+    public Integer getFilterQuant() {
         return filterQuant;
     }
 
-    public void setFilterQuant(int filterQuant) {
-        this.filterQuant = filterQuant;
+    public void setFilterQuant(Integer filterQuant) {
+        if (filterQuant != null) {
+            this.filterQuant = Integer.valueOf(filterQuant);
+        }
     }
 
     public String getComparaVol() {
@@ -120,7 +161,9 @@ public class FiltroItem {
     }
 
     public void setComparaVol(String comparaVol) {
-        this.comparaVol = comparaVol;
+        if (comparaVol != null && !comparaVol.isBlank()) {
+            this.comparaVol = comparaVol.trim().toLowerCase();
+        }
     }
 
     public Double getFilterVol() {
@@ -128,7 +171,9 @@ public class FiltroItem {
     }
 
     public void setFilterVol(Double filterVol) {
-        this.filterVol = filterVol;
+        if (filterVol != null) {
+            this.filterVol = Double.valueOf(filterVol);
+        }
     }
 
     public String getFilterUnidMedida() {
@@ -136,7 +181,9 @@ public class FiltroItem {
     }
 
     public void setFilterUnidMedida(String filterUnidMedida) {
-        this.filterUnidMedida = filterUnidMedida;
+        if (filterUnidMedida != null && !filterUnidMedida.isBlank()) {
+            this.filterUnidMedida = filterUnidMedida.trim().toLowerCase();
+        }
     }
 
     public String getFilterLote() {
@@ -144,7 +191,9 @@ public class FiltroItem {
     }
 
     public void setFilterLote(String filterLote) {
-        this.filterLote = filterLote;
+        if (filterLote != null && !filterLote.isBlank()) {
+            this.filterLote = filterLote.trim().toLowerCase();
+        }
     }
 
     public String getFilterEnderecoArmazen() {
@@ -152,7 +201,9 @@ public class FiltroItem {
     }
 
     public void setFilterEnderecoArmazen(String filterEnderecoArmazen) {
-        this.filterEnderecoArmazen = filterEnderecoArmazen;
+        if (filterEnderecoArmazen != null && !filterEnderecoArmazen.isBlank()) {
+            this.filterEnderecoArmazen = filterEnderecoArmazen.trim().toLowerCase();
+        }
     }
 
     public String getComparaDataSaid() {
@@ -160,15 +211,19 @@ public class FiltroItem {
     }
 
     public void setComparaDataSaid(String comparaDataSaid) {
-        this.comparaDataSaid = comparaDataSaid;
+        if (comparaDataSaid != null && !comparaDataSaid.isBlank()) {
+            this.comparaDataSaid = comparaDataSaid.trim().toLowerCase();
+        }
     }
 
     public Date getFilterDataSaid() {
         return filterDataSaid;
     }
 
-    public void setFilterDataSaid(Date filterDataSaid) {
-        this.filterDataSaid = filterDataSaid;
+    public void setFilterDataSaid(LocalDate filterDataSaid) {
+        if (filterDataSaid != null) {
+            this.filterDataSaid = Date.valueOf(filterDataSaid);
+        }
     }
 
     public String getFilterMotivoSaida() {
@@ -176,6 +231,8 @@ public class FiltroItem {
     }
 
     public void setFilterMotivoSaida(String filterMotivoSaida) {
-        this.filterMotivoSaida = filterMotivoSaida;
+        if (filterMotivoSaida != null && !filterMotivoSaida.isBlank()) {
+            this.filterMotivoSaida = filterMotivoSaida.trim().toLowerCase();
+        }
     }
 }

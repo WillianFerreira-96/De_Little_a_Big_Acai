@@ -5,11 +5,12 @@ import com.litte_acai.de_litte_a_big_acai.model.Item;
 import com.litte_acai.de_litte_a_big_acai.repository.ItemRepository;
 import com.litte_acai.de_litte_a_big_acai.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 
+
+
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.*;
 
@@ -17,8 +18,6 @@ import java.util.*;
 public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemRepository itemRepository;
-    @Autowired
-    private StringHttpMessageConverter stringHttpMessageConverter;
 
     @Override
     public ResponseEntity<?> getAll() {
@@ -40,46 +39,195 @@ public class ItemServiceImpl implements ItemService {
             if(itemRepository.existsByIdItem(Long.parseLong(idNome))){
                 return ResponseEntity.ok().body(itemRepository.findByIdItem(Long.parseLong(idNome)));
             }else {
-                Map<String, Object> resposta = new HashMap<>();
-                resposta.put("mensagem", "Oops! Não encontramos nada com essas caracteristicas");
-                resposta.put("dados", Collections.emptyList());
-                return ResponseEntity.ok(resposta);
+                return ResponseEntity.ok(notFound());
             }
         }else {
             if (itemRepository.existsByNomeItem(idNome)) {
                 return ResponseEntity.ok().body(itemRepository.findByNomeItem(idNome));
             } else {
-                Map<String, Object> resposta = new HashMap<>();
-                resposta.put("mensagem", "Oops! Não encontramos nada com essas caracteristicas");
-                resposta.put("dados", Collections.emptyList());
-                return ResponseEntity.ok(resposta);
+
+                return ResponseEntity.ok(notFound());
             }
         }
     }
 
     @Override
-    public ResponseEntity<?> filtrarBusca(FiltroItem filtroItem){
+    public ResponseEntity<?> filtrarBusca(FiltroItem filtro){
+
+        processarFiltro(filtro);//-------------------------------------------
+
         List<Item> itensFiltrados = new ArrayList<>();
 
 
+        if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && itemRepository.existsByNomeItem(filtro.getFilterNome())){
+                itensFiltrados.addAll(itemRepository.findByNomeItem(filtro.getFilterNome()));
+        }
 
-        if (filtroItem.getFilterNome() != null){
-            itensFiltrados.addAll(itemRepository.findByNomeItem(filtroItem.getFilterNome()));
-        }
-        if(filtroItem.getFilterMarca() != null){
+        if(filtro.getFilterMarca() != null && !filtro.getFilterMarca().isEmpty()){
             if (itensFiltrados.size() == 0){
-                itensFiltrados.addAll(itemRepository.findByMarca(filtroItem.getFilterMarca()));
+                if(itemRepository.existsByMarca(filtro.getFilterMarca())){
+                    itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
+                }else {
+                    return ResponseEntity.ok(notFound());
+                }
             }else{
-                itensFiltrados.removeIf(itemFiltrado -> !itemFiltrado.getMarca().equals(filtroItem.getFilterMarca()));
+
+                itensFiltrados.removeIf(item -> !item.getMarca().equals(filtro.getFilterMarca()));
+                if(itensFiltrados.size() == 0){
+                    return ResponseEntity.ok().body(notFound());
+                }
             }
         }
-        if(filtroItem.getFilterCategotia() != null){
+
+        if (filtro.getFilterCategotia() != null && !filtro.getFilterCategotia().isEmpty()){
             if (itensFiltrados.size() == 0){
-                itensFiltrados.addAll(itemRepository.findByCategoria(filtroItem.getFilterCategotia()));
+                if(itemRepository.existsByCategoria(filtro.getFilterCategotia())){
+                    itensFiltrados.addAll(itemRepository.findByCategoria(filtro.getFilterCategotia()));
+                }else {
+                    return ResponseEntity.ok(notFound());
+                }
             }else {
-                itensFiltrados.removeIf(itemFiltrado -> !itemFiltrado.getCategoria().equals(filtroItem.getFilterCategotia()));
+                itensFiltrados.removeIf(item -> !item.getCategoria().equals(filtro.getFilterCategotia()));
+                if(itensFiltrados.size() == 0){
+                    return ResponseEntity.ok().body(notFound());
+                }
             }
         }
+
+
+/*
+        if(filtro.getFilterUnidMedida() != null){
+            if (itensFiltrados.size() == 0){
+                if(itemRepository.existsByUnidMedida(filtro.getFilterUnidMedida())){
+                    itensFiltrados.addAll(itemRepository.findByUnidMedida(filtro.getFilterUnidMedida()));
+                }else {
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }else{
+                itensFiltrados.removeIf(item ->
+                        item.getUnidMedida() == null || !item.getUnidMedida().equals(filtro.getFilterUnidMedida())
+                );
+                if(itensFiltrados.size() == 0){
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+        if(filtro.getFilterMarca() != null && filtro.getFilterMarca().isEmpty() ){
+            if (itensFiltrados.size() == 0){
+                if(itemRepository.existsByMarca(filtro.getFilterMarca())){
+                    itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
+                }
+            }else{
+
+            }
+        }
+
+
+        if(filtro.getFilterCategotia() != null && filtro.getFilterCategotia().isEmpty()){
+            if (itensFiltrados.size() == 0){
+                if(itemRepository.existsByCategoria(filtro.getFilterCategotia())){
+                    itensFiltrados.addAll(itemRepository.findByCategoria(filtro.getFilterCategotia()));
+                }
+            }else{
+                itensFiltrados.removeIf(item ->
+                        item.getCategoria() == null || !item.getCategoria().equals(filtro.getFilterCategotia())
+                );
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
+        if(filtro.getFilterUnidMedida() != null){
+            if (itensFiltrados.size() == 0){
+                if(itemRepository.existsByUnidMedida(filtro.getFilterUnidMedida())){
+                    itensFiltrados.addAll(itemRepository.findByUnidMedida(filtro.getFilterUnidMedida()));
+                }else {
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }else{
+                itensFiltrados.removeIf(item ->
+                        item.getUnidMedida() == null || !item.getUnidMedida().equals(filtro.getFilterUnidMedida())
+                );
+                if(itensFiltrados.size() == 0){
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }
+        }
+
+
+
+        if(){
+            if (){
+                if(){
+
+                }else {
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }else{
+                itensFiltrados.removeIf(item -> );
+                if(){
+                    return ResponseEntity.ok().body(notFound());
+                }
+            }
+        }
+
+
+
+
+
         /*
         -----------Seguir essa sequência------------
         private String filterUnidMedida;
@@ -101,8 +249,42 @@ public class ItemServiceImpl implements ItemService {
         private String comparaVol;
         private Double filterVol;
 
+        if(itensFiltrados.size() > 0){
+            return ResponseEntity.ok().body(itensFiltrados);
+        }else {
+            return ResponseEntity.ok().body(notFound());
+        }
         */
-        return ResponseEntity.ok().body(itensFiltrados);
+
+
+        if(itensFiltrados.size() == 0){
+            return ResponseEntity.ok().body(notFound());
+        }else {
+            return ResponseEntity.ok().body(itensFiltrados);
+        }
     }
 
+    public void processarFiltro(FiltroItem filtro) {
+        for (Field field : FiltroItem.class.getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                Object valor = field.get(filtro);
+                if (valor != null) {
+                    System.out.println("Campo: " + field.getName() + ", Valor: " + valor);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+    private Map<String, Object> notFound(){
+        Map<String, Object> resposta = new HashMap<>();
+        resposta.put("mensagem", "Oops! Não encontramos nada com essas caracteristicas");
+        resposta.put("dados", Collections.emptyList());
+
+        return resposta;
+    }
 }
