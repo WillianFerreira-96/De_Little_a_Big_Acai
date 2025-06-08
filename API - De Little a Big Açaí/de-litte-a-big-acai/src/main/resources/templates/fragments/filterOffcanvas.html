@@ -12,11 +12,16 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body"><!--OffCanvas Body-->
-      <form>
+      <form id="formFiltro">
+        <div class="form-floating mb-3"><!--Nome-->
+          <input type="text" class="form-control" id="filterNome" name="filterNome">
+          <label class="form-label" for="filterNome">Nome</label>
+        </div>
         <div class="form-floating mb-3"><!--Marca-->
           <input type="text" class="form-control" id="filterMarca" name="filterMarca">
           <label class="form-label" for="filterMarca">Marca</label>
         </div>
+
         <div class="form-floating mb-3"><!--Categoria-->
           <select class="form-select" id="filterCategotia" name="filterCategotia">
             <option selected>Escolha...</option>
@@ -26,14 +31,37 @@
           </select>
           <label class="form-label" for="filterCategotia">Categoria</label>
         </div>
-        <div class="form-floating mb-3"><!--Data de entrada-->
-          <input class="form-control" type="date" name="filterDataEntr" id="filterDataEntr">
-          <label for="filterDataEntr" class="form-label">Data de entrada</label>
-        </div>
-        <div class="form-floating mb-3"><!--Data de validade-->
-          <input class="form-control" type="date" name="filterDataValidade" id="filterDataValidade">
-          <label for="filterDataValidade" class="form-label">Data de validade</label>
-        </div>
+
+        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de entrada-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="antesQueEntr" name="comparacaoDataEntr" value="-1">
+            <label class="form-check-label" for="antesQueEntr">Antes do dia</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="depoisQueEntr" name="comparacaoDataEntr" value="1">
+            <label class="form-check-label" for="depoisQueEntr">Depois do dia</label>
+          </div>
+          <div class="form-floating">
+            <input class="form-control" type="date" id="filterDataEntr" name="filterDataEntr">
+            <label for="filterDataEntr" class="form-label">Data de entrada</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de validade-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="antesQueValid" name="comparacaoDataValid" value="-1">
+            <label class="form-check-label" for="antesQueValid">Antes do dia</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="depoisQueValid" name="comparacaoDataValid" value="1">
+            <label class="form-check-label" for="depoisQueValid">Depois do dia</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="date" id="filterDataValidade" name="filterDataValidade">
+            <label for="filterDataValidade" class="form-label">Data de validade</label>
+          </div>
+        </fieldset>
+
         <fieldset class="mt-4 border border-light-subtle rounded"><!--Preço por unidade-->
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="maiorQuePreco" name="comparacaoPreco" value="1">
@@ -44,10 +72,11 @@
             <label class="form-check-label" for="menorQuePreco">Menor que</label>
           </div>
           <div class="form-floating">
-            <input class="form-control" type="number" step="any" name="filterPrecoUni" id="filterPrecoUni">
+            <input class="form-control" type="number" step="any" id="filterPrecoUni" name="filterPrecoUni">
             <label for="filterPrecoUni" class="form-label">Preço por unidade</label>
           </div>
         </fieldset>
+
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Quantidade-->
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="maiorQueQuant" name="comparacaoQuant" value="1">
@@ -58,10 +87,11 @@
             <label class="form-check-label" for="menorQueQuant">Menor que</label>
           </div>
           <div class="form-floating">
-            <input class="form-control" type="number" name="filterQuant" id="filterQuant">
+            <input class="form-control" type="number" step="any" id="filterQuant" name="filterQuant">
             <label for="filterQuant" class="form-label">Quantidade</label>
           </div>
         </fieldset>
+
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Volume e Unidade de medida-->
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="maiorQueVol" name="comparacaoVol" value="1">
@@ -72,11 +102,11 @@
             <label class="form-check-label" for="menorQueVol">Menor que</label>
           </div>
           <div class="input-group form-floating">
-            <div class="input-group form-floating">
-              <input class="form-control" type="number" name="filterVol" id="filterVol">
+            <div class="form-floating">
+              <input class="form-control" type="number" step="any" id="filterVol" name="filterVol">
               <label for="filterVol" class="form-label">Volume por unidade</label>
             </div>
-            <div class="input-group form-floating">
+            <div class="form-floating">
               <select class="form-select" id="filterUnidMedida" name="filterUnidMedida">
                 <option selected>Escolha...</option>
                 <option value="Kilogramas(Kg)">Kilogramas(Kg)</option>
@@ -89,18 +119,32 @@
             </div>
           </div>
         </fieldset>
+
         <div class="form-floating mt-4"><!--Lote-->
           <input type="text" class="form-control" id="filterLote" name="filterLote">
           <label class="form-label" for="filterLote">Lote</label>
         </div>
+
         <div class="form-floating mt-4"><!--Endereço de Armazenamento-->
           <input type="text" class="form-control" id="filterEnderecoArmazen" name="filterEnderecoArmazen">
           <label class="form-label" for="filterEnderecoArmazen">Endereço de armazenamento</label>
         </div>
-        <div class="form-floating mt-4"><!--Data de Saída-->
-          <input class="form-control" type="date" name="filterDataSaid" id="filterDataSaid">
-          <label for="filterDataSaid" class="form-label">Data de saída</label>
-        </div>
+
+        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de Saída-->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="antesQueSaid" name="comparacaoDataSaid" value="-1">
+            <label class="form-check-label" for="antesQueSaid">Antes do dia</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="depoisQueSaid" name="comparacaoDataSaid" value="1">
+            <label class="form-check-label" for="depoisQueSaid">Depois do dia</label>
+          </div>
+          <div class="form-floating">
+            <input class="form-control" type="date" id="filterDataSaid" name="filterDataSaid">
+            <label for="filterDataSaid" class="form-label">Data de saída</label>
+          </div>
+        </fieldset>
+
         <div class="form-floating mt-4"><!--Motivo de Saída-->
           <select class="form-select" id="filterMotivoSaida" name="filterMotivoSaida">
             <option selected>Escolha...</option>
@@ -117,10 +161,10 @@
   
   <!-------------------------------------------------------------------------------------------------->
 
-  <button class="btn d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-3 ms-2 " type="button"
+  <button class="btn d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
     data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas"
     style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
     <img src="/img/ico/filtroIco.ico" width="25px">
   </button>
-
+  <script src="/js/formFiltro.js"></script>
 </div>

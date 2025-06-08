@@ -1,30 +1,19 @@
-const buscarIdNome = document.getElementById("buscarIdNome")
-const formNavBar = document.getElementById("formNavBar")
-formNavBar.addEventListener("submit",async (e)=>{
-    e.preventDefault()
-
+window.addEventListener("load",async (e)=>{
     abrirLoadModel()
-
-    const buscarIdNomeValue = buscarIdNome.value
-    
     try{
-        const response = await fetch(`/estoque/buscarIdNome?idNome=${buscarIdNomeValue}`)
+        const response = await fetch("/estoque/buscarTodos")
         if (!response.ok) throw new Error("Erro na requisição")
-
         const data = await response.json()
-
         console.log(data)
         setTimeout(() => {
             if(Array.isArray(data.dados) && data.dados.length == 0){
-                limparDivs()
+                const ifEmpty = document.getElementById("ifEmpty")
                 mensage = document.createElement("h2")
                 mensage.className = "h2. Bootstrap heading text-center mt-5"
                 mensage.textContent = data.mensagem
                 ifEmpty.appendChild(mensage)
-                document.getElementById("navbarsDefault").className = "navbar-collapse offcanvas-collapse"
                 fecharLoadModel()
             }else{
-                limparDivs()
                 data.forEach(item => {
                     row = document.createElement("tr")
                     row.className = "table-light"
@@ -85,7 +74,6 @@ formNavBar.addEventListener("submit",async (e)=>{
 
                     document.querySelector("tbody").appendChild(row)
                 })
-                document.getElementById("navbarsDefault").className = "navbar-collapse offcanvas-collapse"
                 fecharLoadModel()
             }
         }, 500);
@@ -120,9 +108,4 @@ function fecharLoadModel(){
 
     const backdrop = document.getElementById("manual-backdrop");
     if (backdrop) backdrop.remove();
-}
-
-function limparDivs(){
-    document.getElementById("ifEmpty").innerHTML=""
-    document.querySelector("tbody").innerHTML=""
 }
