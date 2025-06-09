@@ -33,6 +33,13 @@
             </form>
         </div>
     </div>
-    <script src="/js/navBarOffcanvas.js"></script>
-    <script src="/js/navBarResp.js"></script>
+    <script>
+        (function () {
+            'use strict'
+
+            document.querySelector('#navbarSideCollapse').addEventListener('click', function () {
+                document.querySelector('.offcanvas-collapse').classList.toggle('open')
+            })
+        })()
+    </script>
 </nav>

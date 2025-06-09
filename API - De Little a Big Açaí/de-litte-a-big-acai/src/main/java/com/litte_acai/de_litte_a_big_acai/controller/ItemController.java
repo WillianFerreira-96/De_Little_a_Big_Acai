@@ -15,6 +15,7 @@ import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/estoque")
@@ -41,7 +42,7 @@ public class ItemController{
     @GetMapping(path = "/buscarIdNome")
     @ResponseBody
     private ResponseEntity<?> buscarIdNome(@RequestParam String idNome){
-        return itemService.buscarIdOuNome(idNome.trim().toLowerCase());
+        return itemService.buscarIdOuNome(idNome);
     }
 
     @GetMapping(path = "/buscarTodos")
@@ -109,61 +110,30 @@ public class ItemController{
         @RequestParam(required = false) Double quant,
         @RequestParam(required = false) Double volumeUni,
         @RequestPart(required = false) String unidMedida,
-        @RequestParam(required = false) LocalDate dataValidadeLocalDate,
+        @RequestParam(required = false) LocalDateTime dataValidade,
         @RequestPart(required = false) String lote,
         @RequestPart(required = false) String enderecoArmazen)throws IOException {
 
         Item item = new Item();
         item.setImagemItem(imagemItem.getBytes());
-        try {
-            if (nomeItem != null && !nomeItem.isEmpty()) {
-                item.setNomeItem(nomeItem.trim().toLowerCase());
-            } else {
-                throw new Exception("O nome do item NÃO foi preenchido!");
-            }
-            if (marca != null && !marca.isEmpty()) {
-                item.setMarca(marca.trim().toLowerCase());
-            }
-            if (descricaoItem != null && !descricaoItem.isEmpty()) {
-                item.setDescricaoItem(descricaoItem.trim().toLowerCase());
-            }
-            if (categoria != null && !categoria.isEmpty()) {
-                item.setCategoria(categoria.trim().toLowerCase());
-            }
-            if (unidMedida != null && !unidMedida.isEmpty()) {
-                item.setUnidMedida(unidMedida.trim().toLowerCase());
-            }
-            if (lote != null && !lote.isEmpty()) {
-                item.setLote(lote.trim().toLowerCase());
-            }
-            if (enderecoArmazen != null && !enderecoArmazen.isEmpty()) {
-                item.setEnderecoArmazen(enderecoArmazen.trim().toLowerCase());
-            }
-            if (precoUni != null && precoUni instanceof Double) {
-                item.setPrecoUni(Double.valueOf(precoUni));
-            }
+        item.setNomeItem(nomeItem);
+        item.setMarca(marca);
+        item.setDescricaoItem(descricaoItem);
+        item.setCategoria(categoria);
+        item.setUnidMedida(unidMedida);
+        item.setLote(lote);
+        item.setEnderecoArmazen(enderecoArmazen);
+        item.setPrecoUni(precoUni);
+        item.setQuant(quant);
+        item.setVolumeUni(volumeUni);
+        item.setDataValidade(dataValidade);
 
-            if (quant != null && quant instanceof Double) {
-                item.setQuant(quant.intValue());
-            }
+        return itemService.addItem(item);
 
-            if (volumeUni != null && volumeUni instanceof Double) {
-                item.setVolumeUni(Double.valueOf(volumeUni));
-            }
-
-            if (dataValidadeLocalDate != null) {
-                Date dataValidade = Date.valueOf(dataValidadeLocalDate);
-                item.setDataValidade(dataValidade);
-            }
-            return ResponseEntity.ok().body(itemService.addItem(item));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
     }
 
     @GetMapping(path = "/buscar")
-    //@GetMappinp --> Pagina: buscar.html
+    //@GetMappinp para pagina: buscar.html
     private String buscar(){
         return "buscar";
     }
