@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "item")
+@Table(name = "itens")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +33,20 @@ public class Item {
     private double volumeUni;
     @Column(name = "unid_medida", length = 20, nullable = false)
     private String unidMedida;
-    @Column(name = "data_validade", nullable = false)
-    private Date dataValidade;
+    @Column(name = "data_validade", nullable = true)
+    private LocalDateTime  dataValidade;
     @Column(length = 50, nullable = false)
     private String lote;
     @Column(name = "endereco_armazen", length = 100, nullable = false)
     private String enderecoArmazen;
-    @Column(name = "data_entr", nullable = false)
-    private Date dataEntr;
-    @Column(name = "data_said", nullable = false)
-    private Date dataSaid;
+    @Column(name = "data_entr", nullable = true)
+    private LocalDateTime  dataEntr;
+    @Column(name = "data_said", nullable = true)
+    private LocalDateTime  dataSaid;
     @Column(name = "motivo_saida", length = 30, nullable = false)
     private String motivoSaida;
+    @Column(length = 30, nullable = false)
+    private Boolean emEstoque;
 
     public Item() {
         imagemItem = new byte[0];
@@ -58,9 +61,10 @@ public class Item {
         dataValidade = null;
         lote = "";
         enderecoArmazen = "";
-        dataEntr = null;
+        dataEntr = LocalDateTime.now();
         dataSaid = null;
         motivoSaida = "";
+        emEstoque = true;
     }
 
     public long getIdItem() {
@@ -101,7 +105,7 @@ public class Item {
 
     public void setDescricaoItem(String descricaoItem) {
         if (descricaoItem != null && !descricaoItem.isEmpty()) {
-            this.descricaoItem = descricaoItem.trim().toLowerCase());
+            this.descricaoItem = descricaoItem.trim().toLowerCase();
         }
     }
 
@@ -155,13 +159,13 @@ public class Item {
         }
     }
 
-    public Date getDataValidade() {
+    public LocalDateTime  getDataValidade() {
         return dataValidade;
     }
 
-    public void setDataValidade(LocalDate dataValidade) {
+    public void setDataValidade(LocalDateTime dataValidade) {
         if (dataValidade != null) {
-            this.dataValidade = Date.valueOf(dataValidade);
+            this.dataValidade = dataValidade;
         }
     }
 
@@ -181,23 +185,19 @@ public class Item {
 
     public void setEnderecoArmazen(String enderecoArmazen) {
         if (enderecoArmazen != null && !enderecoArmazen.isEmpty()) {
-            this.enderecoArmazen = enderecoArmazen.trim().toLowerCase());
+            this.enderecoArmazen = enderecoArmazen.trim().toLowerCase();
         }
     }
 
-    public Date getDataEntr() {
+    public LocalDateTime  getDataEntr() {
         return dataEntr;
     }
 
-    public void setDataEntr(Date dataEntr) {
-        this.dataEntr = dataEntr;
-    }
-
-    public Date getDataSaid() {
+    public LocalDateTime  getDataSaid() {
         return dataSaid;
     }
 
-    public void setDataSaid(Date dataSaid) {
+    public void setDataSaid(LocalDateTime  dataSaid) {
         this.dataSaid = dataSaid;
     }
 
@@ -207,5 +207,13 @@ public class Item {
 
     public void setMotivoSaida(String motivoSaida) {
         this.motivoSaida = motivoSaida;
+    }
+
+    public Boolean getEmEstoque() {
+        return emEstoque;
+    }
+
+    public void setEmEstoque(Boolean emEstoque) {
+        this.emEstoque = emEstoque;
     }
 }

@@ -5,7 +5,7 @@
 
 
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="filterOffcanvas" class="d-flex flex-row fixed-left">
-  <div class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1" id="filterOffcanvas"
+  <div id="filterOffcanvas" class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1"
     aria-labelledby="filterOffcanvasLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filtrar por...</h5>
@@ -109,11 +109,11 @@
             <div class="form-floating">
               <select class="form-select" id="filterUnidMedida" name="filterUnidMedida">
                 <option value="" selected>Escolha...</option>
-                <option value="kilogramas(kg)">Kilogramas(Kg)</option>
-                <option value="(g)gramas">Gramas(g)</option>
+                <option value="kilogramas">Kilogramas(Kg)</option>
+                <option value="gramas">Gramas(g)</option>
                 <option value="litros">Litros(l)</option>
-                <option value="(ml)mililitros">Mililitros(ml)</option>
-                <option value="(uni)unidade">Unidades(uni)</option>
+                <option value="mililitros">Mililitros(ml)</option>
+                <option value="unidade">Unidades(uni)</option>
               </select>
               <label class="form-label" for="filterUnidMedida">Unidade de medida</label>
             </div>
@@ -151,6 +151,7 @@
             <option value="Perda">Perda</option>
             <option value="Produção">Produção</option>
             <option value="Devolução">Devolução</option>
+            <option value="Vencido">Fora da Validade</option>
           </select>
           <label class="form-label" for="filterMotivoSaida">Motivo de Saída</label>
         </div>
@@ -166,5 +167,4 @@
     style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
     <img src="/img/ico/filtroIco.ico" width="25px">
   </button>
-  <script src="/js/formFiltro.js"></script>
 </div>

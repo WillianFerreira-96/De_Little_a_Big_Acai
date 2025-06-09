@@ -10,24 +10,25 @@
     <div th:replace="~{fragments/filterOffcanvas :: filterOffcanvas}"></div>
     <div th:replace="~{fragments/navBarOffcanvas :: navBarOffcanvas}"></div>
     <div th:replace="~{fragments/loadModal :: loadModal}"></div>
-    <div style="overflow: auto;height: 93.5vh;width: 100vw">
+    <div id="overFlowDiv" style="overflow: auto; height: calc(100vh - 56px);width: 100vw">
         <table class="table table-dark  table-striped">
             <thead>
             <tr>
                 <th>Imagem</th>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Marca</th>
-                <th>Descrição</th>
-                <th>Categoria</th>
+                <th class="text-nowrap">ID</th>
+                <th class="text-nowrap">Nome</th>
+                <th class="text-nowrap">Marca</th>
+                <th class="text-nowrap">Descrição</th>
+                <th class="text-nowrap">Categoria</th>
                 <th class="text-nowrap">Preço por unidade</th>
-                <th>Quantidade</th>
+                <th class="text-nowrap">Quantidade</th>
                 <th class="text-nowrap">Volume por unidade</th>
                 <th class="text-nowrap">Unidade de Medida</th>
                 <th class="text-nowrap">Data de Validade</th>
-                <th>Lote</th>
+                <th class="text-nowrap">Lote</th>
                 <th class="text-nowrap">Endereço de Armazenamento</th>
                 <th class="text-nowrap">Data de Entrada</th>
+                <th class="text-nowrap">Em Estoque</th>
                 <th class="text-nowrap">Data de Saída</th>
                 <th class="text-nowrap">Motivo da Saída</th>
             </tr>
@@ -38,7 +39,7 @@
         <div id="ifEmpty"></div>
     </div>
 </body>
-<script src="/js/loadInserirBusca.js"></script>
+<script src="/js/buscas.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 <script>
     //active navBar----------------------------------------------------

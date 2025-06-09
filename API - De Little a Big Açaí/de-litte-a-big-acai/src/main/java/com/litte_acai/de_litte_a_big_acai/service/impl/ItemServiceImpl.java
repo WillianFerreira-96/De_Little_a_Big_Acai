@@ -29,12 +29,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item addItem(Item item){
+    public ResponseEntity<?> addItem(Item item){
         itemRepository.save(item);
-        return item;
+        return ResponseEntity.ok().body(item);
     }
     @Override
-    public ResponseEntity<?> buscarIdOuNome(String idNome){
+    public ResponseEntity<?> buscarIdOuNome(String nomeId){
+        String idNome =  nomeId.trim().toLowerCase();
         if (idNome.matches("\\d+")){
             if(itemRepository.existsByIdItem(Long.parseLong(idNome))){
                 return ResponseEntity.ok().body(itemRepository.findByIdItem(Long.parseLong(idNome)));
@@ -54,45 +55,36 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ResponseEntity<?> filtrarBusca(FiltroItem filtro){
 
-        processarFiltro(filtro);//-------------------------------------------
+        //processarFiltro(filtro);//-------------------------------------------
 
         List<Item> itensFiltrados = new ArrayList<>();
 
-
-        if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && itemRepository.existsByNomeItem(filtro.getFilterNome())){
+        if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && !filtro.getFilterNome().isBlank()){
+            if(itemRepository.existsByNomeItem(filtro.getFilterNome())){
                 itensFiltrados.addAll(itemRepository.findByNomeItem(filtro.getFilterNome()));
+            }else {
+                return ResponseEntity.ok(notFound());
+            }
         }
 
-        if(filtro.getFilterMarca() != null && !filtro.getFilterMarca().isEmpty()){
-            if (itensFiltrados.size() == 0){
+        if(filtro.getFilterMarca() != null && !filtro.getFilterMarca().isEmpty() && !filtro.getFilterMarca().isBlank()){
+            if (itensFiltrados.isEmpty()){
                 if(itemRepository.existsByMarca(filtro.getFilterMarca())){
                     itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
                 }else {
                     return ResponseEntity.ok(notFound());
                 }
-            }else{
-
-                itensFiltrados.removeIf(item -> !item.getMarca().equals(filtro.getFilterMarca()));
-                if(itensFiltrados.size() == 0){
-                    return ResponseEntity.ok().body(notFound());
-                }
-            }
-        }
-
-        if (filtro.getFilterCategotia() != null && !filtro.getFilterCategotia().isEmpty()){
-            if (itensFiltrados.size() == 0){
-                if(itemRepository.existsByCategoria(filtro.getFilterCategotia())){
-                    itensFiltrados.addAll(itemRepository.findByCategoria(filtro.getFilterCategotia()));
-                }else {
-                    return ResponseEntity.ok(notFound());
-                }
             }else {
-                itensFiltrados.removeIf(item -> !item.getCategoria().equals(filtro.getFilterCategotia()));
-                if(itensFiltrados.size() == 0){
-                    return ResponseEntity.ok().body(notFound());
+                for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                    String item = itensFiltrados.get(i).getMarca().trim().toLowerCase();
+                    if (!filtro.getFilterMarca().equals(item)) {
+                        itensFiltrados.remove(i);
+                    }
                 }
             }
         }
+/*
+        
 
 
 /*
@@ -263,6 +255,17 @@ public class ItemServiceImpl implements ItemService {
             return ResponseEntity.ok().body(itensFiltrados);
         }
     }
+
+    public void vizualizarLista(FiltroItem filtro,List<Item> itensFiltrados, int index){
+        int size = itensFiltrados.size();
+        System.out.println("\nLista com "+size+" itens");
+        System.out.println("Comparando: filtro = [" + filtro.getFilterMarca() + "] vs itensFiltrados = [" + itensFiltrados.get(index).getMarca() + "]");
+        itensFiltrados.forEach(item -> {
+            System.out.println("Item: "+item.getNomeItem()+". Marca: "+item.getMarca());
+        });
+        System.out.println("\n");
+    }
+
 
     public void processarFiltro(FiltroItem filtro) {
         for (Field field : FiltroItem.class.getDeclaredFields()) {
