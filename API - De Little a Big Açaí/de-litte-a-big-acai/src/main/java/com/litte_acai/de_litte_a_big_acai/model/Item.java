@@ -2,20 +2,18 @@ package com.litte_acai.de_litte_a_big_acai.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "itens")
+@Table(name = "item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item")
     private long idItem;
     @Lob
-    @Column(name = "imagemItem", columnDefinition = "LONGBLOB", nullable = false)
+    @Column(name = "imagemItem", columnDefinition = "LONGBLOB")
     private byte[] imagemItem;
     @Column(name = "nome_item", length = 50, nullable = false)
     private String nomeItem;
@@ -136,7 +134,7 @@ public class Item {
     public void setQuant(Double quant) {
         if (quant != null && quant instanceof Double) {
             this.quant = quant.intValue();
-        }        ;
+        }
     }
 
     public double getVolumeUni() {

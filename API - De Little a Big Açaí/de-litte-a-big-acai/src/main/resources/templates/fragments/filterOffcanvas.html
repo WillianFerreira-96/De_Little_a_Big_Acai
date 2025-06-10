@@ -8,10 +8,11 @@
   <div id="filterOffcanvas" class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1"
     aria-labelledby="filterOffcanvasLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="filterOffcanvasLabel">Filtrar por...</h5>
+      <h3 class="offcanvas-title" id="filterOffcanvasLabel">Filtrar por...</h3>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body"><!--OffCanvas Body-->
+      <button id="limparFiltro" class="btn btn-outline-secondary col-4 btn-sm mb-3">limpar filtro</button>
       <form id="formFiltro">
         <div class="form-floating mb-3"><!--Nome-->
           <input type="text" class="form-control" id="filterNome" name="filterNome">
@@ -34,12 +35,16 @@
 
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de entrada-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="antesQueEntr" name="comparacaoDataEntr" value="-1">
-            <label class="form-check-label" for="antesQueEntr">Antes do dia</label>
+            <input class="form-check-input" type="radio" id="antriorEntr" name="comparacaoDataEntr" value="-1">
+            <label class="form-check-label" for="antriorEntr">Anterior</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="depoisQueEntr" name="comparacaoDataEntr" value="1">
-            <label class="form-check-label" for="depoisQueEntr">Depois do dia</label>
+            <input class="form-check-input" type="radio" id="naDataEntr" name="comparacaoDataEntr" checked value="0">
+            <label class="form-check-label" for="naDataEntr">Data</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="posteriorDataEntr" name="comparacaoDataEntr" value="1">
+            <label class="form-check-label" for="posteriorDataEntr">Posterior</label>
           </div>
           <div class="form-floating">
             <input class="form-control" type="date" id="filterDataEntr" name="filterDataEntr">
@@ -49,14 +54,19 @@
 
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de validade-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="antesQueValid" name="comparacaoDataValid" value="-1">
-            <label class="form-check-label" for="antesQueValid">Antes do dia</label>
+            <input class="form-check-input" type="radio" id="anterioDataValid" name="comparacaoDataValid" value="-1">
+            <label class="form-check-label" for="anterioDataValid">Anterior</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="naDataValid" name="comparacaoDataValid" checked value="0">
+            <label class="form-check-label" for="naDataValid">Data</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="depoisQueValid" name="comparacaoDataValid" value="1">
-            <label class="form-check-label" for="depoisQueValid">Depois do dia</label>
+            <input class="form-check-input" type="radio" id="PosteriorDataValid" name="comparacaoDataValid" value="1">
+            <label class="form-check-label" for="PosteriorDataValid">Posterior</label>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating">
             <input class="form-control" type="date" id="filterDataValidade" name="filterDataValidade">
             <label for="filterDataValidade" class="form-label">Data de validade</label>
           </div>

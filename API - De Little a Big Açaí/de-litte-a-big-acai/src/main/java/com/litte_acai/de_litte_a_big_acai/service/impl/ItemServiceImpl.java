@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 
 import java.lang.reflect.Field;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -58,163 +60,214 @@ public class ItemServiceImpl implements ItemService {
         //processarFiltro(filtro);//-------------------------------------------
 
         List<Item> itensFiltrados = new ArrayList<>();
+        Boolean isFistSearch = true;
 
+        //Filtro Nome
         if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && !filtro.getFilterNome().isBlank()){
             if(itemRepository.existsByNomeItem(filtro.getFilterNome())){
                 itensFiltrados.addAll(itemRepository.findByNomeItem(filtro.getFilterNome()));
+                isFistSearch = false;
             }else {
                 return ResponseEntity.ok(notFound());
             }
         }
 
+        //Filtro Marca
         if(filtro.getFilterMarca() != null && !filtro.getFilterMarca().isEmpty() && !filtro.getFilterMarca().isBlank()){
-            if (itensFiltrados.isEmpty()){
-                if(itemRepository.existsByMarca(filtro.getFilterMarca())){
+            if (isFistSearch){
+                if(itemRepository.existsByMarca(filtro.getFilterMarca()) ){
                     itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
+                    isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
                 }
             }else {
                 for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
-                    String item = itensFiltrados.get(i).getMarca().trim().toLowerCase();
-                    if (!filtro.getFilterMarca().equals(item)) {
+                    String itemfiltro = itensFiltrados.get(i).getMarca().trim().toLowerCase();
+                    if (!filtro.getFilterMarca().equals(itemfiltro)) {
                         itensFiltrados.remove(i);
                     }
                 }
             }
         }
-/*
-        
 
-
-/*
-        if(filtro.getFilterUnidMedida() != null){
-            if (itensFiltrados.size() == 0){
-                if(itemRepository.existsByUnidMedida(filtro.getFilterUnidMedida())){
-                    itensFiltrados.addAll(itemRepository.findByUnidMedida(filtro.getFilterUnidMedida()));
-                }else {
-                    return ResponseEntity.ok().body(notFound());
-                }
-            }else{
-                itensFiltrados.removeIf(item ->
-                        item.getUnidMedida() == null || !item.getUnidMedida().equals(filtro.getFilterUnidMedida())
-                );
-                if(itensFiltrados.size() == 0){
-                    return ResponseEntity.ok().body(notFound());
-                }
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-
-
-        if(filtro.getFilterMarca() != null && filtro.getFilterMarca().isEmpty() ){
-            if (itensFiltrados.size() == 0){
-                if(itemRepository.existsByMarca(filtro.getFilterMarca())){
-                    itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
-                }
-            }else{
-
-            }
-        }
-
-
-        if(filtro.getFilterCategotia() != null && filtro.getFilterCategotia().isEmpty()){
-            if (itensFiltrados.size() == 0){
+        //Filtro Categoria
+        if (filtro.getFilterCategotia() != null && !filtro.getFilterCategotia().isEmpty() && !filtro.getFilterCategotia().isBlank()) {
+            if (isFistSearch){
                 if(itemRepository.existsByCategoria(filtro.getFilterCategotia())){
                     itensFiltrados.addAll(itemRepository.findByCategoria(filtro.getFilterCategotia()));
-                }
-            }else{
-                itensFiltrados.removeIf(item ->
-                        item.getCategoria() == null || !item.getCategoria().equals(filtro.getFilterCategotia())
-                );
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-
-        if(filtro.getFilterUnidMedida() != null){
-            if (itensFiltrados.size() == 0){
-                if(itemRepository.existsByUnidMedida(filtro.getFilterUnidMedida())){
-                    itensFiltrados.addAll(itemRepository.findByUnidMedida(filtro.getFilterUnidMedida()));
+                    isFistSearch = false;
                 }else {
-                    return ResponseEntity.ok().body(notFound());
+                    return ResponseEntity.ok(notFound());
                 }
-            }else{
-                itensFiltrados.removeIf(item ->
-                        item.getUnidMedida() == null || !item.getUnidMedida().equals(filtro.getFilterUnidMedida())
-                );
-                if(itensFiltrados.size() == 0){
-                    return ResponseEntity.ok().body(notFound());
+            }else {
+                for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                    String itemfiltro = itensFiltrados.get(i).getCategoria().trim().toLowerCase();
+                    if (!filtro.getFilterCategotia().equals(itemfiltro)) {
+                        itensFiltrados.remove(i);
+                    }
                 }
             }
         }
 
-
-
-        if(){
-            if (){
-                if(){
-
+        //Filtro Data de Entrada
+        if (filtro.getFilterDataEntr() != null) {
+            int comparativo = Integer.parseInt(filtro.getComparaDataEntr());
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Antes de...
+                    if(itemRepository.existsByDataEntrBefore(filtro.getFilterDataEntr())){
+                        itensFiltrados.addAll(itemRepository.findByDataEntrBefore(filtro.getFilterDataEntr()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Depois de...
+                    if(itemRepository.existsByDataEntrAfter(filtro.getFilterDataEntr())){
+                        itensFiltrados.addAll(itemRepository.findByDataEntrAfter(filtro.getFilterDataEntr()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //No dia!
+                    LocalDate filtroData = filtro.getFilterDataEntr().toLocalDate();
+                    LocalDateTime inicio = filtroData.atStartOfDay();
+                    LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                    if(itemRepository.existsByDataEntrBetween(inicio, fim)){
+                        itensFiltrados.addAll(itemRepository.findByDataEntrBetween(inicio, fim));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Antes de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataEntr() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataEntr().isAfter(filtro.getFilterDataEntr())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Depois de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataEntr() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataEntr().isBefore(filtro.getFilterDataEntr())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
                 }else {
-                    return ResponseEntity.ok().body(notFound());
-                }
-            }else{
-                itensFiltrados.removeIf(item -> );
-                if(){
-                    return ResponseEntity.ok().body(notFound());
+                    //No dia!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        LocalDate filtroData = filtro.getFilterDataEntr().toLocalDate();
+                        LocalDateTime inicio = filtroData.atStartOfDay();
+                        LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                        if ((itensFiltrados.get(i).getDataEntr() == null)) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if(itensFiltrados.get(i).getDataEntr().isBefore(inicio) || itensFiltrados.get(i).getDataEntr().isAfter(fim)){
+                            itensFiltrados.remove(i);
+                        }
+                    }
                 }
             }
         }
+
+        //Filtro Data de Validade
+        if (filtro.getFilterDataValidade() != null) {
+            int comparativo = Integer.parseInt(filtro.getComparaDataValid());
+            System.out.println("StringComparativo: "+filtro.getComparaDataValid()+"\ncomparativo: " + comparativo);
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Antes de...
+                    if(itemRepository.existsByDataValidadeBefore(filtro.getFilterDataValidade())){
+                        itensFiltrados.addAll(itemRepository.findByDataValidadeBefore(filtro.getFilterDataValidade()));
+                        isFistSearch = false;
+                        vizualizarLista(itensFiltrados);
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Depois de...
+                    if(itemRepository.existsByDataValidadeAfter(filtro.getFilterDataValidade())){
+                        itensFiltrados.addAll(itemRepository.findByDataValidadeAfter(filtro.getFilterDataValidade()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //No dia!
+                    LocalDate filtroData = filtro.getFilterDataValidade().toLocalDate();
+                    LocalDateTime inicio = filtroData.atStartOfDay();
+                    LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                    if(itemRepository.existsByDataValidadeBetween(inicio, fim)){
+                        itensFiltrados.addAll(itemRepository.findByDataValidadeBetween(inicio, fim));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Antes de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataValidade() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataValidade().isAfter(filtro.getFilterDataValidade())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Depois de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataValidade() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataValidade().isBefore(filtro.getFilterDataValidade())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }else {
+                    //No dia!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        LocalDate filtroData = filtro.getFilterDataValidade().toLocalDate();
+                        LocalDateTime inicio = filtroData.atStartOfDay();
+                        LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                        if ((itensFiltrados.get(i).getDataValidade() == null)) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if(itensFiltrados.get(i).getDataValidade().isBefore(inicio) || itensFiltrados.get(i).getDataValidade().isAfter(fim)){
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,14 +309,19 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    public void vizualizarLista(FiltroItem filtro,List<Item> itensFiltrados, int index){
+    public void vizualizarLista(/*FiltroItem filtro, */List<Item> itensFiltrados/*, int index*/){
         int size = itensFiltrados.size();
         System.out.println("\nLista com "+size+" itens");
-        System.out.println("Comparando: filtro = [" + filtro.getFilterMarca() + "] vs itensFiltrados = [" + itensFiltrados.get(index).getMarca() + "]");
+        /*System.out.println("Comparando: filtro = [" + filtro.getFilterDataEntr() + "] vs itensFiltrados = [" + itensFiltrados.get(index).getDataEntr() + "]");
         itensFiltrados.forEach(item -> {
-            System.out.println("Item: "+item.getNomeItem()+". Marca: "+item.getMarca());
+            System.out.println("Item: "+item.getNomeItem()+". Marca: "+item.getDataEntr());
         });
-        System.out.println("\n");
+        System.out.println("\nLista com "+size+" itens");
+        System.out.println("\n");*/
+
+        itensFiltrados.forEach(itensFiltrado -> {
+            System.out.println("ID "+itensFiltrado.getIdItem()+" Nome "+itensFiltrado.getNomeItem()+" Data "+itensFiltrado.getDataValidade());
+        });
     }
 
 
