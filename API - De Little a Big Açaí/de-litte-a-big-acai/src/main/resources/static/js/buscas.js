@@ -7,7 +7,7 @@ window.addEventListener("load",async (e)=>{
         const data = await response.json()
         console.log(data)
         setTimeout(() => {
-            if(Array.isArray(data.dados) && data.dados.length == 0){
+            if(Array.isArray(data.listaVazia) && data.listaVazia.length == 0){
                 const ifEmpty = document.getElementById("ifEmpty")
                 mensage = document.createElement("h2")
                 mensage.className = "h2. Bootstrap heading text-center mt-5"
@@ -36,7 +36,7 @@ formNavBar.addEventListener("submit",async (e)=>{
 
     const buscarIdNomeValue = buscarIdNome.value
     buscarIdNome.value = ""
-    overFlowDiv.scrollTo({ left: 0, behavior: 'smooth' })
+
     try{
         const response = await fetch(`/estoque/buscarIdNome?idNome=${buscarIdNomeValue}`)
         if (!response.ok) throw new Error("Erro na requisição")
@@ -45,12 +45,13 @@ formNavBar.addEventListener("submit",async (e)=>{
 
         console.log(data)
         setTimeout(() => {
-            if(Array.isArray(data.dados) && data.dados.length == 0){
+            if(Array.isArray(data.listaVazia) && data.listaVazia.length == 0){
                 limparDivs()
                 mensage = document.createElement("h2")
                 mensage.className = "h2. Bootstrap heading text-center mt-5"
                 mensage.textContent = data.mensagem
                 ifEmpty.appendChild(mensage)
+                overFlowDiv.scrollTo({ left: 0, behavior: 'smooth' })
                 document.getElementById("navbarsDefault").className = "navbar-collapse offcanvas-collapse"
                 fecharLoadModel()
             }else{
@@ -74,7 +75,6 @@ formFiltro.addEventListener("submit",async (e)=>{
     abrirLoadModel()
 
     const formData = new FormData(formFiltro)
-    overFlowDiv.scrollTo({ left: 0, behavior: 'smooth' })
     try{
         const response = await fetch("/estoque/filtroBusca", {method: "POST",body: formData})
         if (!response.ok) throw new Error("Erro na requisição")
@@ -82,12 +82,13 @@ formFiltro.addEventListener("submit",async (e)=>{
 
         console.log(data)
         setTimeout(() => {
-            if(Array.isArray(data.dados) && data.dados.length == 0){
+            if(Array.isArray(data.listaVazia) && data.listaVazia.length == 0){
                 limparDivs()
                 mensage = document.createElement("h2")
                 mensage.className = "h2. Bootstrap heading text-center mt-5"
                 mensage.textContent = data.mensagem
                 ifEmpty.appendChild(mensage)
+                overFlowDiv.scrollTo({ left: 0, behavior: 'smooth' })
 
                 const offcanvasEl = document.getElementById('filterOffcanvas');
                 const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
@@ -133,7 +134,7 @@ btnLimparFiltro.addEventListener("click",()=>{
 function mostrarResultadosBusca(data){
     data.forEach(item => {
         row = document.createElement("tr")
-        row.className = "table-light"
+        row.className = "table-light table-hover"
 
         //Imagem
         tdImagem = document.createElement("td")
@@ -173,7 +174,7 @@ function mostrarResultadosBusca(data){
         tdDataEntrada = document.createElement("td")
         tdDataEntrada.className = "text-nowrap"
         if(item.dataEntr == null){
-            tdDataEntrada.textContent = ""
+            tdDataEntrada.textContent = "Sem Data de Entrada"
         }else {
             tdDataEntrada.textContent = formatarData(item.dataEntr)
         }
@@ -181,29 +182,29 @@ function mostrarResultadosBusca(data){
 
         //Preço
         tdPreço = document.createElement("td")
-        tdPreço.textContent = item.precoUni
+        tdPreço.className = "text-nowrap"
+        var [intero, decimal] = item.precoUni.toFixed(2).toString().split(".")
+        tdPreço.textContent = `R$ ${intero},${decimal}`
         row.appendChild(tdPreço)
 
         //Quantidade
         tdQuant = document.createElement("td")
-        tdQuant.textContent = item.quant
+        tdQuant.className = "text-nowrap"
+        tdQuant.textContent = `${item.quant} unidade(s)`
         row.appendChild(tdQuant)
 
         //Volume
         tdVolume = document.createElement("td")
-        tdVolume.textContent = item.volumeUni
+        tdVolume.className = "text-nowrap"
+        var [intero, decimal] = item.volumeUni.toFixed(2).toString().split(".")
+        tdVolume.textContent = `${intero},${decimal} ${item.unidMedida}`
         row.appendChild(tdVolume)
-
-        //Unidade de Medida
-        tdUniMedida = document.createElement("td")
-        tdUniMedida.textContent = item.unidMedida
-        row.appendChild(tdUniMedida)
 
         //Data de Validade
         tdDataValidade = document.createElement("td")
         tdDataValidade.className = "text-nowrap"
         if(item.dataValidade == null){
-            tdDataValidade.textContent = ""
+            tdDataValidade.textContent = "Sem Data de Validade"
         }else {
             tdDataValidade.textContent = formatarData(item.dataValidade)
         }
@@ -227,6 +228,7 @@ function mostrarResultadosBusca(data){
             tdEmEstoque.textContent = "Em Estoque"
         }else {
             tdEmEstoque.textContent = "Item Retirado"
+            row.className = "table-danger"
         }
         row.appendChild(tdEmEstoque)
 
@@ -240,7 +242,7 @@ function mostrarResultadosBusca(data){
         tdDataSaida = document.createElement("td")
         tdDataSaida.className = "text-nowrap"
         if(item.dataSaid == null){
-            tdDataSaida.textContent = ""
+            tdDataSaida.textContent = "Sem Data de Saída"
         }else {
             tdDataSaida.textContent = formatarData(item.dataSaid)
         }

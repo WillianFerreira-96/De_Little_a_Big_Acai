@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ResponseEntity<?> getAll() {
         if (itemRepository.findAll().isEmpty()) {
-            return ResponseEntity.ok().body(Collections.emptyList());
+            return ResponseEntity.ok(notFound());
         }else {
             return ResponseEntity.ok().body(itemRepository.findAll());
         }
@@ -56,11 +56,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> filtrarBusca(FiltroItem filtro){
-
-        //processarFiltro(filtro);//-------------------------------------------
-
         List<Item> itensFiltrados = new ArrayList<>();
         Boolean isFistSearch = true;
+
+        System.out.println(filtro.getComparaDataSaid());
 
         //Filtro Nome
         if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && !filtro.getFilterNome().isBlank()){
@@ -186,14 +185,12 @@ public class ItemServiceImpl implements ItemService {
         //Filtro Data de Validade
         if (filtro.getFilterDataValidade() != null) {
             int comparativo = Integer.parseInt(filtro.getComparaDataValid());
-            System.out.println("StringComparativo: "+filtro.getComparaDataValid()+"\ncomparativo: " + comparativo);
             if (isFistSearch){
                 if(comparativo == -1){
                     //Antes de...
                     if(itemRepository.existsByDataValidadeBefore(filtro.getFilterDataValidade())){
                         itensFiltrados.addAll(itemRepository.findByDataValidadeBefore(filtro.getFilterDataValidade()));
                         isFistSearch = false;
-                        vizualizarLista(itensFiltrados);
                     }else {
                         return ResponseEntity.ok(notFound());
                     }
@@ -258,49 +255,312 @@ public class ItemServiceImpl implements ItemService {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        -----------Seguir essa sequência------------
-        private String filterUnidMedida;
-        private String filterLote;
-        private String filterEnderecoArmazen;
-        private String filterMotivoSaida;
-
-        private String comparaDataEntr;
-        private Date filterDataEntr;
-        private String comparaDataValid;
-        private Date filterDataValidade;
-        private String comparaDataSaid;
-        private Date filterDataSaid;
-
-        private String comparaPreco;
-        private Double filterPrecoUni;
-        private String comparaQuant;
-        private int filterQuant;
-        private String comparaVol;
-        private Double filterVol;
-
-        if(itensFiltrados.size() > 0){
-            return ResponseEntity.ok().body(itensFiltrados);
-        }else {
-            return ResponseEntity.ok().body(notFound());
+        //Filtro Preço por Unidade
+        if (filtro.getFilterPrecoUni() != 0) {
+            int comparativo = Integer.parseInt(filtro.getComparaPreco());
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Menor que...
+                    if(itemRepository.existsByPrecoUniIsLessThan(filtro.getFilterPrecoUni())){
+                        itensFiltrados.addAll(itemRepository.findByPrecoUniIsLessThan(filtro.getFilterPrecoUni()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Maior que...
+                    if(itemRepository.existsByPrecoUniIsGreaterThan(filtro.getFilterPrecoUni())){
+                        itensFiltrados.addAll(itemRepository.findByPrecoUniIsGreaterThan(filtro.getFilterPrecoUni()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //Mesmo Valor!
+                    if(itemRepository.existsByPrecoUni(filtro.getFilterPrecoUni())){
+                        itensFiltrados.addAll(itemRepository.findByPrecoUni(filtro.getFilterPrecoUni()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Menor que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getPrecoUni() > filtro.getFilterPrecoUni()) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Maior que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getPrecoUni() < filtro.getFilterPrecoUni()) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }else {
+                    //Mesmo Valor!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if(itensFiltrados.get(i).getPrecoUni() != filtro.getFilterPrecoUni()){
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }
+            }
         }
-        */
 
+        //Filtro Quantidade
+        if (filtro.getFilterQuant() != 0) {
+            int comparativo = Integer.parseInt(filtro.getComparaQuant());
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Menor que...
+                    if(itemRepository.existsByQuantIsLessThan(filtro.getFilterQuant())){
+                        itensFiltrados.addAll(itemRepository.findByQuantIsLessThan(filtro.getFilterQuant()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Maior que...
+                    if(itemRepository.existsByQuantIsGreaterThan(filtro.getFilterQuant())){
+                        itensFiltrados.addAll(itemRepository.findByQuantIsGreaterThan(filtro.getFilterQuant()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //Mesmo Valor!
+                    if(itemRepository.existsByQuant(filtro.getFilterQuant())){
+                        itensFiltrados.addAll(itemRepository.findByQuant(filtro.getFilterQuant()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Menor que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getQuant() > filtro.getFilterQuant()) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Maior que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getQuant() < filtro.getFilterQuant()) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }else {
+                    //Mesmo Valor!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if(itensFiltrados.get(i).getQuant() != filtro.getFilterQuant()){
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Filtro Volume por Unidade e Unidade de Medida
+        if (filtro.getFilterVol() != 0 && !filtro.getFilterUnidMedida().equals("")) {
+            int comparativo = Integer.parseInt(filtro.getComparaVol());
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Menor que...
+                    if(itemRepository.existsByVolumeUniIsLessThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
+                        itensFiltrados.addAll(itemRepository.findByVolumeUniIsLessThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Maior que...
+                    if(itemRepository.existsByVolumeUniIsGreaterThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
+                        itensFiltrados.addAll(itemRepository.findByVolumeUniIsGreaterThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //Mesmo Valor!
+                    if(itemRepository.existsByVolumeUniAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
+                        itensFiltrados.addAll(itemRepository.findByVolumeUniAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Menor que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getVolumeUni() > filtro.getFilterVol()) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (!itensFiltrados.get(i).getUnidMedida().equals(filtro.getFilterUnidMedida())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Maior que...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getVolumeUni() < filtro.getFilterVol()) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (!itensFiltrados.get(i).getUnidMedida().equals(filtro.getFilterUnidMedida())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }else {
+                    //Mesmo Valor!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getVolumeUni() != filtro.getFilterVol()) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (!itensFiltrados.get(i).getUnidMedida().equals(filtro.getFilterUnidMedida())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Filtro Lote
+        if(filtro.getFilterLote() != null && !filtro.getFilterLote().isEmpty() && !filtro.getFilterLote().isBlank()){
+            if (isFistSearch){
+                if(itemRepository.existsByLote(filtro.getFilterLote()) ){
+                    itensFiltrados.addAll(itemRepository.findByLote(filtro.getFilterLote()));
+                    isFistSearch = false;
+                }else {
+                    return ResponseEntity.ok(notFound());
+                }
+            }else {
+                for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                    String itemfiltro = itensFiltrados.get(i).getLote().trim().toLowerCase();
+                    if (!filtro.getFilterLote().equals(itemfiltro)) {
+                        itensFiltrados.remove(i);
+                    }
+                }
+            }
+        }
+
+        //Filtro Endereço de Armazenamento
+        if(filtro.getFilterEnderecoArmazen() != null && !filtro.getFilterEnderecoArmazen().isEmpty() && !filtro.getFilterEnderecoArmazen().isBlank()){
+            if (isFistSearch){
+                if(itemRepository.existsByEnderecoArmazen(filtro.getFilterEnderecoArmazen()) ){
+                    itensFiltrados.addAll(itemRepository.findByEnderecoArmazen(filtro.getFilterEnderecoArmazen()));
+                    isFistSearch = false;
+                }else {
+                    return ResponseEntity.ok(notFound());
+                }
+            }else {
+                for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                    String itemfiltro = itensFiltrados.get(i).getEnderecoArmazen().trim().toLowerCase();
+                    if (!filtro.getFilterEnderecoArmazen().equals(itemfiltro)) {
+                        itensFiltrados.remove(i);
+                    }
+                }
+            }
+        }
+
+        //Filtro Data de Saída
+        if (filtro.getFilterDataSaid() != null) {
+            int comparativo = Integer.parseInt(filtro.getComparaDataSaid());
+            if (isFistSearch){
+                if(comparativo == -1){
+                    //Antes de...
+                    if(itemRepository.existsByDataSaidBefore(filtro.getFilterDataSaid())){
+                        itensFiltrados.addAll(itemRepository.findByDataSaidBefore(filtro.getFilterDataSaid()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else if(comparativo == 1){
+                    //Depois de...
+                    if(itemRepository.existsByDataSaidAfter(filtro.getFilterDataSaid())){
+                        itensFiltrados.addAll(itemRepository.findByDataSaidAfter(filtro.getFilterDataSaid()));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }else{
+                    //No dia!
+                    LocalDate filtroData = filtro.getFilterDataSaid().toLocalDate();
+                    LocalDateTime inicio = filtroData.atStartOfDay();
+                    LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                    if(itemRepository.existsByDataSaidBetween(inicio, fim)){
+                        itensFiltrados.addAll(itemRepository.findByDataSaidBetween(inicio, fim));
+                        isFistSearch = false;
+                    }else {
+                        return ResponseEntity.ok(notFound());
+                    }
+                }
+            }else {
+                if (comparativo == -1){
+                    //Antes de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataSaid() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataSaid().isAfter(filtro.getFilterDataSaid())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                } else if (comparativo == 1) {
+                    //Depois de...
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        if (itensFiltrados.get(i).getDataSaid() == null) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if (itensFiltrados.get(i).getDataSaid().isBefore(filtro.getFilterDataSaid())) {
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }else {
+                    //No dia!
+                    for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                        LocalDate filtroData = filtro.getFilterDataSaid().toLocalDate();
+                        LocalDateTime inicio = filtroData.atStartOfDay();
+                        LocalDateTime fim = filtroData.atTime(23, 59, 59);
+                        if ((itensFiltrados.get(i).getDataSaid() == null)) {
+                            itensFiltrados.remove(i);
+                            continue;
+                        }
+                        if(itensFiltrados.get(i).getDataSaid().isBefore(inicio) || itensFiltrados.get(i).getDataSaid().isAfter(fim)){
+                            itensFiltrados.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Filtro Motivo da Saída
+        if (filtro.getFilterMotivoSaida() != null && !filtro.getFilterMotivoSaida().isEmpty() && !filtro.getFilterMotivoSaida().isBlank()) {
+            if (isFistSearch){
+                if(itemRepository.existsByMotivoSaida(filtro.getFilterMotivoSaida())){
+                    itensFiltrados.addAll(itemRepository.findByMotivoSaida(filtro.getFilterMotivoSaida()));
+                    isFistSearch = false;
+                }else {
+                    return ResponseEntity.ok(notFound());
+                }
+            }else {
+                for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                    String itemfiltro = itensFiltrados.get(i).getMotivoSaida().trim().toLowerCase();
+                    if (!filtro.getFilterMotivoSaida().equals(itemfiltro)) {
+                        itensFiltrados.remove(i);
+                    }
+                }
+            }
+        }
 
         if(itensFiltrados.size() == 0){
             return ResponseEntity.ok().body(notFound());
@@ -309,42 +569,10 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    public void vizualizarLista(/*FiltroItem filtro, */List<Item> itensFiltrados/*, int index*/){
-        int size = itensFiltrados.size();
-        System.out.println("\nLista com "+size+" itens");
-        /*System.out.println("Comparando: filtro = [" + filtro.getFilterDataEntr() + "] vs itensFiltrados = [" + itensFiltrados.get(index).getDataEntr() + "]");
-        itensFiltrados.forEach(item -> {
-            System.out.println("Item: "+item.getNomeItem()+". Marca: "+item.getDataEntr());
-        });
-        System.out.println("\nLista com "+size+" itens");
-        System.out.println("\n");*/
-
-        itensFiltrados.forEach(itensFiltrado -> {
-            System.out.println("ID "+itensFiltrado.getIdItem()+" Nome "+itensFiltrado.getNomeItem()+" Data "+itensFiltrado.getDataValidade());
-        });
-    }
-
-
-    public void processarFiltro(FiltroItem filtro) {
-        for (Field field : FiltroItem.class.getDeclaredFields()) {
-            field.setAccessible(true);
-            try {
-                Object valor = field.get(filtro);
-                if (valor != null) {
-                    System.out.println("Campo: " + field.getName() + ", Valor: " + valor);
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-
     private Map<String, Object> notFound(){
         Map<String, Object> resposta = new HashMap<>();
         resposta.put("mensagem", "Oops! Não encontramos nada com essas caracteristicas");
-        resposta.put("dados", Collections.emptyList());
+        resposta.put("listaVazia", Collections.emptyList());
 
         return resposta;
     }
