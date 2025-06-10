@@ -2,15 +2,17 @@ package com.litte_acai.de_litte_a_big_acai.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class FiltroItem {
     private String filterNome;
     private String filterMarca;
     private String filterCategotia;
     private String comparaDataEntr;
-    private Date filterDataEntr;
+    private LocalDateTime filterDataEntr;
     private String comparaDataValid;
-    private Date filterDataValidade;
+    private LocalDateTime filterDataValidade;
     private String comparaPreco;
     private double filterPrecoUni;
     private String comparaQuant;
@@ -21,7 +23,7 @@ public class FiltroItem {
     private String filterLote;
     private String filterEnderecoArmazen;
     private String comparaDataSaid;
-    private Date filterDataSaid;
+    private LocalDateTime filterDataSaid;
     private String filterMotivoSaida;
 
     public FiltroItem() {
@@ -86,13 +88,14 @@ public class FiltroItem {
         }
     }
 
-    public Date getFilterDataEntr() {
+    public LocalDateTime getFilterDataEntr() {
         return filterDataEntr;
     }
 
     public void setFilterDataEntr(LocalDate filterDataEntr) {
         if (filterDataEntr != null) {
-            this.filterDataEntr = Date.valueOf(filterDataEntr);
+            LocalTime currentTime = LocalTime.now();
+            this.filterDataEntr = filterDataEntr.atTime(currentTime);
         }
     }
 
@@ -106,13 +109,14 @@ public class FiltroItem {
         }
     }
 
-    public Date getFilterDataValidade() {
+    public LocalDateTime getFilterDataValidade() {
         return filterDataValidade;
     }
 
     public void setFilterDataValidade(LocalDate filterDataValidade) {
         if (filterDataValidade != null) {
-            this.filterDataValidade = Date.valueOf(filterDataValidade);
+            LocalTime currentTime = LocalTime.now();
+            this.filterDataValidade = filterDataValidade.atTime(currentTime);
         }
     }
 
@@ -216,13 +220,14 @@ public class FiltroItem {
         }
     }
 
-    public Date getFilterDataSaid() {
+    public LocalDateTime getFilterDataSaid() {
         return filterDataSaid;
     }
 
     public void setFilterDataSaid(LocalDate filterDataSaid) {
         if (filterDataSaid != null) {
-            this.filterDataSaid = Date.valueOf(filterDataSaid);
+            LocalTime currentTime = LocalTime.now();
+            this.filterDataSaid = filterDataSaid.atTime(currentTime);
         }
     }
 

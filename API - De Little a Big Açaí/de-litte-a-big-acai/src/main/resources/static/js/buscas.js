@@ -74,7 +74,7 @@ formFiltro.addEventListener("submit",async (e)=>{
     abrirLoadModel()
 
     const formData = new FormData(formFiltro)
-
+    overFlowDiv.scrollTo({ left: 0, behavior: 'smooth' })
     try{
         const response = await fetch("/estoque/filtroBusca", {method: "POST",body: formData})
         if (!response.ok) throw new Error("Erro na requisição")
@@ -88,14 +88,20 @@ formFiltro.addEventListener("submit",async (e)=>{
                 mensage.className = "h2. Bootstrap heading text-center mt-5"
                 mensage.textContent = data.mensagem
                 ifEmpty.appendChild(mensage)
-                document.getElementById("filterOffcanvas").className = "offcanvas offcanvas-start p-3 bg-light"
-                document.querySelector('.offcanvas-backdrop').classList.remove('show');
+
+                const offcanvasEl = document.getElementById('filterOffcanvas');
+                const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
+                offcanvasInstance.hide();
+
                 fecharLoadModel()
             }else{
                 limparDivs()
                 mostrarResultadosBusca(data)
-                document.getElementById("filterOffcanvas").className = "offcanvas offcanvas-start p-3 bg-light"
-                document.querySelector('.offcanvas-backdrop').classList.remove('show');
+
+                const offcanvasEl = document.getElementById('filterOffcanvas');
+                const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
+                offcanvasInstance.hide();
+
                 fecharLoadModel()
             }
         }, 500);
@@ -104,7 +110,23 @@ formFiltro.addEventListener("submit",async (e)=>{
         console.error("Erro ao buscar dados:", error)
         fecharLoadModel()
     }
+})
 
+const btnLimparFiltro = document.getElementById("limparFiltro")
+btnLimparFiltro.addEventListener("click",()=>{
+    document.getElementById("filterNome").value=""
+    document.getElementById("filterMarca").value=""
+    document.getElementById("filterCategotia").value=""
+    document.getElementById("filterDataEntr").value=""
+    document.getElementById("filterDataValidade").value=""
+    document.getElementById("filterPrecoUni").value=""
+    document.getElementById("filterQuant").value=""
+    document.getElementById("filterVol").value=""
+    document.getElementById("filterUnidMedida").value=""
+    document.getElementById("filterLote").value=""
+    document.getElementById("filterEnderecoArmazen").value=""
+    document.getElementById("filterDataSaid").value=""
+    document.getElementById("filterMotivoSaida").value=""
 })
 
 //Funções----------------------------------------------------------------------------------------
@@ -147,6 +169,16 @@ function mostrarResultadosBusca(data){
         tdCategoria.textContent = item.categoria
         row.appendChild(tdCategoria)
 
+        //Data de Entrada
+        tdDataEntrada = document.createElement("td")
+        tdDataEntrada.className = "text-nowrap"
+        if(item.dataEntr == null){
+            tdDataEntrada.textContent = ""
+        }else {
+            tdDataEntrada.textContent = formatarData(item.dataEntr)
+        }
+        row.appendChild(tdDataEntrada)
+
         //Preço
         tdPreço = document.createElement("td")
         tdPreço.textContent = item.precoUni
@@ -170,7 +202,11 @@ function mostrarResultadosBusca(data){
         //Data de Validade
         tdDataValidade = document.createElement("td")
         tdDataValidade.className = "text-nowrap"
-        tdDataValidade.textContent = formatarData(item.dataValidade)
+        if(item.dataValidade == null){
+            tdDataValidade.textContent = ""
+        }else {
+            tdDataValidade.textContent = formatarData(item.dataValidade)
+        }
         row.appendChild(tdDataValidade)
 
         //Lote
@@ -184,12 +220,6 @@ function mostrarResultadosBusca(data){
         tdEnderecoArmazen.textContent = item.enderecoArmazen
         row.appendChild(tdEnderecoArmazen)
 
-        //Data de Entrada
-        tdDataEntrada = document.createElement("td")
-        tdDataEntrada.className = "text-nowrap"
-        tdDataEntrada.textContent = formatarData(item.dataEntr)
-        row.appendChild(tdDataEntrada)
-
         //Em Estoque
         tdEmEstoque = document.createElement("td")
         tdEmEstoque.className = "text-nowrap"
@@ -200,28 +230,35 @@ function mostrarResultadosBusca(data){
         }
         row.appendChild(tdEmEstoque)
 
-        //Data de Saída
-        tdDataSaida = document.createElement("td")
-        tdDataSaida.className = "text-nowrap"
-        tdDataSaida.textContent = formatarData(item.dataSaid)
-        row.appendChild(tdDataSaida)
-
         //Motivo de Saída
         tdMotivoSaida = document.createElement("td")
         tdMotivoSaida.className = "text-nowrap"
         tdMotivoSaida.textContent = item.motivoSaida
         row.appendChild(tdMotivoSaida)
 
+        //Data de Saída
+        tdDataSaida = document.createElement("td")
+        tdDataSaida.className = "text-nowrap"
+        if(item.dataSaid == null){
+            tdDataSaida.textContent = ""
+        }else {
+            tdDataSaida.textContent = formatarData(item.dataSaid)
+        }
+        row.appendChild(tdDataSaida)
+
         document.querySelector("tbody").appendChild(row)
     })
 }
 
 function formatarData(dataLocalDateTime){
-    const data = new Date(dataLocalDateTime);
+    const [datePart, timePart] = dataLocalDateTime.split("T");
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour, minute, second] = timePart.split(":").map(Number);
+    const data = new Date(year, month - 1, day, hour, minute, second);
 
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
+    const ano = data.getFullYear()
     const hora = String(data.getHours()).padStart(2, '0');
     const minuto = String(data.getMinutes()).padStart(2, '0');
 
