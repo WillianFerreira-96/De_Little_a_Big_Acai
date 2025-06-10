@@ -11,7 +11,7 @@
     <div th:replace="~{fragments/navBarOffcanvas :: navBarOffcanvas}"></div>
     <div th:replace="~{fragments/loadModal :: loadModal}"></div>
     <div id="overFlowDiv" style="overflow: auto; height: calc(100vh - 56px);width: 100vw">
-        <table class="table table-dark  table-striped">
+        <table class="table table-dark table-striped-columns">
             <thead>
             <tr>
                 <th>Imagem</th>
@@ -23,8 +23,7 @@
                 <th class="text-nowrap">Data de Entrada</th>
                 <th class="text-nowrap">Preço por unidade</th>
                 <th class="text-nowrap">Quantidade</th>
-                <th class="text-nowrap">Volume por unidade</th><!--Lembrar de juntar volume e unidade de medida-->
-                <th class="text-nowrap">Unidade de Medida</th>
+                <th class="text-nowrap">Volume por unidade</th>
                 <th class="text-nowrap">Data de Validade</th>
                 <th class="text-nowrap">Lote</th>
                 <th class="text-nowrap">Endereço de Armazenamento</th>

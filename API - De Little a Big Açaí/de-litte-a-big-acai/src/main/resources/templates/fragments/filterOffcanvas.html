@@ -25,7 +25,7 @@
 
         <div class="form-floating mb-3"><!--Categoria-->
           <select class="form-select" id="filterCategotia" name="filterCategotia">
-            <option value="" selected>Escolha...</option>
+            <option value="" selected></option>
             <option value="frutas">Frutas</option>
             <option value="bases/massas">Bases/Massas</option>
             <option value="complementos">Complementos</option>
@@ -47,7 +47,7 @@
             <label class="form-check-label" for="posteriorDataEntr">Posterior</label>
           </div>
           <div class="form-floating">
-            <input class="form-control" type="date" id="filterDataEntr" name="filterDataEntr">
+            <input class="form-control" type="date" id="filterDataEntr" placeholder="jjj" name="filterDataEntr">
             <label for="filterDataEntr" class="form-label">Data de entrada</label>
           </div>
         </fieldset>
@@ -57,7 +57,6 @@
             <input class="form-check-input" type="radio" id="anterioDataValid" name="comparacaoDataValid" value="-1">
             <label class="form-check-label" for="anterioDataValid">Anterior</label>
           </div>
-
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="naDataValid" name="comparacaoDataValid" checked value="0">
             <label class="form-check-label" for="naDataValid">Data</label>
@@ -74,12 +73,16 @@
 
         <fieldset class="mt-4 border border-light-subtle rounded"><!--Preço por unidade-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQuePreco" name="comparacaoPreco" value="1">
-            <label class="form-check-label" for="maiorQuePreco">Maior que</label>
+            <input class="form-check-input" type="radio" id="menorQuePreco" name="comparacaoPreco" value="-1">
+            <label class="form-check-label" for="menorQuePreco">Menor</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQuePreco" name="comparacaoPreco" value="-1">
-            <label class="form-check-label" for="menorQuePreco">Menor que</label>
+            <input class="form-check-input" type="radio" id="valorPreco" name="comparacaoPreco" checked value="0">
+            <label class="form-check-label" for="valorPreco">Valor</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQuePreco" name="comparacaoPreco" value="1">
+            <label class="form-check-label" for="maiorQuePreco">Maior</label>
           </div>
           <div class="form-floating">
             <input class="form-control" type="number" step="any" id="filterPrecoUni" name="filterPrecoUni">
@@ -89,27 +92,34 @@
 
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Quantidade-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQueQuant" name="comparacaoQuant" value="1">
-            <label class="form-check-label" for="maiorQueQuant">Maior que</label>
+            <input class="form-check-input" type="radio" id="menorQueQuant" name="comparacaoQuant" value="-1">
+            <label class="form-check-label" for="menorQueQuant">Menor</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQueQuant" name="comparacaoQuant" value="-1">
-            <label class="form-check-label" for="menorQueQuant">Menor que</label>
+            <input class="form-check-input" type="radio" id="mesmaQuant" name="comparacaoQuant" checked value="0">
+            <label class="form-check-label" for="mesmaQuant">Quantdade</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQueQuant" name="comparacaoQuant" value="1">
+            <label class="form-check-label" for="maiorQueQuant">Maior</label>
           </div>
           <div class="form-floating">
             <input class="form-control" type="number" step="any" id="filterQuant" name="filterQuant">
             <label for="filterQuant" class="form-label">Quantidade</label>
           </div>
         </fieldset>
-
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Volume e Unidade de medida-->
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQueVol" name="comparacaoVol" value="1">
-            <label class="form-check-label" for="maiorQueVol">Maior que</label>
+            <input class="form-check-input" type="radio" id="menorQueVol" name="comparacaoVol" value="-1">
+            <label class="form-check-label" for="menorQueVol">Menor</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQueVol" name="comparacaoVol" value="-1">
-            <label class="form-check-label" for="menorQueVol">Menor que</label>
+            <input class="form-check-input" type="radio" id="mesmoVol" name="comparacaoVol" checked value="0">
+            <label class="form-check-label" for="mesmoVol">Volume</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="maiorQueVol" name="comparacaoVol" value="1">
+            <label class="form-check-label" for="maiorQueVol">Maior</label>
           </div>
           <div class="input-group form-floating">
             <div class="form-floating">
@@ -118,12 +128,12 @@
             </div>
             <div class="form-floating">
               <select class="form-select" id="filterUnidMedida" name="filterUnidMedida">
-                <option value="" selected>Escolha...</option>
-                <option value="kilogramas">Kilogramas(Kg)</option>
-                <option value="gramas">Gramas(g)</option>
-                <option value="litros">Litros(l)</option>
-                <option value="mililitros">Mililitros(ml)</option>
-                <option value="unidade">Unidades(uni)</option>
+                <option value="" selected></option>
+                <option value="kg">Kilogramas(Kg)</option>
+                <option value="g">Gramas(g)</option>
+                <option value="l">Litros(l)</option>
+                <option value="ml">Mililitros(ml)</option>
+                <option value="und">Unidades(und)</option>
               </select>
               <label class="form-label" for="filterUnidMedida">Unidade de medida</label>
             </div>
@@ -141,14 +151,22 @@
         </div>
 
         <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de Saída-->
+          <!--
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="antesQueSaid" name="comparacaoDataSaid" value="-1">
-            <label class="form-check-label" for="antesQueSaid">Antes do dia</label>
+            <label class="form-check-label" for="antesQueSaid">Anterior</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="mesmoDiaSaid" name="comparacaoDataSaid" value="0">
+            <label class="form-check-label" for="mesmoDiaSaid">Data</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" id="depoisQueSaid" name="comparacaoDataSaid" value="1">
-            <label class="form-check-label" for="depoisQueSaid">Depois do dia</label>
+            <label class="form-check-label" for="depoisQueSaid">Posterior</label>
           </div>
+          -->
+          <label for="customRange3" class="form-label">Example range</label>
+          <input type="range" class="form-range" min="-1" max="1" step="1"  value="-1" name="comparacaoDataSaid" id="customRange3">
           <div class="form-floating">
             <input class="form-control" type="date" id="filterDataSaid" name="filterDataSaid">
             <label for="filterDataSaid" class="form-label">Data de saída</label>
@@ -157,10 +175,10 @@
 
         <div class="form-floating mt-4"><!--Motivo de Saída-->
           <select class="form-select" id="filterMotivoSaida" name="filterMotivoSaida">
-            <option value="" selected>Escolha...</option>
+            <option value="" selected></option>
             <option value="Perda">Perda</option>
             <option value="Produção">Produção</option>
-            <option value="Devolução">Devolução</option>
+            <option value="devolução">Devolução</option>
             <option value="Vencido">Fora da Validade</option>
           </select>
           <label class="form-label" for="filterMotivoSaida">Motivo de Saída</label>
