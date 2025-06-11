@@ -5,6 +5,8 @@
 
 
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="filterOffcanvas" class="d-flex flex-row fixed-left">
+  <link rel="stylesheet" href="/css/filterOffcanvas.css">
+  <!-------------------------------------------------------------------------------------------------->
   <div id="filterOffcanvas" class="offcanvas offcanvas-start p-3 bg-light" tabindex="-1"
     aria-labelledby="filterOffcanvasLabel">
     <div class="offcanvas-header">
@@ -12,7 +14,11 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body"><!--OffCanvas Body-->
-      <button id="limparFiltro" class="btn btn-outline-secondary col-4 btn-sm mb-3">limpar filtro</button>
+      <button id="limparFiltro" class="btn btn-outline-secondary col-4 btn-sm mb-2">limpar filtro</button>
+      <div class="form-check form-switch mb-4 text-secondary" style="--bs-text-opacity: .5;">
+        <input class="form-check-input " type="checkbox" role="switch" id="switchCheckDefault" checked>
+        <label class="form-check-label" for="switchCheckDefault">Em estoque</label>
+      </div>
       <form id="formFiltro">
         <div class="form-floating mb-3"><!--Nome-->
           <input type="text" class="form-control" id="filterNome" name="filterNome">
@@ -33,94 +39,58 @@
           <label class="form-label" for="filterCategotia">Categoria</label>
         </div>
 
-        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de entrada-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="antriorEntr" name="comparacaoDataEntr" value="-1">
-            <label class="form-check-label" for="antriorEntr">Anterior</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="naDataEntr" name="comparacaoDataEntr" checked value="0">
-            <label class="form-check-label" for="naDataEntr">Data</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="posteriorDataEntr" name="comparacaoDataEntr" value="1">
-            <label class="form-check-label" for="posteriorDataEntr">Posterior</label>
-          </div>
+        <fieldset><!--Data de entrada-->
           <div class="form-floating">
-            <input class="form-control" type="date" id="filterDataEntr" placeholder="jjj" name="filterDataEntr">
+            <input class="form-control text-dark" style="--bs-text-opacity: 0;" type="date" onfocus="this.style.setProperty('--bs-text-opacity','1')" id="filterDataEntr" name="filterDataEntr">
             <label for="filterDataEntr" class="form-label">Data de entrada</label>
           </div>
+          <div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoDataEntr" class="form-label m-0">Antes do dia</label>
+            <label for="comparacaoDataEntr" class="form-label m-0">No dia</label>
+            <label for="comparacaoDataEntr" class="form-label m-0">Depois do dia</label>
+          </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataEntr" id="comparacaoDataEntr">
         </fieldset>
 
-        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de validade-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="anterioDataValid" name="comparacaoDataValid" value="-1">
-            <label class="form-check-label" for="anterioDataValid">Anterior</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="naDataValid" name="comparacaoDataValid" checked value="0">
-            <label class="form-check-label" for="naDataValid">Data</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="PosteriorDataValid" name="comparacaoDataValid" value="1">
-            <label class="form-check-label" for="PosteriorDataValid">Posterior</label>
-          </div>
+        <fieldset class="mt-4"><!--Data de validade-->
           <div class="form-floating">
-            <input class="form-control" type="date" id="filterDataValidade" name="filterDataValidade">
+            <input class="form-control text-dark" style="--bs-text-opacity: 0;" type="date" onfocus="this.style.setProperty('--bs-text-opacity','1')" id="filterDataValidade" name="filterDataValidade">
             <label for="filterDataValidade" class="form-label">Data de validade</label>
           </div>
+          <div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoDataValid" class="form-label m-0">Antes do dia</label>
+            <label for="comparacaoDataValid" class="form-label m-0">No dia</label>
+            <label for="comparacaoDataValid" class="form-label m-0">Depois do dia</label>
+          </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataValid" id="comparacaoDataValid">
         </fieldset>
 
-        <fieldset class="mt-4 border border-light-subtle rounded"><!--Preço por unidade-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQuePreco" name="comparacaoPreco" value="-1">
-            <label class="form-check-label" for="menorQuePreco">Menor</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="valorPreco" name="comparacaoPreco" checked value="0">
-            <label class="form-check-label" for="valorPreco">Valor</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQuePreco" name="comparacaoPreco" value="1">
-            <label class="form-check-label" for="maiorQuePreco">Maior</label>
-          </div>
+        <fieldset class="mt-4"><!--Preço por unidade-->
           <div class="form-floating">
             <input class="form-control" type="number" step="any" id="filterPrecoUni" name="filterPrecoUni">
             <label for="filterPrecoUni" class="form-label">Preço por unidade</label>
           </div>
+          <div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoPreco" class="form-label m-0">Menor que</label>
+            <label for="comparacaoPreco" class="form-label m-0">Mesmo valor</label>
+            <label for="comparacaoPreco" class="form-label m-0">Maior que</label>
+          </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoPreco" id="comparacaoPreco">
         </fieldset>
 
-        <fieldset class="mt-3 border border-light-subtle rounded"><!--Quantidade-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQueQuant" name="comparacaoQuant" value="-1">
-            <label class="form-check-label" for="menorQueQuant">Menor</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="mesmaQuant" name="comparacaoQuant" checked value="0">
-            <label class="form-check-label" for="mesmaQuant">Quantdade</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQueQuant" name="comparacaoQuant" value="1">
-            <label class="form-check-label" for="maiorQueQuant">Maior</label>
-          </div>
+        <fieldset class="mt-4"><!--Quantidade-->
           <div class="form-floating">
             <input class="form-control" type="number" step="any" id="filterQuant" name="filterQuant">
             <label for="filterQuant" class="form-label">Quantidade</label>
           </div>
+          <div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoQuant" class="form-label m-0">Menor que</label>
+            <label for="comparacaoQuant" class="form-label m-0">Mesmo valor</label>
+            <label for="comparacaoQuant" class="form-label m-0">Maior que</label>
+          </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoQuant" id="comparacaoQuant">
         </fieldset>
-        <fieldset class="mt-3 border border-light-subtle rounded"><!--Volume e Unidade de medida-->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="menorQueVol" name="comparacaoVol" value="-1">
-            <label class="form-check-label" for="menorQueVol">Menor</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="mesmoVol" name="comparacaoVol" checked value="0">
-            <label class="form-check-label" for="mesmoVol">Volume</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="maiorQueVol" name="comparacaoVol" value="1">
-            <label class="form-check-label" for="maiorQueVol">Maior</label>
-          </div>
+        <fieldset class="mt-4"><!--Volume e Unidade de medida-->
           <div class="input-group form-floating">
             <div class="form-floating">
               <input class="form-control" type="number" step="any" id="filterVol" name="filterVol">
@@ -137,7 +107,12 @@
               </select>
               <label class="form-label" for="filterUnidMedida">Unidade de medida</label>
             </div>
+          </div><div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoVol" class="form-label m-0">Menor que</label>
+            <label for="comparacaoVol" class="form-label m-0">Mesmo valor</label>
+            <label for="comparacaoVol" class="form-label m-0">Maior que</label>
           </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoVol" id="comparacaoVol">
         </fieldset>
 
         <div class="form-floating mt-4"><!--Lote-->
@@ -150,27 +125,17 @@
           <label class="form-label" for="filterEnderecoArmazen">Endereço de armazenamento</label>
         </div>
 
-        <fieldset class="mt-3 border border-light-subtle rounded"><!--Data de Saída-->
-          <!--
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="antesQueSaid" name="comparacaoDataSaid" value="-1">
-            <label class="form-check-label" for="antesQueSaid">Anterior</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="mesmoDiaSaid" name="comparacaoDataSaid" value="0">
-            <label class="form-check-label" for="mesmoDiaSaid">Data</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="depoisQueSaid" name="comparacaoDataSaid" value="1">
-            <label class="form-check-label" for="depoisQueSaid">Posterior</label>
-          </div>
-          -->
-          <label for="customRange3" class="form-label">Example range</label>
-          <input type="range" class="form-range" min="-1" max="1" step="1"  value="-1" name="comparacaoDataSaid" id="customRange3">
+        <fieldset class="mt-4"><!--Data de Saída-->
           <div class="form-floating">
-            <input class="form-control" type="date" id="filterDataSaid" name="filterDataSaid">
+            <input class="form-control text-dark" style="--bs-text-opacity: 0;" type="date" onfocus="this.style.setProperty('--bs-text-opacity','1')" id="filterDataSaid" name="filterDataSaid">
             <label for="filterDataSaid" class="form-label">Data de saída</label>
           </div>
+          <div class="d-flex justify-content-between text-secondary" style="font-size: 0.7rem">
+            <label for="comparacaoDataSaid" class="form-label m-0">Antes do dia</label>
+            <label for="comparacaoDataSaid" class="form-label m-0">No dia</label>
+            <label for="comparacaoDataSaid" class="form-label m-0">Depois do dia</label>
+          </div>
+          <input type="range" class="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataSaid" id="comparacaoDataSaid">
         </fieldset>
 
         <div class="form-floating mt-4"><!--Motivo de Saída-->

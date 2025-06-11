@@ -1,0 +1,40 @@
+/*Rage*/
+.form-range::-webkit-slider-thumb {
+    background-color: #cccccc; /* Cor ddo pino */
+}
+.form-range::-webkit-slider-runnable-track {
+    background-color: #e6e6e6; /* Cor da faixa */
+}
+.form-switch {
+    width: 3rem;
+    height: 1.5rem;
+    background-color: #e6e6e6; /* faixa interna (off) */
+    border: none;
+    transition: background-color 0.3s;
+}
+
+/* Remove a borda azul ao focar */
+.form-switch:focus {
+    box-shadow: none;
+}
+
+/* A faixa quando está ligada */
+.form-switch:checked {
+    background-color: #e6e6e6; /* faixa interna (on também) */
+}
+
+/* Estilo do pino (bolinha) */
+.form-switch::before {
+    position: relative;
+    background-color: #cccccc; /* cor do pino */
+    width: 1rem;
+    height: 1rem;
+    top: 0.25rem;
+    left: 0.25rem;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Movimenta o pino quando ligado */
+.form-switch:checked::before {
+    transform: translateX(1.5rem); /* desliza o pino para a direita */
+    background-color: #cccccc;     /* mantém a cor do pino */
