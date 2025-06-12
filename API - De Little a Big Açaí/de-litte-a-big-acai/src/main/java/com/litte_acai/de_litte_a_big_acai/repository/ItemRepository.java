@@ -65,5 +65,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByMotivoSaida(String filterMotivoSaida);
 
 
-
+    List<Item> findAllByOrderByIdItemDesc();
 }

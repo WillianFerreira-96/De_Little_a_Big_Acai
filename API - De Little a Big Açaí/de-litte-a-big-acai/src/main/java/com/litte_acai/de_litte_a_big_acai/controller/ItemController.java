@@ -47,8 +47,8 @@ public class ItemController{
 
     @GetMapping(path = "/buscarTodos")
     @ResponseBody
-    private ResponseEntity<?> getAll(){
-        return itemService.getAll();
+    private ResponseEntity<?> buscarTodosDesc(){
+        return itemService.buscarTodosDesc();
     }
 
     @PostMapping(path = "/filtroBusca")
@@ -72,7 +72,8 @@ public class ItemController{
         @RequestPart(required = false) String filterEnderecoArmazen,
         @RequestParam(required = false) String comparacaoDataSaid,
         @RequestParam(required = false) LocalDate filterDataSaid,
-        @RequestPart(required = false) String filterMotivoSaida){
+        @RequestPart(required = false) String filterMotivoSaida,
+        @RequestPart(required = false) String switchCheckEmEstoque){
 
         FiltroItem filtro = new FiltroItem();
 
@@ -95,6 +96,7 @@ public class ItemController{
         filtro.setComparaDataSaid(comparacaoDataSaid);
         filtro.setFilterDataSaid(filterDataSaid);
         filtro.setFilterMotivoSaida(filterMotivoSaida);
+        filtro.setFilterEmEstoque(switchCheckEmEstoque);
 
         return itemService.filtrarBusca(filtro);
     }
@@ -128,7 +130,7 @@ public class ItemController{
         item.setVolumeUni(volumeUni);
         item.setDataValidade(dataValidade);
 
-        return itemService.addItem(item);
+        return itemService.adicionarItem(item);
 
     }
 

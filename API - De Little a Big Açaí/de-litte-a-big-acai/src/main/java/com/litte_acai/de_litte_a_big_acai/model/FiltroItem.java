@@ -1,6 +1,5 @@
 package com.litte_acai.de_litte_a_big_acai.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,6 +24,7 @@ public class FiltroItem {
     private String comparaDataSaid;
     private LocalDateTime filterDataSaid;
     private String filterMotivoSaida;
+    private boolean filterEmEstoque;
 
     public FiltroItem() {
         this.filterNome = "";
@@ -239,5 +239,18 @@ public class FiltroItem {
         if (filterMotivoSaida != null && !filterMotivoSaida.isBlank()) {
             this.filterMotivoSaida = filterMotivoSaida.trim().toLowerCase();
         }
+    }
+
+    public boolean isFilterEmEstoque() {
+        return filterEmEstoque;
+    }
+
+    public void setFilterEmEstoque(String filterEmEstoque) {
+        if(filterEmEstoque == "1"){
+            this.filterEmEstoque = true;
+        }else if(filterEmEstoque == "0"){
+            this.filterEmEstoque = false;
+        }
+
     }
 }

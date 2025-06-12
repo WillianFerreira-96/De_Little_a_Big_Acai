@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ItemService {
-    ResponseEntity<?> addItem(Item item);
-    ResponseEntity<?>getAll();
+    ResponseEntity<?> adicionarItem(Item item);
+    ResponseEntity<?> buscarTodosDesc();
     ResponseEntity<?> buscarIdOuNome(String idNome);
     ResponseEntity<?> filtrarBusca(FiltroItem filtroItem);
 }

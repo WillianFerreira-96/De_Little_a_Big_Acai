@@ -113,6 +113,7 @@ formFiltro.addEventListener("submit",async (e)=>{
     }
 })
 
+//Limpar Filtro----------------------------------------------------------------------------------
 const btnLimparFiltro = document.getElementById("limparFiltro")
 btnLimparFiltro.addEventListener("click",()=>{
     document.getElementById("filterNome").value=""
@@ -129,6 +130,19 @@ btnLimparFiltro.addEventListener("click",()=>{
     document.getElementById("filterDataSaid").value=""
     document.getElementById("filterMotivoSaida").value=""
 })
+
+//Tooltips do Switch "Em Estoque"----------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const switchCheckEmEstoque = document.getElementById("switchCheckEmEstoque");
+    const tooltip = new bootstrap.Tooltip(switchCheckEmEstoque);
+
+    switchCheckEmEstoque.addEventListener("change", () => {
+        const novoTexto = switchCheckEmEstoque.checked ? "Apenas Itens Em Estoque" : "Todos os Itens";
+        switchCheckEmEstoque.setAttribute("data-bs-placement", "right");
+        switchCheckEmEstoque.setAttribute("data-bs-title", novoTexto);
+        tooltip.setContent({ '.tooltip-inner': novoTexto });
+    });
+});
 
 //Funções----------------------------------------------------------------------------------------
 function mostrarResultadosBusca(data){

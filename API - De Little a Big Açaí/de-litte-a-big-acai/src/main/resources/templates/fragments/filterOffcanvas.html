@@ -14,12 +14,22 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body"><!--OffCanvas Body-->
-      <button id="limparFiltro" class="btn btn-outline-secondary col-4 btn-sm mb-2">limpar filtro</button>
-      <div class="form-check form-switch mb-4 text-secondary" style="--bs-text-opacity: .5;">
-        <input class="form-check-input " type="checkbox" role="switch" id="switchCheckDefault" checked>
-        <label class="form-check-label" for="switchCheckDefault">Em estoque</label>
-      </div>
+      <button id="limparFiltro" class="btn btn-outline-secondary col-4 btn-sm mb-4">limpar filtro</button>
       <form id="formFiltro">
+        <div class="form-switch m-0 mb-2 text-secondary" style="--bs-text-opacity: .5;">
+          <input  id="switchCheckEmEstoque"
+                  name="switchCheckEmEstoque"
+                  value="1"
+                  class="form-check-input custom-tooltip"
+                  type="checkbox"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-custom-class="custom-tooltip"
+                  data-bs-title="Apenas Itens Em Estoque" checked>
+          <input type="hidden" value="0" name="switchCheckEmEstoque">
+          <label class="form-check-label mt-1" style="font-size: .8rem"
+                 for="switchCheckEmEstoque">Em estoque</label>
+        </div>
         <div class="form-floating mb-3"><!--Nome-->
           <input type="text" class="form-control" id="filterNome" name="filterNome">
           <label class="form-label" for="filterNome">Nome</label>
@@ -160,4 +170,5 @@
     style="background-color: rgb(152, 102, 165); height: 50px; width: 50px;">
     <img src="/img/ico/filtroIco.ico" width="25px">
   </button>
+  <script src="/js/buscas.js"></script>
 </div>
