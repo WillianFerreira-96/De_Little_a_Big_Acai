@@ -3,6 +3,7 @@ package com.litte_acai.de_litte_a_big_acai.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class FiltroItem {
     private String filterNome;
@@ -246,9 +247,9 @@ public class FiltroItem {
     }
 
     public void setFilterEmEstoque(String filterEmEstoque) {
-        if(filterEmEstoque == "1"){
+        if(Objects.equals(filterEmEstoque, "1")){
             this.filterEmEstoque = true;
-        }else if(filterEmEstoque == "0"){
+        }else if(Objects.equals(filterEmEstoque, "0")){
             this.filterEmEstoque = false;
         }
 
