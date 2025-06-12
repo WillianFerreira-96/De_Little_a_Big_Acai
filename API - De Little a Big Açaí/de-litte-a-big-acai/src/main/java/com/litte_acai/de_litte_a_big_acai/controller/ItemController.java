@@ -131,11 +131,10 @@ public class ItemController{
         item.setDataValidade(dataValidade);
 
         return itemService.adicionarItem(item);
-
     }
 
+    //Paginas HTML--------------------------------------------------------------------------------------------
     @GetMapping(path = "/buscar")
-    //@GetMappinp para pagina: buscar.html
     private String buscar(){
         return "buscar";
     }

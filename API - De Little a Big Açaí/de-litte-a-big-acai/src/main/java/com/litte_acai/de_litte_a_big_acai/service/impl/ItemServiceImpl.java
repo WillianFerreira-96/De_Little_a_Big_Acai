@@ -46,7 +46,9 @@ public class ItemServiceImpl implements ItemService {
             }
         }else {
             if (itemRepository.existsByNomeItem(idNome)) {
-                return ResponseEntity.ok().body(itemRepository.findByNomeItem(idNome));
+                List<Item> itens = new ArrayList<>(itemRepository.findByNomeItem(idNome));
+                itens.sort(Comparator.comparing(Item::getIdItem).reversed());
+                return ResponseEntity.ok().body(itens);
             } else {
 
                 return ResponseEntity.ok(notFound());
@@ -59,12 +61,11 @@ public class ItemServiceImpl implements ItemService {
         List<Item> itensFiltrados = new ArrayList<>();
         boolean isFistSearch = true;
 
-        System.out.println(filtro.getComparaDataSaid());
-
         //Filtro Nome
         if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && !filtro.getFilterNome().isBlank()){
             if(itemRepository.existsByNomeItem(filtro.getFilterNome())){
                 itensFiltrados.addAll(itemRepository.findByNomeItem(filtro.getFilterNome()));
+                itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                 isFistSearch = false;
             }else {
                 return ResponseEntity.ok(notFound());
@@ -76,6 +77,7 @@ public class ItemServiceImpl implements ItemService {
             if (isFistSearch){
                 if(itemRepository.existsByMarca(filtro.getFilterMarca()) ){
                     itensFiltrados.addAll(itemRepository.findByMarca(filtro.getFilterMarca()));
+                    itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                     isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
@@ -95,6 +97,7 @@ public class ItemServiceImpl implements ItemService {
             if (isFistSearch){
                 if(itemRepository.existsByCategoria(filtro.getFilterCategotia())){
                     itensFiltrados.addAll(itemRepository.findByCategoria(filtro.getFilterCategotia()));
+                    itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                     isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
@@ -117,6 +120,7 @@ public class ItemServiceImpl implements ItemService {
                     //Antes de...
                     if(itemRepository.existsByDataEntrBefore(filtro.getFilterDataEntr())){
                         itensFiltrados.addAll(itemRepository.findByDataEntrBefore(filtro.getFilterDataEntr()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -125,6 +129,7 @@ public class ItemServiceImpl implements ItemService {
                     //Depois de...
                     if(itemRepository.existsByDataEntrAfter(filtro.getFilterDataEntr())){
                         itensFiltrados.addAll(itemRepository.findByDataEntrAfter(filtro.getFilterDataEntr()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -136,6 +141,7 @@ public class ItemServiceImpl implements ItemService {
                     LocalDateTime fim = filtroData.atTime(23, 59, 59);
                     if(itemRepository.existsByDataEntrBetween(inicio, fim)){
                         itensFiltrados.addAll(itemRepository.findByDataEntrBetween(inicio, fim));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -190,6 +196,7 @@ public class ItemServiceImpl implements ItemService {
                     //Antes de...
                     if(itemRepository.existsByDataValidadeBefore(filtro.getFilterDataValidade())){
                         itensFiltrados.addAll(itemRepository.findByDataValidadeBefore(filtro.getFilterDataValidade()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -198,6 +205,7 @@ public class ItemServiceImpl implements ItemService {
                     //Depois de...
                     if(itemRepository.existsByDataValidadeAfter(filtro.getFilterDataValidade())){
                         itensFiltrados.addAll(itemRepository.findByDataValidadeAfter(filtro.getFilterDataValidade()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -209,6 +217,7 @@ public class ItemServiceImpl implements ItemService {
                     LocalDateTime fim = filtroData.atTime(23, 59, 59);
                     if(itemRepository.existsByDataValidadeBetween(inicio, fim)){
                         itensFiltrados.addAll(itemRepository.findByDataValidadeBetween(inicio, fim));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -263,6 +272,7 @@ public class ItemServiceImpl implements ItemService {
                     //Menor que...
                     if(itemRepository.existsByPrecoUniIsLessThan(filtro.getFilterPrecoUni())){
                         itensFiltrados.addAll(itemRepository.findByPrecoUniIsLessThan(filtro.getFilterPrecoUni()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -271,6 +281,7 @@ public class ItemServiceImpl implements ItemService {
                     //Maior que...
                     if(itemRepository.existsByPrecoUniIsGreaterThan(filtro.getFilterPrecoUni())){
                         itensFiltrados.addAll(itemRepository.findByPrecoUniIsGreaterThan(filtro.getFilterPrecoUni()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -279,6 +290,7 @@ public class ItemServiceImpl implements ItemService {
                     //Mesmo Valor!
                     if(itemRepository.existsByPrecoUni(filtro.getFilterPrecoUni())){
                         itensFiltrados.addAll(itemRepository.findByPrecoUni(filtro.getFilterPrecoUni()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -318,6 +330,7 @@ public class ItemServiceImpl implements ItemService {
                     //Menor que...
                     if(itemRepository.existsByQuantIsLessThan(filtro.getFilterQuant())){
                         itensFiltrados.addAll(itemRepository.findByQuantIsLessThan(filtro.getFilterQuant()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -326,6 +339,7 @@ public class ItemServiceImpl implements ItemService {
                     //Maior que...
                     if(itemRepository.existsByQuantIsGreaterThan(filtro.getFilterQuant())){
                         itensFiltrados.addAll(itemRepository.findByQuantIsGreaterThan(filtro.getFilterQuant()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -334,6 +348,7 @@ public class ItemServiceImpl implements ItemService {
                     //Mesmo Valor!
                     if(itemRepository.existsByQuant(filtro.getFilterQuant())){
                         itensFiltrados.addAll(itemRepository.findByQuant(filtro.getFilterQuant()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -373,6 +388,7 @@ public class ItemServiceImpl implements ItemService {
                     //Menor que...
                     if(itemRepository.existsByVolumeUniIsLessThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
                         itensFiltrados.addAll(itemRepository.findByVolumeUniIsLessThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -381,6 +397,7 @@ public class ItemServiceImpl implements ItemService {
                     //Maior que...
                     if(itemRepository.existsByVolumeUniIsGreaterThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
                         itensFiltrados.addAll(itemRepository.findByVolumeUniIsGreaterThanAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -389,6 +406,7 @@ public class ItemServiceImpl implements ItemService {
                     //Mesmo Valor!
                     if(itemRepository.existsByVolumeUniAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida())){
                         itensFiltrados.addAll(itemRepository.findByVolumeUniAndUnidMedida(filtro.getFilterVol(),filtro.getFilterUnidMedida()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -437,6 +455,7 @@ public class ItemServiceImpl implements ItemService {
             if (isFistSearch){
                 if(itemRepository.existsByLote(filtro.getFilterLote()) ){
                     itensFiltrados.addAll(itemRepository.findByLote(filtro.getFilterLote()));
+                    itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                     isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
@@ -456,6 +475,7 @@ public class ItemServiceImpl implements ItemService {
             if (isFistSearch){
                 if(itemRepository.existsByEnderecoArmazen(filtro.getFilterEnderecoArmazen()) ){
                     itensFiltrados.addAll(itemRepository.findByEnderecoArmazen(filtro.getFilterEnderecoArmazen()));
+                    itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                     isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
@@ -478,6 +498,7 @@ public class ItemServiceImpl implements ItemService {
                     //Antes de...
                     if(itemRepository.existsByDataSaidBefore(filtro.getFilterDataSaid())){
                         itensFiltrados.addAll(itemRepository.findByDataSaidBefore(filtro.getFilterDataSaid()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -486,6 +507,7 @@ public class ItemServiceImpl implements ItemService {
                     //Depois de...
                     if(itemRepository.existsByDataSaidAfter(filtro.getFilterDataSaid())){
                         itensFiltrados.addAll(itemRepository.findByDataSaidAfter(filtro.getFilterDataSaid()));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -497,6 +519,7 @@ public class ItemServiceImpl implements ItemService {
                     LocalDateTime fim = filtroData.atTime(23, 59, 59);
                     if(itemRepository.existsByDataSaidBetween(inicio, fim)){
                         itensFiltrados.addAll(itemRepository.findByDataSaidBetween(inicio, fim));
+                        itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                         isFistSearch = false;
                     }else {
                         return ResponseEntity.ok(notFound());
@@ -548,6 +571,7 @@ public class ItemServiceImpl implements ItemService {
             if (isFistSearch){
                 if(itemRepository.existsByMotivoSaida(filtro.getFilterMotivoSaida())){
                     itensFiltrados.addAll(itemRepository.findByMotivoSaida(filtro.getFilterMotivoSaida()));
+                    itensFiltrados.sort(Comparator.comparing(Item::getIdItem).reversed());
                     isFistSearch = false;
                 }else {
                     return ResponseEntity.ok(notFound());
