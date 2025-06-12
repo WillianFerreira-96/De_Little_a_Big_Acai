@@ -22,16 +22,16 @@ public class ItemServiceImpl implements ItemService {
     ItemRepository itemRepository;
 
     @Override
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> buscarTodosDesc() {
         if (itemRepository.findAll().isEmpty()) {
             return ResponseEntity.ok(notFound());
         }else {
-            return ResponseEntity.ok().body(itemRepository.findAll());
+            return ResponseEntity.ok().body(itemRepository.findAllByOrderByIdItemDesc());
         }
     }
 
     @Override
-    public ResponseEntity<?> addItem(Item item){
+    public ResponseEntity<?> adicionarItem(Item item){
         itemRepository.save(item);
         return ResponseEntity.ok().body(item);
     }
@@ -57,7 +57,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ResponseEntity<?> filtrarBusca(FiltroItem filtro){
         List<Item> itensFiltrados = new ArrayList<>();
-        Boolean isFistSearch = true;
+        boolean isFistSearch = true;
 
         System.out.println(filtro.getComparaDataSaid());
 
@@ -558,6 +558,15 @@ public class ItemServiceImpl implements ItemService {
                     if (!filtro.getFilterMotivoSaida().equals(itemfiltro)) {
                         itensFiltrados.remove(i);
                     }
+                }
+            }
+        }
+
+        //Filtro Em Estoque
+        if(filtro.isFilterEmEstoque()){
+            for (int i = itensFiltrados.size() - 1; i >= 0; i--) {
+                if (!itensFiltrados.get(i).isEmEstoque()) {
+                    itensFiltrados.remove(i);
                 }
             }
         }

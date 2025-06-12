@@ -207,7 +207,7 @@ public class Item {
         this.motivoSaida = motivoSaida;
     }
 
-    public Boolean getEmEstoque() {
+    public Boolean isEmEstoque() {
         return emEstoque;
     }
 
