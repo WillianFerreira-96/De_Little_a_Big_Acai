@@ -1,0 +1,37 @@
+#filterOffcanvas{
+    /*background-color: #7d247e;*/
+}
+
+/*Rage*/
+.form-range::-webkit-slider-thumb {
+    background-color: #cccccc; /* Cor ddo pino */
+}
+.form-range::-webkit-slider-runnable-track {
+    background-color: #e6e6e6; /* Cor da faixa */
+}
+
+/*Switch*/
+.form-check-input:checked {
+    background-color: #b0b0b0;
+    border-color: #ffffff;
+}
+
+.form-check-input {
+    background-color: #d2d2d2;
+    border-color: #ffffff;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: #5e2dc5;
+    --bs-tooltip-color: #fff;
+}
+
+.btn-filter{
+    background-color: rgba(101, 45, 144, 0.5);
+    height: 50px;
+    width: 50px;
+}
+
+.btn-filter:hover {
+    background-color: #652d90;
+}

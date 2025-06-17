@@ -1,0 +1,48 @@
+<nav xmlns:th="http://www.thymeleaf.org" th:fragment="navBarEstoque" class="navbar navbar-expand-lg fixed-top bg-green" aria-label="Main navigation">
+    <link href="/css/navBarEstoque.css" rel="stylesheet">
+    <div class="container-fluid">
+        <div></div>
+        <div class="d-flex align-content-center">
+            <img width="40px" src="/img/mascote.png"
+                 alt="Litte Açaí Logo">
+            <a class="navbar-brand ms-1 me-5 fs-4" href="#">Little Açaí</a>
+        </div>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse"
+                      aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav nav-pills">
+                <li class="nav-item">
+                    <a id="activeDashboard" class="nav-link" href="#"><p class="offcanvas-collapse-text mb-0">Dashboard</p></a>
+                </li>
+                <li class="nav-item">
+                    <a id="activeCadastrar" class="nav-link" href="/estoque/cadastrar"><p class="offcanvas-collapse-text mb-0">Cadastrar Item</p></a>
+                </li>
+                <li class="nav-item">
+                    <a id="activeBuscar" class="nav-link" href="/estoque/buscar"><p class="offcanvas-collapse-text mb-0">Buscar</p></a>
+                </li>
+                <li class="nav-item">
+                    <a id="activeSaida" class="nav-link" href="#"><p class="offcanvas-collapse-text mb-0">Saída de Item</p></a>
+                </li>
+                <li class="nav-item">
+                    <a id="activeEditar" class="nav-link " href="#"><p class="offcanvas-collapse-text mb-0">Editar Item</p></a>
+                </li>
+            </ul>
+            <form class="d-flex m-0" id="formNavBar">
+                <input class="form-control me-2 " type="search" name="buscarIdNome" id="buscarIdNome" placeholder="Buscar ID ou Nome" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        (function () {
+            'use strict'
+
+            document.querySelector('#navbarSideCollapse').addEventListener('click', function () {
+                document.querySelector('.offcanvas-collapse').classList.toggle('open')
+            })
+        })()
+    </script>
+</nav>

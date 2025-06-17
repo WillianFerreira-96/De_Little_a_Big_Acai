@@ -1,0 +1,2 @@
+npm run dev <<<--- Para iniciar	
+Ctrl + C <<<--- Para parar

@@ -1,0 +1,12 @@
+Baixe o Cloudflare via cmd
+	winget install --id Cloudflare.cloudflared
+
+Pelo cmd acesse o diretorio do Cloudflared
+	cd C:\cloudflared
+
+Execute o cloudflared.exe passando o endereço http local e a porta
+	cloudflared.exe tunnel --url http://localhost:8080
+
+Inicie a sua API no servidor local na mesma porta informada a cima
+
+Acesse sua aplicação online pelo url informado no cmd
