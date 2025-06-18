@@ -1,0 +1,10 @@
+#divCadastro{
+    height: calc(100vh - 56px);
+    overflow: scroll;
+}
+#divLogo{
+}
+#divLogo img{
+    width: 30vw;
+    height: auto;
+}

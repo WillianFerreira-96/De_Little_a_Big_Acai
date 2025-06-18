@@ -1,0 +1,192 @@
+import filtroIco from '../assets/img/ico/filtroIco.ico'
+import mascote from '../assets/img/mascote.png'
+import '../styles/filterEstoque.css'
+
+function FilterEstoque() {
+    return (
+        <>
+            <div className="d-flex flex-row fixed-left">
+                <div id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabindex="-1"
+                    aria-labelledby="filterOffcanvasLabel">
+                    <div className="offcanvas-header">
+                        <img width="40px" src={mascote}
+                            alt="Litte Açaí Logo" />
+                        <h3 className="offcanvas-title ms-4" id="filterOffcanvasLabel">Filtrar por...</h3>
+                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div className="offcanvas-body">{/*<!--OffCanvas Body-->*/}
+                        <button id="limparFiltro" className="btn btn-outline-secondary col-4 btn-sm mb-4">limpar filtro</button>
+                        <form id="formFiltro">
+                            <div className="form-switch m-0 mb-2 text-secondary" style={{'--bs-text-opacity': .5}}>
+                                <input id="switchCheckEmEstoque"
+                                    name="switchCheckEmEstoque"
+                                    value="1"
+                                    className="form-check-input custom-tooltip"
+                                    type="checkbox"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-bs-title="Apenas Itens Em Estoque" defaultChecked />
+                                <input type="hidden" value="0" name="switchCheckEmEstoque" />
+                                <label className="form-check-label mt-1" style={{fontSize: '.8rem'}}
+                                    for="switchCheckEmEstoque">Em estoque</label>
+                            </div>
+                            <div className="form-floating mb-3">{/*<!--Nome-->*/}
+                                <input type="text" className="form-control" id="filterNome" name="filterNome" />
+                                <label className="form-label" for="filterNome">Nome</label>
+                            </div>
+                            <div className="form-floating mb-3">{/*<!--Marca-->*/}
+                                <input type="text" className="form-control" id="filterMarca" name="filterMarca" />
+                                <label className="form-label" for="filterMarca">Marca</label>
+                            </div>
+
+                            <div className="form-floating mb-3">{/*<!--Categoria-->*/}
+                                <select className="form-select" id="filterCategotia" name="filterCategotia">
+                                    <option value="" selected></option>
+                                    <option value="frutas">Frutas</option>
+                                    <option value="bases/massas">Bases/Massas</option>
+                                    <option value="complementos">Complementos</option>
+                                </select>
+                                <label className="form-label" for="filterCategotia">Categoria</label>
+                            </div>
+
+                            <fieldset>{/*<!--Data de entrada-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control text-dark dataInput" type="date" id="filterDataEntr" name="filterDataEntr" />
+                                    <label for="filterDataEntr" className="form-label">Data de entrada</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel" >
+                                    <label for="comparacaoDataEntr" className="form-label m-0">Antes do dia</label>
+                                    <label for="comparacaoDataEntr" className="form-label m-0">No dia</label>
+                                    <label for="comparacaoDataEntr" className="form-label m-0">Depois do dia</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataEntr" id="comparacaoDataEntr" />
+                            </fieldset>
+
+                            <fieldset className="mt-4">{/*<!--Data de validade-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control text-dark dataInput"  type="date"  id="filterDataValidade" name="filterDataValidade" />
+                                    <label for="filterDataValidade" className="form-label">Data de validade</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary" style={{fontSize: '0.7rem'}}>
+                                    <label for="comparacaoDataValid" className="form-label m-0">Antes do dia</label>
+                                    <label for="comparacaoDataValid" className="form-label m-0">No dia</label>
+                                    <label for="comparacaoDataValid" className="form-label m-0">Depois do dia</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataValid" id="comparacaoDataValid" />
+                            </fieldset>
+
+                            <fieldset className="mt-4">{/*<!--Preço por unidade-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control" type="number" step="any" id="filterPrecoUni" name="filterPrecoUni" />
+                                    <label for="filterPrecoUni" className="form-label">Preço por unidade</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel">
+                                    <label for="comparacaoPreco" className="form-label m-0">Menor que</label>
+                                    <label for="comparacaoPreco" className="form-label m-0">Mesmo valor</label>
+                                    <label for="comparacaoPreco" className="form-label m-0">Maior que</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoPreco" id="comparacaoPreco" />
+                            </fieldset>
+
+                            <fieldset className="mt-4">{/*<!--Quantidade-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control" type="number" step="any" id="filterQuant" name="filterQuant" />
+                                    <label for="filterQuant" className="form-label">Quantidade</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel">
+                                    <label for="comparacaoQuant" className="form-label m-0">Menor que</label>
+                                    <label for="comparacaoQuant" className="form-label m-0">Mesmo valor</label>
+                                    <label for="comparacaoQuant" className="form-label m-0">Maior que</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoQuant" id="comparacaoQuant" />
+                            </fieldset>
+
+                            <fieldset className="mt-4">{/*<!--Valor Total-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control" type="number" step="any" id="filterValorTotal" name="filterValorTotal" />
+                                    <label for="filterValorTotal" className="form-label">Valor Total</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel">
+                                    <label for="comparacaoValortotal" className="form-label m-0">Menor que</label>
+                                    <label for="comparacaoValortotal" className="form-label m-0">Mesmo valor</label>
+                                    <label for="comparacaoValortotal" className="form-label m-0">Maior que</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoValortotal" id="comparacaoValortotal" />
+                            </fieldset>
+
+                            <fieldset className="mt-4">{/*<!--Volume e Unidade de medida-->*/}
+                                <div className="input-group form-floating">
+                                    <div className="form-floating">
+                                        <input className="form-control" type="number" step="any" id="filterVol" name="filterVol" />
+                                        <label for="filterVol" className="form-label">Volume por unidade</label>
+                                    </div>
+                                    <div className="form-floating">
+                                        <select className="form-select" id="filterUnidMedida" name="filterUnidMedida">
+                                            <option value="" selected></option>
+                                            <option value="kg">Kilogramas(Kg)</option>
+                                            <option value="g">Gramas(g)</option>
+                                            <option value="l">Litros(l)</option>
+                                            <option value="ml">Mililitros(ml)</option>
+                                            <option value="und">Unidades(und)</option>
+                                        </select>
+                                        <label className="form-label" for="filterUnidMedida">Unidade de medida</label>
+                                    </div>
+                                </div><div className="d-flex justify-content-between text-secondary dataInputLabel">
+                                    <label for="comparacaoVol" className="form-label m-0">Menor que</label>
+                                    <label for="comparacaoVol" className="form-label m-0">Mesmo valor</label>
+                                    <label for="comparacaoVol" className="form-label m-0">Maior que</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoVol" id="comparacaoVol" />
+                            </fieldset>
+
+                            <div className="form-floating mt-4">{/*<!--Lote-->*/}
+                                <input type="text" className="form-control" id="filterLote" name="filterLote" />
+                                <label className="form-label" for="filterLote">Lote</label>
+                            </div>
+
+                            <div className="form-floating mt-4">{/*<!--Endereço de Armazenamento-->*/}
+                                <input type="text" className="form-control" id="filterEnderecoArmazen" name="filterEnderecoArmazen" />
+                                <label className="form-label" for="filterEnderecoArmazen">Endereço de armazenamento</label>
+                            </div>
+
+                            <fieldset className="mt-4">{/*<!--Data de Saída-->*/}
+                                <div className="form-floating">
+                                    <input className="form-control text-dark dataInput" type="date"  id="filterDataSaid" name="filterDataSaid" />
+                                    <label for="filterDataSaid" className="form-label">Data de saída</label>
+                                </div>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel">
+                                    <label for="comparacaoDataSaid" className="form-label m-0">Antes do dia</label>
+                                    <label for="comparacaoDataSaid" className="form-label m-0">No dia</label>
+                                    <label for="comparacaoDataSaid" className="form-label m-0">Depois do dia</label>
+                                </div>
+                                <input type="range" className="form-range ps-4 pe-4" min="-1" max="1" step="1" name="comparacaoDataSaid" id="comparacaoDataSaid" />
+                            </fieldset>
+
+                            <div className="form-floating mt-4">{/*<!--Motivo de Saída-->*/}
+                                <select className="form-select" id="filterMotivoSaida" name="filterMotivoSaida">
+                                    <option value="" selected></option>
+                                    <option value="Perda">Perda</option>
+                                    <option value="Produção">Produção</option>
+                                    <option value="devolução">Devolução</option>
+                                    <option value="Vencido">Fora da Validade</option>
+                                </select>
+                                <label className="form-label" for="filterMotivoSaida">Motivo de Saída</label>
+                            </div>
+                            <button type="submit" className="btn btn-outline-primary mt-4 col-12 fw-bold">Pesquisar</button>
+                        </form>
+                    </div>
+                </div>
+
+                {/*<!-------------------------------------------------------------------------------------------------->*/}
+
+                <button className="btn btn-filter d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas">
+                    <img src={filtroIco} width="25px" />
+                </button>
+            </div>
+        </>
+    )
+}
+
+export default FilterEstoque;
