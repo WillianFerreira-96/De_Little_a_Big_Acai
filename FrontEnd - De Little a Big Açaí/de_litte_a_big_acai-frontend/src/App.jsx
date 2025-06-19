@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import NavBarEstoque from './layouts/NavBarEstoque.jsx'
-import PageBuscarEstoque from './pages/PageBuscarEstoque.jsx'
-import FilterEstoque from './layouts/FilterEstoque.jsx'
+import NavBarEstoque from './components/NavBarEstoque'
+import PageBuscarEstoque from './pages/PageBuscarEstoque'
+import FilterEstoque from './components/FilterEstoque'
 
 function App() {
   return (
