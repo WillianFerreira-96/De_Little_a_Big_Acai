@@ -1,4 +1,5 @@
 //Busca Automática-------------------------------------------------------------------------------
+/*
 window.addEventListener("load",async (e)=>{
     abrirLoadModel()
     try{
@@ -25,6 +26,7 @@ window.addEventListener("load",async (e)=>{
         fecharLoadModel()
     }
 })
+*/
 
 //Busca pela Barra de Pesquisa-------------------------------------------------------------------
 const buscarIdNome = document.getElementById("buscarIdNome")

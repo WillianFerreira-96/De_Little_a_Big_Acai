@@ -5,10 +5,10 @@ import FilterEstoque from './components/FilterEstoque'
 
 function App() {
   return (
-    <>
-      <NavBarEstoque/>
-      <PageBuscarEstoque/>
-      <FilterEstoque/>
+    <>      
+      <NavBarEstoque />
+      <PageBuscarEstoque />
+      <FilterEstoque />
     </>
   )
 }

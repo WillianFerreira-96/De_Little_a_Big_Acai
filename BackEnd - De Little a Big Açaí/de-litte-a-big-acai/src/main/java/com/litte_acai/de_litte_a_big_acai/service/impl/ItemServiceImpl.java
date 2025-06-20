@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
         if (itemRepository.findAll().isEmpty()) {
             return ResponseEntity.ok(notFound());
         }else {
-            return ResponseEntity.ok().body(itemRepository.findAllByOrderByIdItemDesc());
+                return ResponseEntity.ok().body(itemRepository.findAllByOrderByIdItemDesc());
         }
     }
 

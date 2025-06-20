@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { BuscaAutomatica } from '../services/BuscaAutomatica';
-//import { FormatarData } from '../utils/FormatarData';
-import MostrarBusca from '../utils/MostrarBusca';
+import { FormatarData } from '../utils/FormatarData';
+import LoadModel from '../components/LoadModel';
+import AbrirLoadModel from '../utils/AbrirLoadModel';
+import FecharLoadModel from '../utils/FecharLoadModel';
+
 
 function PageBuscarEstoque() {
     useEffect(() => {
@@ -10,15 +13,30 @@ function PageBuscarEstoque() {
     })
 
     const [itens, setItens] = useState([])
+    const [notFound, setNotFound] = useState([])
     useEffect(() => {
-        BuscaAutomatica().then((res) => {
-            console.log(res)
-            setItens(res)
-        })
+        AbrirLoadModel()
+        try {
+            BuscaAutomatica().then((res) => {
+                setTimeout(() => {
+                    if (Array.isArray(res.listaVazia) && res.listaVazia.length == 0) {
+                        setNotFound(res.mensagem)
+                        FecharLoadModel()
+                    } else {
+                        setItens(res)
+                        FecharLoadModel()
+                    }
+                }, 250);
+            })
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error)
+            FecharLoadModel()
+        }
     }, [])
 
     return (
         <>
+            <LoadModel />
             <main>
                 <div id="overFlowDiv" style={{
                     overflow: "auto",
@@ -48,10 +66,77 @@ function PageBuscarEstoque() {
                             </tr>
                         </thead>
                         <tbody>
-                            {MostrarBusca(itens)}
+                            {itens.map((i) => {
+                                //Data de Entrada
+                                var dataEntrString
+                                if (i.dataEntr == null) {
+                                    dataEntrString = "Sem Data de Entrada"
+                                } else {
+                                    dataEntrString = FormatarData(i.dataEntr, true)
+                                }
+
+                                //Preço por Unidade
+                                var [intero, decimal] = i.precoUni.toFixed(2).toString().split(".")
+                                var preco = "R$ " + intero + "," + decimal
+
+                                //Valor Total
+                                var [intero, decimal] = (i.precoUni * i.quant).toFixed(2).toString().split(".")
+                                var valorTotal = "R$ " + intero + "," + decimal
+
+                                //Volume
+                                var [intero, decimal] = i.volumeUni.toFixed(2).toString().split(".")
+                                var volume = intero + "," + decimal + " " + i.unidMedida
+
+                                //Data de Validade
+                                var dataValidadeString
+                                if (i.dataValidade == null) {
+                                    dataValidadeString = "Sem Data de Validade"
+                                } else {
+                                    dataValidadeString = FormatarData(i.dataValidade, false)
+                                }
+
+                                //Em Estoque
+                                var emEstoqueValor
+                                var emEstoqueClass
+                                if (i.emEstoque) {
+                                    emEstoqueValor = "Em Estoque"
+                                    emEstoqueClass = "table-light table-hover"
+                                } else {
+                                    emEstoqueValor = "Item Retirado"
+                                    emEstoqueClass = "table-danger table-hover"
+                                }
+
+                                //Data de Saída
+                                var dataSaidString
+                                if (i.dataSaid == null) {
+                                    dataSaidString = "Sem Data de Saída"
+                                } else {
+                                    dataSaidString = FormatarData(i.dataSaid, true)
+                                }
+
+                                return <tr className={emEstoqueClass} key={i.idItem}>
+                                    <td>{i.imagemItem}</td>
+                                    <td>000{i.idItem}</td>
+                                    <td className="text-nowrap">{i.nomeItem}</td>
+                                    <td className="text-nowrap">{i.marca}</td>
+                                    <td className="text-nowrap">{i.descricaoItem}</td>
+                                    <td className="text-nowrap">{i.categoria}</td>
+                                    <td className="text-nowrap">{dataEntrString}</td>
+                                    <td className="text-nowrap">{preco}</td>
+                                    <td className="text-nowrap">{`${i.quant} unidade(s)`}</td>
+                                    <td className="text-nowrap">{valorTotal}</td>
+                                    <td className="text-nowrap">{volume}</td>
+                                    <td className="text-nowrap">{dataValidadeString}</td>
+                                    <td className="text-nowrap">{i.lote}</td>
+                                    <td className="text-nowrap">{i.enderecoArmazen}</td>
+                                    <td className="text-nowrap">{emEstoqueValor}</td>
+                                    <td className="text-nowrap">{i.motivoSaida}</td>
+                                    <td className="text-nowrap">{dataSaidString}</td>
+                                </tr>
+                            })}
                         </tbody>
-                    </table>                    
-                        <div id="empty"></div>
+                    </table>
+                    <div className="h2 text-center mt-5">{notFound}</div>
                 </div>
             </main>
         </>

@@ -8,23 +8,3 @@ export async function BuscaAutomatica() {
         return []
     }
 }
-
-/*
-
-abrirLoadModel()
-setTimeout(() => {
-    if (Array.isArray(data.listaVazia) && data.listaVazia.length == 0) {
-        const ifEmpty = document.getElementById("ifEmpty")
-        mensage = document.createElement("h2")
-        mensage.className = "h2. Bootstrap heading text-center mt-5"
-        mensage.textContent = data.mensagem
-        ifEmpty.appendChild(mensage)
-        fecharLoadModel()
-    } else {
-        mostrarResultadosBusca(data)
-        fecharLoadModel()
-    }
-}, 500);
-fecharLoadModel()
-
-*/
