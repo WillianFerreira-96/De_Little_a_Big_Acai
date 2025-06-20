@@ -1,0 +1,4 @@
+npm create vite@latest "Nome do projeto" --template react <<<--- Para criar um projeto react
+npm install <<<--- Para instalar
+npm run dev <<<--- Para iniciar	
+ctrl + c <<<--- Para parar

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BuscaAutomatica } from '../services/BuscaAutomatica';
-import { FormatarData } from '../utils/FormatarData';
+//import { FormatarData } from '../utils/FormatarData';
+import MostrarBusca from '../utils/MostrarBusca';
 
 function PageBuscarEstoque() {
     useEffect(() => {
@@ -10,7 +11,10 @@ function PageBuscarEstoque() {
 
     const [itens, setItens] = useState([])
     useEffect(() => {
-        BuscaAutomatica().then((res) => { setItens(res) })
+        BuscaAutomatica().then((res) => {
+            console.log(res)
+            setItens(res)
+        })
     }, [])
 
     return (
@@ -44,46 +48,10 @@ function PageBuscarEstoque() {
                             </tr>
                         </thead>
                         <tbody>
-                            {itens.map((i) => {
-                                //Data de Entrada
-                                var dataEntrString
-                                if (i.dataEntr == null) {
-                                    dataEntrString = "Sem Data de Entrada"
-                                } else {
-                                    dataEntrString = FormatarData(i.dataEntr, true)
-                                }
-
-                                //Preço por Unidade
-                                var [intero, decimal] = i.precoUni.toFixed(2).toString().split(".")
-                                var preco = "R$ " + intero + "," + decimal
-
-                                //Valor Total
-                                var [intero, decimal] = (i.precoUni * i.quant).toFixed(2).toString().split(".")
-                                var valorTotal = "R$ " + intero + "," + decimal
-
-                                //Volume
-                                var [intero, decimal] = i.volumeUni.toFixed(2).toString().split(".")
-                                var volume = intero+","+decimal+" "+i.unidMedida
-
-
-                                return <tr className="table-light table-hover" key={i.idItem}>
-                                    <td>{i.imagemItem}</td>
-                                    <td>000{i.idItem}</td>
-                                    <td className="text-nowrap">{i.nomeItem}</td>
-                                    <td className="text-nowrap">{i.marca}</td>
-                                    <td className="text-nowrap">{i.descricaoItem}</td>
-                                    <td className="text-nowrap">{i.categoria}</td>
-                                    <td className="text-nowrap">{dataEntrString}</td>
-                                    <td className="text-nowrap">{preco}</td>
-                                    <td className="text-nowrap">{`${i.quant} unidade(s)`}</td>
-                                    <td className="text-nowrap">{valorTotal}</td>
-                                    <td className="text-nowrap">{volume}</td>
-                                </tr>
-
-                            })}
+                            {MostrarBusca(itens)}
                         </tbody>
-                    </table>
-                    <div id="ifEmpty"></div>
+                    </table>                    
+                        <div id="empty"></div>
                 </div>
             </main>
         </>
