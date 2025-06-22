@@ -1,8 +1,19 @@
+import { useState } from 'react'
 import filtroIco from '../assets/img/ico/filtroIco.ico'
 import mascote from '../assets/img/mascote.png'
 import '../styles/filterEstoque.css'
+import { useRef } from 'react'
 
-function FilterEstoque() {
+function FilterEstoque({onFormFilter}) {
+    const formFiltro = useRef(null)
+    const [filterNome, setFilterNome] = useState('')
+
+    function test(e) {
+        e.preventDefault()
+        const formData = new FormData(formFiltro.current)
+        onFormFilter(formData)
+    }
+
     return (
         <>
             <div className="d-flex flex-row fixed-left">
@@ -16,8 +27,8 @@ function FilterEstoque() {
                     </div>
                     <div className="offcanvas-body">{/*<!--OffCanvas Body-->*/}
                         <button id="limparFiltro" className="btn btn-outline-secondary col-4 btn-sm mb-4">limpar filtro</button>
-                        <form id="formFiltro">
-                            <div className="form-switch m-0 mb-2 text-secondary" style={{'--bs-text-opacity': .5}}>
+                        <form ref={formFiltro} onSubmit={test}>
+                            <div className="form-switch m-0 mb-2 text-secondary" style={{ '--bs-text-opacity': .5 }}>
                                 <input id="switchCheckEmEstoque"
                                     name="switchCheckEmEstoque"
                                     value="1"
@@ -28,11 +39,11 @@ function FilterEstoque() {
                                     data-bs-custom-class="custom-tooltip"
                                     data-bs-title="Apenas Itens Em Estoque" defaultChecked />
                                 <input type="hidden" value="0" name="switchCheckEmEstoque" />
-                                <label className="form-check-label mt-1" style={{fontSize: '.8rem'}}
+                                <label className="form-check-label mt-1" style={{ fontSize: '.8rem' }}
                                     htmlFor="switchCheckEmEstoque">Em estoque</label>
                             </div>
                             <div className="form-floating mb-3">{/*<!--Nome-->*/}
-                                <input type="text" className="form-control" id="filterNome" name="filterNome" />
+                                <input type="text" className="form-control" onChange={(e) => { setFilterNome(e.target.value) }} value={filterNome} id='filterNome' name="filterNome" />
                                 <label className="form-label" htmlFor="filterNome">Nome</label>
                             </div>
                             <div className="form-floating mb-3">{/*<!--Marca-->*/}
@@ -65,10 +76,10 @@ function FilterEstoque() {
 
                             <fieldset className="mt-4">{/*<!--Data de validade-->*/}
                                 <div className="form-floating">
-                                    <input className="form-control text-dark dataInput"  type="date"  id="filterDataValidade" name="filterDataValidade" />
+                                    <input className="form-control text-dark dataInput" type="date" id="filterDataValidade" name="filterDataValidade" />
                                     <label htmlFor="filterDataValidade" className="form-label">Data de validade</label>
                                 </div>
-                                <div className="d-flex justify-content-between text-secondary" style={{fontSize: '0.7rem'}}>
+                                <div className="d-flex justify-content-between text-secondary" style={{ fontSize: '0.7rem' }}>
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">Antes do dia</label>
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">No dia</label>
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">Depois do dia</label>
@@ -152,7 +163,7 @@ function FilterEstoque() {
 
                             <fieldset className="mt-4">{/*<!--Data de Saída-->*/}
                                 <div className="form-floating">
-                                    <input className="form-control text-dark dataInput" type="date"  id="filterDataSaid" name="filterDataSaid" />
+                                    <input className="form-control text-dark dataInput" type="date" id="filterDataSaid" name="filterDataSaid" />
                                     <label htmlFor="filterDataSaid" className="form-label">Data de saída</label>
                                 </div>
                                 <div className="d-flex justify-content-between text-secondary dataInputLabel">

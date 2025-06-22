@@ -4,8 +4,6 @@ import com.litte_acai.de_litte_a_big_acai.model.FiltroItem;
 import com.litte_acai.de_litte_a_big_acai.model.Item;
 import com.litte_acai.de_litte_a_big_acai.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/estoque")
@@ -39,10 +36,10 @@ public class ItemController{
         });
     }
 
-    @GetMapping(path = "/buscarIdNome")
+    @GetMapping(path = "/buscarNomeOuID")
     @ResponseBody
-    private ResponseEntity<?> buscarIdNome(@RequestParam String idNome){
-        return itemService.buscarIdOuNome(idNome);
+    private ResponseEntity<?> buscarNomeOuID(@RequestParam String nomeOuID){
+        return itemService.buscarNomeOuID(nomeOuID);
     }
 
     @GetMapping(path = "/buscarTodos")

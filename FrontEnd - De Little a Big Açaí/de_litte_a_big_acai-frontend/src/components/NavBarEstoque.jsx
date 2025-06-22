@@ -1,7 +1,17 @@
 import '/src/styles/navBarEstoque.css'
 import logomarca from '../assets/img/mascote.png'
+import { useState } from 'react';
 
-function NavBarEstoque() {
+function NavBarEstoque({ onLiftingNomeOuID}) {
+
+    var [nomeOuID, setNomeOuID] = useState('')
+
+    //State Up para a PageBuscarEstoque
+    function StateUpNomeOuID(e) {
+        e.preventDefault()
+        onLiftingNomeOuID(nomeOuID)
+    }
+    
     return (
         <>
             <nav className="navbar navbar-expand-lg fixed-top bg-green" aria-label="Main navigation">
@@ -45,8 +55,8 @@ function NavBarEstoque() {
                                 </a>
                             </li>
                         </ul>
-                        <form className="d-flex m-0" id="formNavBar">
-                            <input className="form-control me-2" type="search" name="buscarIdNome" id="buscarIdNome" placeholder="Buscar ID ou Nome" aria-label="Search" />
+                        <form className="d-flex m-0" id="formNavBar" onSubmit={StateUpNomeOuID}>
+                            <input className="form-control me-2" value={nomeOuID} onChange={(e) => setNomeOuID(e.target.value)} type="search" name="nomeOuID" id="nomeOuID" placeholder="Buscar ID ou Nome" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

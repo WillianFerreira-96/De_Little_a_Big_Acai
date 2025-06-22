@@ -1,38 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { BuscaAutomatica } from '../services/BuscaAutomatica';
+import { BuscaNavBar } from '../services/BuscaNavBar';
+import { BuscaComFiltro } from '../services/BuscaComFiltro';
 import { FormatarData } from '../utils/FormatarData';
-import LoadModel from '../components/LoadModel';
+import LoadModel from '../components/LoadModel'
 import AbrirLoadModel from '../utils/AbrirLoadModel';
 import FecharLoadModel from '../utils/FecharLoadModel';
 
 
-function PageBuscarEstoque() {
+function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
+    const [divVisivel, setDivVisivel] = useState(false)
+    const [itens, setItens] = useState([])
+    const [notFound, setNotFound] = useState([])
+
+    //Ativar elemento 'Buscar' da NavBar
     useEffect(() => {
         const activeBuscar = document.getElementById('activeBuscar')
         activeBuscar.className = 'nav-link activated'
     })
 
-    const [itens, setItens] = useState([])
-    const [notFound, setNotFound] = useState([])
+    //Busca Automática
     useEffect(() => {
-        AbrirLoadModel()
-        try {
-            BuscaAutomatica().then((res) => {
-                setTimeout(() => {
-                    if (Array.isArray(res.listaVazia) && res.listaVazia.length == 0) {
-                        setNotFound(res.mensagem)
-                        FecharLoadModel()
-                    } else {
-                        setItens(res)
-                        FecharLoadModel()
-                    }
-                }, 250);
-            })
-        } catch (error) {
-            console.error("Erro ao buscar dados:", error)
-            FecharLoadModel()
-        }
+        BuscaAutomatica().then((data) => {
+            MostrarBusca(data)
+        })
     }, [])
+
+    //Busca pela Barra de Navegação
+    useEffect(() => {
+        if (liftingNomeOuID != null) {
+            BuscaNavBar(liftingNomeOuID).then((data) => {
+                MostrarBusca(data)
+            })
+        }
+    }, [liftingNomeOuID])
+
+    //Busca Com Filtro
+    useEffect(() => {
+        if (formFilter != null) {
+            BuscaComFiltro(formFilter).then((data)=>{
+                MostrarBusca(data)
+            })
+        }
+    },[formFilter])
+
+    //Mostrar Resultados das Buscas
+    function MostrarBusca(result) {
+        AbrirLoadModel()
+        setTimeout(() => {
+            setItens([])
+            setNotFound([])
+            if (Array.isArray(result.listaVazia) && result.listaVazia.length == 0) {
+                setDivVisivel(true)
+                setNotFound(result.mensagem)
+                FecharLoadModel()
+            } else {
+                setDivVisivel(false)
+                setItens(result)
+                FecharLoadModel()
+            }
+        }, 250);
+    }
 
     return (
         <>
@@ -136,7 +164,7 @@ function PageBuscarEstoque() {
                             })}
                         </tbody>
                     </table>
-                    <div className="h2 text-center mt-5">{notFound}</div>
+                    <div style={{ display: divVisivel ? 'block' : 'none' }} className="h2 text-center mt-5">{notFound}</div>
                 </div>
             </main>
         </>

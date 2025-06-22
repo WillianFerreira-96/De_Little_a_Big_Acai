@@ -26,7 +26,7 @@ window.addEventListener("load",async (e)=>{
         fecharLoadModel()
     }
 })
-*/
+
 
 //Busca pela Barra de Pesquisa-------------------------------------------------------------------
 const buscarIdNome = document.getElementById("buscarIdNome")
@@ -69,6 +69,7 @@ formNavBar.addEventListener("submit",async (e)=>{
         fecharLoadModel()
     }
 })
+*/
 
 //Busca Filtrada---------------------------------------------------------------------------------
 const formFiltro = document.getElementById("formFiltro")

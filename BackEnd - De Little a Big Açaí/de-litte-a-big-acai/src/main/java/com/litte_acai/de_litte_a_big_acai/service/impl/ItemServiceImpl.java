@@ -9,13 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
-
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -38,21 +35,20 @@ public class ItemServiceImpl implements ItemService {
         return ResponseEntity.ok().body(item);
     }
     @Override
-    public ResponseEntity<?> buscarIdOuNome(String nomeId){
-        String idNome =  nomeId.trim().toLowerCase();
-        if (idNome.matches("\\d+")){
-            if(itemRepository.existsByIdItem(Long.parseLong(idNome))){
-                return ResponseEntity.ok().body(itemRepository.findByIdItem(Long.parseLong(idNome)));
+    public ResponseEntity<?> buscarNomeOuID(String nomeOuID){
+        String nomeOuIDLowcase =  nomeOuID.trim().toLowerCase();
+        if (nomeOuIDLowcase.matches("\\d+")){
+            if(itemRepository.existsByIdItem(Long.parseLong(nomeOuIDLowcase))){
+                return ResponseEntity.ok().body(itemRepository.findByIdItem(Long.parseLong(nomeOuIDLowcase)));
             }else {
                 return ResponseEntity.ok(notFound());
             }
         }else {
-            if (itemRepository.existsByNomeItem(idNome)) {
-                List<Item> itens = new ArrayList<>(itemRepository.findByNomeItem(idNome));
+            if (itemRepository.existsByNomeItem(nomeOuIDLowcase)) {
+                List<Item> itens = new ArrayList<>(itemRepository.findByNomeItem(nomeOuIDLowcase));
                 itens.sort(Comparator.comparing(Item::getIdItem).reversed());
                 return ResponseEntity.ok().body(itens);
             } else {
-
                 return ResponseEntity.ok(notFound());
             }
         }

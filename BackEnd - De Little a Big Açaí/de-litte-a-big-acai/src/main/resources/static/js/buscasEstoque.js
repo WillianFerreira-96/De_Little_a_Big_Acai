@@ -38,7 +38,7 @@ formNavBar.addEventListener("submit",async (e)=>{
     buscarIdNome.value = ""
 
     try{
-        const response = await fetch(`/estoque/buscarIdNome?idNome=${buscarIdNomeValue}`)
+        const response = await fetch(`/estoque/buscarNomeOuID?nomeOuID=${buscarIdNomeValue}`)
         if (!response.ok) throw new Error("Erro na requisição")
 
         const data = await response.json()
