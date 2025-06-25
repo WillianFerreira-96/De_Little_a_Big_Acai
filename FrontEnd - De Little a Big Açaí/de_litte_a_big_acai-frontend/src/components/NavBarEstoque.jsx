@@ -56,7 +56,7 @@ function NavBarEstoque({ onLiftingNomeOuID}) {
                             </li>
                         </ul>
                         <form className="d-flex m-0" id="formNavBar" onSubmit={StateUpNomeOuID}>
-                            <input className="form-control me-2" value={nomeOuID} onChange={(e) => setNomeOuID(e.target.value)} type="search" name="nomeOuID" id="nomeOuID" placeholder="Buscar ID ou Nome" aria-label="Search" />
+                            <input className="form-control me-2" value={nomeOuID} onChange={(e) => {setNomeOuID(e.target.value)}} type="search" name="nomeOuID" id="nomeOuID" placeholder="Buscar ID ou Nome" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
