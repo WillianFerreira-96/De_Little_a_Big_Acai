@@ -63,7 +63,7 @@ Com a implementação dessas soluções, espera-se que a Little Açaí aumente s
 ### Backend
 ```bash
 # Clone o repositório
-git clone https://github.com/...
+git clone https://github.com/WillianFerreira-96/De_Little_a_Big_Acai/tree/main/BackEnd%20-%20De%20Little%20a%20Big%20A%C3%A7a%C3%AD/de-litte-a-big-acai
 cd backend
 
 # # Execute com Maven (Windows)
@@ -73,7 +73,7 @@ mvnw.cmd spring-boot:run
 ### Frontend
 ```bash
 # Clone o repositório
-git clone https://github.com/...
+git clone https://github.com/WillianFerreira-96/De_Little_a_Big_Acai/tree/main/FrontEnd%20-%20De%20Little%20a%20Big%20A%C3%A7a%C3%AD/de_litte_a_big_acai-frontend
 cd frontend
 
 # Instale as dependências
@@ -84,7 +84,7 @@ npm run dev
 ```
 
 ## 📸 Imagens
-<p float="left"> <img src="screenshots/busca.jpg" width="300"/> <img src="screenshots/busca responsiva.jpeg" width="300"/> <img src="screenshots/pequisa exemplo.jpg" width="300"/> <img src="screenshots/filtro.jpg" width="300"/> <img src="screenshots/filtro responsivo.jpeg" width="300"/> <img src="screenshots/navbar responsiva.jpeg" width="300"/> <img src="screenshots/estoque.png" width="300"/> </p>
+<p float="left"> <img src="screenshots/busca.jpg" height="200"/> <img src="screenshots/busca responsiva.jpeg" height="200"/> <img src="screenshots/pequisa exemplo.jpg" height="200"/> <img src="screenshots/navbar responsiva.jpeg" height="200"/> <img src="screenshots/filtro.jpg" height="200"/> <img src="screenshots/filtro responsivo.jpeg" height="200"/>  </p>
 
 ## 👨‍💻 Desenvolvedor
 Este projeto foi desenvolvido integralmente por:
