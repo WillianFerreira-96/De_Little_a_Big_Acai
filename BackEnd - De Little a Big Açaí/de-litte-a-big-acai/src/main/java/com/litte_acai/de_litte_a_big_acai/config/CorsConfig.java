@@ -14,10 +14,10 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry){
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
-                        .allowCredentials(false); //<<<--- Para todas(*) origens
-                        //.allowCredentials(true); <<<--- Para origens exatas
+                        .allowCredentials(false); //<<<--- Para todas origens (false)
+                        //.allowCredentials(true); <<<--- Para origens exatas (true)
             }
         };
     }

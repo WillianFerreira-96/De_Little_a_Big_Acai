@@ -8,3 +8,5 @@
 #652d90(roxo mascote)
 #ff00fe(rosa bochecha)
 #30041d(roxo escuro contorno)
+#b32234(danger)
+#801823(danger darker)

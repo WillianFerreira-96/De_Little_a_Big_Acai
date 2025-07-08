@@ -1,5 +1,5 @@
 *{
-  color: #30041d;
+  color: #3f0460;
 }
 
 body {
@@ -48,9 +48,20 @@ body {
   background-color: #8cc63e;
 }
 
+p:hover{
+  font-weight: bolder;
+  color: #7d247e;
+  text-decoration: underline 5px;
+}
+
 .activated, .activated p{
   background-color: #7d247e;
   color: #e6e6e6;
+  font-weight: bold;
+}
+
+.activated, .activated p:hover{
+  text-decoration: none;
 }
 
 .btn-outline-success{

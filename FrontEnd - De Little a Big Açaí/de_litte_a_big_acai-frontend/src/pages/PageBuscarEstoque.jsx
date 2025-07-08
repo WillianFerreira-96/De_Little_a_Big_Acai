@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { BuscaAutomatica } from '../services/BuscaAutomatica';
 import { BuscaNavBar } from '../services/BuscaNavBar';
 import { BuscaComFiltro } from '../services/BuscaComFiltro';
@@ -6,12 +6,17 @@ import { FormatarData } from '../utils/FormatarData';
 import LoadModel from '../components/LoadModel'
 import AbrirLoadModel from '../utils/AbrirLoadModel';
 import FecharLoadModel from '../utils/FecharLoadModel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/pageBuscarEstoque.css';
 
 
 function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
     const [divVisivel, setDivVisivel] = useState(false)
     const [itens, setItens] = useState([])
     const [notFound, setNotFound] = useState([])
+
+    const overFlowDiv = useRef(null)
+    const offcanvasEl = useRef(null)
 
     //Ativar elemento 'Buscar' da NavBar
     useEffect(() => {
@@ -38,11 +43,14 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
     //Busca Com Filtro
     useEffect(() => {
         if (formFilter != null) {
-            BuscaComFiltro(formFilter).then((data)=>{
+            BuscaComFiltro(formFilter).then((data) => {
                 MostrarBusca(data)
             })
+
+            overFlowDiv.current.scrollTo({ left: 0, behavior: 'smooth' });
+            
         }
-    },[formFilter])
+    }, [formFilter])
 
     //Mostrar Resultados das Buscas
     function MostrarBusca(result) {
@@ -66,15 +74,12 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
         <>
             <LoadModel />
             <main>
-                <div id="overFlowDiv" style={{
-                    overflow: "auto",
-                    height: "calc(100vh - 56px)",
-                    width: "100vw"
-                }}>
-                    <table className="table table-light table-striped">
+                <div id="overFlowDiv" ref={overFlowDiv}>
+                    <table className="table table-head mt-1 table-hover">
                         <thead>
                             <tr>
                                 <th>Imagem</th>
+                                <th className="text-nowrap">Em Estoque</th>
                                 <th className="text-nowrap">ID</th>
                                 <th className="text-nowrap">Nome</th>
                                 <th className="text-nowrap">Marca</th>
@@ -88,13 +93,24 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
                                 <th className="text-nowrap">Data de Validade</th>
                                 <th className="text-nowrap">Lote</th>
                                 <th className="text-nowrap">Endereço de Armazenamento</th>
-                                <th className="text-nowrap">Em Estoque</th>
                                 <th className="text-nowrap">Motivo da Saída</th>
                                 <th className="text-nowrap">Data de Saída</th>
                             </tr>
                         </thead>
                         <tbody>
                             {itens.map((i) => {
+                                ''
+                                //Em Estoque
+                                var emEstoqueValor
+                                var emEstoqueClass
+                                if (i.emEstoque) {
+                                    emEstoqueValor = "Em Estoque"
+                                    emEstoqueClass = "table-light table-hover"
+                                } else {
+                                    emEstoqueValor = "Item Retirado"
+                                    emEstoqueClass = "item-retirado table-light table-hover"
+                                }
+
                                 //Data de Entrada
                                 var dataEntrString
                                 if (i.dataEntr == null) {
@@ -123,17 +139,6 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
                                     dataValidadeString = FormatarData(i.dataValidade, false)
                                 }
 
-                                //Em Estoque
-                                var emEstoqueValor
-                                var emEstoqueClass
-                                if (i.emEstoque) {
-                                    emEstoqueValor = "Em Estoque"
-                                    emEstoqueClass = "table-light table-hover"
-                                } else {
-                                    emEstoqueValor = "Item Retirado"
-                                    emEstoqueClass = "table-danger table-hover"
-                                }
-
                                 //Data de Saída
                                 var dataSaidString
                                 if (i.dataSaid == null) {
@@ -144,6 +149,7 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
 
                                 return <tr className={emEstoqueClass} key={i.idItem}>
                                     <td>{i.imagemItem}</td>
+                                    <td className="text-nowrap">{emEstoqueValor}</td>
                                     <td>000{i.idItem}</td>
                                     <td className="text-nowrap">{i.nomeItem}</td>
                                     <td className="text-nowrap">{i.marca}</td>
@@ -157,7 +163,6 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
                                     <td className="text-nowrap">{dataValidadeString}</td>
                                     <td className="text-nowrap">{i.lote}</td>
                                     <td className="text-nowrap">{i.enderecoArmazen}</td>
-                                    <td className="text-nowrap">{emEstoqueValor}</td>
                                     <td className="text-nowrap">{i.motivoSaida}</td>
                                     <td className="text-nowrap">{dataSaidString}</td>
                                 </tr>

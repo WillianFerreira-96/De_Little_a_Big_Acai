@@ -1,17 +1,19 @@
-import { useState } from 'react'
 import filtroIco from '../assets/img/ico/filtroIco.ico'
-import mascote from '../assets/img/mascote.png'
+import logo from '../assets/img/logotipo2.png'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/filterEstoque.css'
 import { useRef } from 'react'
 
-function FilterEstoque({onFormFilter}) {
+function FilterEstoque({ onFormFilter }) {
     const formFiltro = useRef(null)
-    const [filterNome, setFilterNome] = useState('')
+    const bntFilter = useRef(null)
 
-    function test(e) {
+    function dadosFormulario(e) {
         e.preventDefault()
         const formData = new FormData(formFiltro.current)
         onFormFilter(formData)
+
+        bntFilter.current?.click() //fecha o filterOffcanvas
     }
 
     return (
@@ -19,16 +21,16 @@ function FilterEstoque({onFormFilter}) {
             <div className="d-flex flex-row fixed-left">
                 <div id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabIndex="-1"
                     aria-labelledby="filterOffcanvasLabel">
-                    <div className="offcanvas-header">
-                        <img width="40px" src={mascote}
-                            alt="Litte Açaí Logo" />
-                        <h3 className="offcanvas-title ms-4" id="filterOffcanvasLabel">Filtrar por...</h3>
+                    <div className="offcanvas-header d-flex flex-column align-items-start">
                         <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <img width="170px" src={logo}
+                            alt="Litte Açaí Logo" />
                     </div>
                     <div className="offcanvas-body">{/*<!--OffCanvas Body-->*/}
-                        <button id="limparFiltro" className="btn btn-outline-secondary col-4 btn-sm mb-4">limpar filtro</button>
-                        <form ref={formFiltro} onSubmit={test}>
-                            <div className="form-switch m-0 mb-2 text-secondary" style={{ '--bs-text-opacity': .5 }}>
+                        <button id="limparFiltro" className="btn btn-outline col-4 btn-sm mb-4">Limpar filtro</button>
+
+                        <form ref={formFiltro} onSubmit={dadosFormulario}>
+                            <div className="form-switch m-0 mb-3" style={{ '--bs-text-opacity': .5 }}>
                                 <input id="switchCheckEmEstoque"
                                     name="switchCheckEmEstoque"
                                     value="1"
@@ -37,13 +39,13 @@ function FilterEstoque({onFormFilter}) {
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
                                     data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Apenas Itens Em Estoque" defaultChecked />
+                                    data-bs-title="Apenas Itens Em Estoque" />
                                 <input type="hidden" value="0" name="switchCheckEmEstoque" />
-                                <label className="form-check-label mt-1" style={{ fontSize: '.8rem' }}
+                                <label className=" ms-2 mt-1 text-white" style={{ fontSize: '.8rem' }}
                                     htmlFor="switchCheckEmEstoque">Em estoque</label>
                             </div>
                             <div className="form-floating mb-3">{/*<!--Nome-->*/}
-                                <input type="text" className="form-control" onChange={(e) => { setFilterNome(e.target.value) }} value={filterNome} id='filterNome' name="filterNome" />
+                                <input type="text" className="form-control" id='filterNome' name="filterNome" />
                                 <label className="form-label" htmlFor="filterNome">Nome</label>
                             </div>
                             <div className="form-floating mb-3">{/*<!--Marca-->*/}
@@ -184,14 +186,14 @@ function FilterEstoque({onFormFilter}) {
                                 </select>
                                 <label className="form-label" htmlFor="filterMotivoSaida">Motivo de Saída</label>
                             </div>
-                            <button type="submit" className="btn btn-outline-primary mt-4 col-12 fw-bold">Pesquisar</button>
+                            <button type="submit" className="btn btn-outline mt-4 col-12 fw-bold">Pesquisar</button>
                         </form>
                     </div>
                 </div>
 
                 {/*<!-------------------------------------------------------------------------------------------------->*/}
 
-                <button className="btn btn-filter d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
+                <button ref={bntFilter} className="btn btn-filter d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
                     data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas">
                     <img src={filtroIco} width="25px" />
                 </button>

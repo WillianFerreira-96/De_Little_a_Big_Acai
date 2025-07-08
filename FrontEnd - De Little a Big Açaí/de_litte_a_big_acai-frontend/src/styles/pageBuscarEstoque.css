@@ -1,0 +1,22 @@
+.table-head {
+    --bs-table-color: #000000;
+    --bs-table-bg: #298535;    
+    --bs-table-border-color: #000000;
+}
+
+.item-retirado {
+    --bs-table-color: red;  
+    --bs-table-border-color: #ff0000;
+    border-bottom-width: 3px;
+    font-weight: bolder;
+}
+
+.table-hover>tbody>tr:hover>* {
+    --bs-table-bg-state: rgba(125, 36, 126, 0.702);
+}
+
+#overFlowDiv{
+    overflow: auto;
+    height: calc(100vh - 56px);
+    width: 100vw;
+}

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '/src/styles/navBarEstoque.css'
 import logomarca from '../assets/img/mascote.png'
 import { useState } from 'react';
