@@ -2,44 +2,86 @@ import filtroIco from '../assets/img/ico/filtroIco.ico'
 import logo from '../assets/img/logotipo2.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/filterEstoque.css'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { Tooltip } from 'bootstrap';
 
 function FilterEstoque({ onFormFilter }) {
     const formFiltro = useRef(null)
-    const bntFilter = useRef(null)
+    const bntClose = useRef(null)
+    const filterOffcanvas = useRef(null)
+    const btnLimparRef = useRef(null)
 
     function dadosFormulario(e) {
         e.preventDefault()
         const formData = new FormData(formFiltro.current)
         onFormFilter(formData)
 
-        bntFilter.current?.click() //fecha o filterOffcanvas
+        bntClose.current.click() //fecha o filterOffcanvas
     }
+
+    useEffect(() => {
+        const btnLimpar = btnLimparRef.current
+        btnLimpar.addEventListener('click', () => {
+            const filtros = formFiltro.current
+            filtros['filterNome'].value = '';
+            filtros['filterMarca'].value = '';
+            filtros['filterCategotia'].value = '';
+            filtros['filterDataEntr'].value = '';
+            filtros['filterDataValidade'].value = '';
+            filtros['filterPrecoUni'].value = '';
+            filtros['filterQuant'].value = '';
+            filtros['filterVol'].value = '';
+            filtros['filterUnidMedida'].value = '';
+            filtros['filterLote'].value = '';
+            filtros['filterEnderecoArmazen'].value = '';
+            filtros['filterDataSaid'].value = '';
+            filtros['filterMotivoSaida'].value = '';
+        })
+    })
+
+    useEffect(() => {
+        const switchCheckEmEstoque = document.getElementById("switchCheckEmEstoque");
+        if (!switchCheckEmEstoque) return;
+        const tooltip = new Tooltip(switchCheckEmEstoque);
+
+        const handleChange = () => {
+            const novoTexto = switchCheckEmEstoque.checked ? "Apenas Itens Em Estoque" : "Todos os Itens";
+
+            switchCheckEmEstoque.setAttribute("data-bs-title", novoTexto);
+            tooltip.setContent({ ".tooltip-inner": novoTexto });
+        };
+
+        switchCheckEmEstoque.addEventListener("change", handleChange);
+        return () => {
+            switchCheckEmEstoque.removeEventListener("change", handleChange);
+            tooltip.dispose();
+        };
+    }, []);
 
     return (
         <>
             <div className="d-flex flex-row fixed-left">
-                <div id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabIndex="-1"
+                <div ref={filterOffcanvas} id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabIndex="-1"
                     aria-labelledby="filterOffcanvasLabel">
                     <div className="offcanvas-header d-flex flex-column align-items-start">
-                        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button ref={bntClose} type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         <img width="170px" src={logo}
                             alt="Litte Açaí Logo" />
                     </div>
                     <div className="offcanvas-body">{/*<!--OffCanvas Body-->*/}
-                        <button id="limparFiltro" className="btn btn-outline col-4 btn-sm mb-4">Limpar filtro</button>
+                        <button ref={btnLimparRef} id="limparFiltro" className="btn btn-outline col-4 btn-sm mb-4">Limpar filtro</button>
 
                         <form ref={formFiltro} onSubmit={dadosFormulario}>
-                            <div className="form-switch m-0 mb-3" style={{ '--bs-text-opacity': .5 }}>
+                            <div className="form-switch m-0 mb-3">
                                 <input id="switchCheckEmEstoque"
                                     name="switchCheckEmEstoque"
                                     value="1"
                                     className="form-check-input custom-tooltip"
                                     type="checkbox"
                                     data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
+                                    data-bs-placement="right"
                                     data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Apenas Itens Em Estoque" />
+                                    data-bs-title="Todos os Itens" />
                                 <input type="hidden" value="0" name="switchCheckEmEstoque" />
                                 <label className=" ms-2 mt-1 text-white" style={{ fontSize: '.8rem' }}
                                     htmlFor="switchCheckEmEstoque">Em estoque</label>
@@ -193,7 +235,7 @@ function FilterEstoque({ onFormFilter }) {
 
                 {/*<!-------------------------------------------------------------------------------------------------->*/}
 
-                <button ref={bntFilter} className="btn btn-filter d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
+                <button className="btn btn-filter d-flex align-items-center justify-content-center rounded-circle fixed-bottom mb-4 ms-2 " type="button"
                     data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas" aria-controls="filterOffcanvas">
                     <img src={filtroIco} width="25px" />
                 </button>

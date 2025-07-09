@@ -1,5 +1,4 @@
 //Busca Automática-------------------------------------------------------------------------------
-/*
 window.addEventListener("load",async (e)=>{
     abrirLoadModel()
     try{
@@ -69,7 +68,7 @@ formNavBar.addEventListener("submit",async (e)=>{
         fecharLoadModel()
     }
 })
-*/
+
 
 //Busca Filtrada---------------------------------------------------------------------------------
 const formFiltro = document.getElementById("formFiltro")
@@ -116,6 +115,8 @@ formFiltro.addEventListener("submit",async (e)=>{
     }
 })
 
+
+
 //Limpar Filtro----------------------------------------------------------------------------------
 const btnLimparFiltro = document.getElementById("limparFiltro")
 btnLimparFiltro.addEventListener("click",()=>{
@@ -134,6 +135,9 @@ btnLimparFiltro.addEventListener("click",()=>{
     document.getElementById("filterMotivoSaida").value=""
 })
 
+
+
+
 //Tooltips do Switch "Em Estoque"----------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const switchCheckEmEstoque = document.getElementById("switchCheckEmEstoque");
@@ -146,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tooltip.setContent({ '.tooltip-inner': novoTexto });
     });
 });
+
 
 //Funções----------------------------------------------------------------------------------------
 function mostrarResultadosBusca(data){
@@ -276,6 +281,7 @@ function mostrarResultadosBusca(data){
         document.querySelector("tbody").appendChild(row)
     })
 }
+
 
 function formatarData(dataLocalDateTime, withTime){
     const [datePart, timePart] = dataLocalDateTime.split("T");

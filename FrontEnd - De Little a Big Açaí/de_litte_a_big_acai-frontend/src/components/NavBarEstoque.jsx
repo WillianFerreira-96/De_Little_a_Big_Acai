@@ -1,18 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '/src/styles/navBarEstoque.css'
 import logomarca from '../assets/img/mascote.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRef } from 'react';
 
-function NavBarEstoque({ onLiftingNomeOuID}) {
+function NavBarEstoque({ onLiftingNomeOuID }) {
 
     var [nomeOuID, setNomeOuID] = useState('')
+    const toggleRef = useRef(null)
+    const menuRef = useRef(null)
 
     //State Up para a PageBuscarEstoque
     function StateUpNomeOuID(e) {
         e.preventDefault()
         onLiftingNomeOuID(nomeOuID)
+        toggleRef.current.click();
     }
-    
+
+    useEffect(() => {
+        const handleToggle = () => {
+            menuRef.current.classList.toggle('open');
+        };
+
+        const button = toggleRef.current;
+        button.addEventListener('click', handleToggle);
+
+        return () => {
+            button.removeEventListener('click', handleToggle);
+        };
+    }, []);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg fixed-top bg-green" aria-label="Main navigation">
@@ -23,12 +40,12 @@ function NavBarEstoque({ onLiftingNomeOuID}) {
                         <a className="navbar-brand ms-1 me-5 fs-4" href="#">Little Açaí</a>
                     </div>
 
-                    <button className="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse"
+                    <button ref={toggleRef} className="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse"
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="navbar-collapse offcanvas-collapse" id="navbarsDefault">
+                    <div ref={menuRef} className="navbar-collapse offcanvas-collapse" id="navbarsDefault">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 nav nav-pills">
                             <li className="nav-item">
                                 <a id="activeDashboard" className="nav-link" href="#">
@@ -57,7 +74,7 @@ function NavBarEstoque({ onLiftingNomeOuID}) {
                             </li>
                         </ul>
                         <form className="d-flex m-0" id="formNavBar" onSubmit={StateUpNomeOuID}>
-                            <input className="form-control me-2" value={nomeOuID} onChange={(e) => {setNomeOuID(e.target.value)}} type="search" name="nomeOuID" id="nomeOuID" placeholder="Buscar ID ou Nome" aria-label="Search" />
+                            <input className="form-control me-2" value={nomeOuID} onChange={(e) => { setNomeOuID(e.target.value) }} type="search" name="nomeOuID" id="nomeOuID" placeholder="Buscar ID ou Nome" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

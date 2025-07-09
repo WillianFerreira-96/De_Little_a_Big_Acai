@@ -16,7 +16,6 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
     const [notFound, setNotFound] = useState([])
 
     const overFlowDiv = useRef(null)
-    const offcanvasEl = useRef(null)
 
     //Ativar elemento 'Buscar' da NavBar
     useEffect(() => {

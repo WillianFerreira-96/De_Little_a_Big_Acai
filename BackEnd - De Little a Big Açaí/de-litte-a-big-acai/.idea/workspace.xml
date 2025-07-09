@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="deeea40e-ea3f-492e-b3d3-832a012b5b45" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/BackEnd - De Little a Big Açaí.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/litte_acai/de_litte_a_big_acai/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/litte_acai/de_litte_a_big_acai/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Definição do Projeto/Paleta de cores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Definição do Projeto/Paleta de cores.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/FilterEstoque.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/FilterEstoque.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/NavBarEstoque.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/NavBarEstoque.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/main.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/PageBuscarEstoque.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/PageBuscarEstoque.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/filterEstoque.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/filterEstoque.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/navBarEstoque.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/navBarEstoque.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +81,7 @@
       <workItem from="1751672128914" duration="4731000" />
       <workItem from="1751756860307" duration="2703000" />
       <workItem from="1751934850964" duration="3291000" />
+      <workItem from="1752022829542" duration="3753000" />
     </task>
     <servers />
   </component>
