@@ -1,4 +1,5 @@
 //Busca Automática-------------------------------------------------------------------------------
+/*
 window.addEventListener("load",async (e)=>{
     abrirLoadModel()
     try{
@@ -332,3 +333,4 @@ function limparDivs(){
     document.getElementById("ifEmpty").innerHTML=""
     document.querySelector("tbody").innerHTML=""
 }
+*/

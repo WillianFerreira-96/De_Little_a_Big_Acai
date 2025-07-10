@@ -28,11 +28,6 @@
     border-color: #d17bd3;
 }
 
-.custom-tooltip {
-    --bs-tooltip-bg: #652d90;
-    --bs-tooltip-color: #fff;
-}
-
 .btn-filter{
     background-color: rgba(101, 45, 144, 0.5) !important;
     height: 50px;

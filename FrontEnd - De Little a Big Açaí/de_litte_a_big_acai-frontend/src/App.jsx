@@ -2,7 +2,7 @@ import { useState } from 'react'
 import NavBarEstoque from './components/NavBarEstoque'
 import PageBuscarEstoque from './pages/PageBuscarEstoque'
 import FilterEstoque from './components/FilterEstoque'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 function App() {
   const [nomeOuID, setNomeOuID] = useState(null)

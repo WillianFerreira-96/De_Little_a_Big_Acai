@@ -1,14 +1,12 @@
 import filtroIco from '../assets/img/ico/filtroIco.ico'
 import logo from '../assets/img/logotipo2.png'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/filterEstoque.css'
 import { useEffect, useRef } from 'react'
-import { Tooltip } from 'bootstrap';
 
 function FilterEstoque({ onFormFilter }) {
     const formFiltro = useRef(null)
     const bntClose = useRef(null)
-    const filterOffcanvas = useRef(null)
     const btnLimparRef = useRef(null)
 
     function dadosFormulario(e) {
@@ -38,33 +36,13 @@ function FilterEstoque({ onFormFilter }) {
             filtros['filterMotivoSaida'].value = '';
         })
     })
-
-    useEffect(() => {
-        const switchCheckEmEstoque = document.getElementById("switchCheckEmEstoque");
-        if (!switchCheckEmEstoque) return;
-        const tooltip = new Tooltip(switchCheckEmEstoque);
-
-        const handleChange = () => {
-            const novoTexto = switchCheckEmEstoque.checked ? "Apenas Itens Em Estoque" : "Todos os Itens";
-
-            switchCheckEmEstoque.setAttribute("data-bs-title", novoTexto);
-            tooltip.setContent({ ".tooltip-inner": novoTexto });
-        };
-
-        switchCheckEmEstoque.addEventListener("change", handleChange);
-        return () => {
-            switchCheckEmEstoque.removeEventListener("change", handleChange);
-            tooltip.dispose();
-        };
-    }, []);
-
+    
     return (
         <>
             <div className="d-flex flex-row fixed-left">
-                <div ref={filterOffcanvas} id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabIndex="-1"
-                    aria-labelledby="filterOffcanvasLabel">
+                <div id="filterOffcanvas" className="offcanvas offcanvas-start p-3" tabIndex="-1">
                     <div className="offcanvas-header d-flex flex-column align-items-start">
-                        <button ref={bntClose} type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button ref={bntClose} type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         <img width="170px" src={logo}
                             alt="Litte Açaí Logo" />
                     </div>
@@ -76,12 +54,8 @@ function FilterEstoque({ onFormFilter }) {
                                 <input id="switchCheckEmEstoque"
                                     name="switchCheckEmEstoque"
                                     value="1"
-                                    className="form-check-input custom-tooltip"
-                                    type="checkbox"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="right"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="Todos os Itens" />
+                                    className="form-check-input"
+                                    type="checkbox"/>
                                 <input type="hidden" value="0" name="switchCheckEmEstoque" />
                                 <label className=" ms-2 mt-1 text-white" style={{ fontSize: '.8rem' }}
                                     htmlFor="switchCheckEmEstoque">Em estoque</label>
