@@ -2,12 +2,15 @@ import filtroIco from '../assets/img/ico/filtroIco.ico'
 import logo from '../assets/img/logotipo2.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/filterEstoque.css'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function FilterEstoque({ onFormFilter }) {
     const formFiltro = useRef(null)
     const bntClose = useRef(null)
     const btnLimparRef = useRef(null)
+    const [dataInputEntr, setDataInputEntr] = useState('dataInput')
+    const [dataInputVal, setDataInputVal] = useState('dataInput')
+    const [dataInputSaid, setDataInputSaid] = useState('dataInput')
 
     function dadosFormulario(e) {
         e.preventDefault()
@@ -18,25 +21,32 @@ function FilterEstoque({ onFormFilter }) {
     }
 
     useEffect(() => {
+        const filtros = formFiltro.current
+        filtros['filterDataEntr'].addEventListener('click', () => { setDataInputEntr('dataInputVisible') })
+        filtros['filterDataValidade'].addEventListener('click', () => { setDataInputVal('dataInputVisible') })
+        filtros['filterDataSaid'].addEventListener('click', () => { setDataInputSaid('dataInputVisible') })
+    }, [])
+
+    useEffect(() => {
         const btnLimpar = btnLimparRef.current
         btnLimpar.addEventListener('click', () => {
             const filtros = formFiltro.current
             filtros['filterNome'].value = '';
             filtros['filterMarca'].value = '';
             filtros['filterCategotia'].value = '';
-            filtros['filterDataEntr'].value = '';
-            filtros['filterDataValidade'].value = '';
+            filtros['filterDataEntr'].value = ''; setDataInputEntr('dataInput');           
+            filtros['filterDataValidade'].value = ''; setDataInputVal('dataInput');
             filtros['filterPrecoUni'].value = '';
             filtros['filterQuant'].value = '';
             filtros['filterVol'].value = '';
             filtros['filterUnidMedida'].value = '';
             filtros['filterLote'].value = '';
             filtros['filterEnderecoArmazen'].value = '';
-            filtros['filterDataSaid'].value = '';
+            filtros['filterDataSaid'].value = ''; setDataInputSaid('dataInput');
             filtros['filterMotivoSaida'].value = '';
         })
     })
-    
+
     return (
         <>
             <div className="d-flex flex-row fixed-left">
@@ -55,7 +65,7 @@ function FilterEstoque({ onFormFilter }) {
                                     name="switchCheckEmEstoque"
                                     value="1"
                                     className="form-check-input"
-                                    type="checkbox"/>
+                                    type="checkbox" />
                                 <input type="hidden" value="0" name="switchCheckEmEstoque" />
                                 <label className=" ms-2 mt-1 text-white" style={{ fontSize: '.8rem' }}
                                     htmlFor="switchCheckEmEstoque">Em estoque</label>
@@ -81,7 +91,7 @@ function FilterEstoque({ onFormFilter }) {
 
                             <fieldset>{/*<!--Data de entrada-->*/}
                                 <div className="form-floating">
-                                    <input className="form-control text-dark dataInput" type="date" id="filterDataEntr" name="filterDataEntr" />
+                                    <input className={"form-control text-dark " + dataInputEntr} type="date" id="filterDataEntr" name="filterDataEntr" />
                                     <label htmlFor="filterDataEntr" className="form-label">Data de entrada</label>
                                 </div>
                                 <div className="d-flex justify-content-between text-secondary dataInputLabel" >
@@ -94,10 +104,10 @@ function FilterEstoque({ onFormFilter }) {
 
                             <fieldset className="mt-4">{/*<!--Data de validade-->*/}
                                 <div className="form-floating">
-                                    <input className="form-control text-dark dataInput" type="date" id="filterDataValidade" name="filterDataValidade" />
+                                    <input className={"form-control text-dark " + dataInputVal} type="date" id="filterDataValidade" name="filterDataValidade" />
                                     <label htmlFor="filterDataValidade" className="form-label">Data de validade</label>
                                 </div>
-                                <div className="d-flex justify-content-between text-secondary" style={{ fontSize: '0.7rem' }}>
+                                <div className="d-flex justify-content-between text-secondary dataInputLabel">
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">Antes do dia</label>
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">No dia</label>
                                     <label htmlFor="comparacaoDataValid" className="form-label m-0">Depois do dia</label>
@@ -181,7 +191,7 @@ function FilterEstoque({ onFormFilter }) {
 
                             <fieldset className="mt-4">{/*<!--Data de Saída-->*/}
                                 <div className="form-floating">
-                                    <input className="form-control text-dark dataInput" type="date" id="filterDataSaid" name="filterDataSaid" />
+                                    <input className={"form-control text-dark " + dataInputSaid} type="date" id="filterDataSaid" name="filterDataSaid" />
                                     <label htmlFor="filterDataSaid" className="form-label">Data de saída</label>
                                 </div>
                                 <div className="d-flex justify-content-between text-secondary dataInputLabel">

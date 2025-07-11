@@ -75,7 +75,7 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
             <main>
                 <div id="overFlowDiv" ref={overFlowDiv}>
                     <table className="table table-head mt-1 table-hover">
-                        <thead>
+                        <thead className='sticky-top'>
                             <tr>
                                 <th>Imagem</th>
                                 <th className="text-nowrap">Em Estoque</th>
@@ -98,7 +98,6 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
                         </thead>
                         <tbody>
                             {itens.map((i) => {
-                                ''
                                 //Em Estoque
                                 var emEstoqueValor
                                 var emEstoqueClass
