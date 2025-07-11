@@ -1,9 +1,145 @@
-#divCadastro{
-    height: calc(100vh - 56px);
-    overflow: scroll;
+#mainCadastrar {
+    background-color: #770d4b;
 }
 
-#divLogo img{
-    width: 30vw;
-    height: auto;
+.bg-form {
+    background-color: #7d247e;
+}
+
+h2 {
+    color: #fadcfa;
+}
+
+.overflow::-webkit-scrollbar {
+    background: #d17bd3;
+    border-radius: 30px;
+}
+
+.overflow::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    border: 15px solid transparent;
+    background-clip: content-box;
+}
+
+.overflow::-webkit-scrollbar {
+    width: 13px;
+}
+
+.overflow::-webkit-scrollbar-track {
+    background: #d17bd3;
+    border-radius: 30px;
+}
+
+.overflow::-webkit-scrollbar-thumb {
+    background-color: #68016c;
+    border-radius: 30px;
+    border: 2px solid transparent;
+}
+
+.overflow::-webkit-scrollbar-thumb:hover {
+    background-color: #7d247e;
+    border-radius: 30px;
+    border: 2px solid transparent;
+}
+
+
+#divCadastro .form-control,
+.form-select {
+    color: #3f0460;
+    background-color: #fadcfa;
+    border: var(--bs-border-width) solid #3f0460;
+}
+
+.form-floating .form-label {
+    color: #3f0460 !important;
+}
+
+#imagemItem::-webkit-file-upload-button {
+    background-color: #3f0460;
+    color: #fadcfa;
+    padding: 8px 16px;
+    font-weight: bold;
+
+}
+
+#imagemItem {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+.btn-cadastrar {
+    color: #fff;
+    border: #e00b87 solid 3px;
+    --bs-btn-hover-color: #3f0460;
+    --bs-btn-hover-bg: #e00b87;
+    --bs-btn-hover-border-color: #e00b87;
+
+}
+
+#divCadastro {
+    height: calc(100vh - 56px);
+}
+
+.overflow {
+    height: 40vh;
+    overflow-y: scroll;
+}
+
+#divLogo img {
+    width: auto;
+    height: 50vh;
+    position: static;
+}
+
+@media (max-width: 1200px) {
+
+    #divLogo img {
+        width: auto;
+        height: 22vh;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 21%;
+        left: 67%;
+    }
+}
+
+@media (max-width:900px) {
+    #mainCadastrar {
+        height: 135vh;
+    }
+
+    #divCadastro {
+        margin-top: 30vh;
+        height: 80vh;
+    }
+
+    #divLogo img {
+        width: auto;
+        height: 35vh;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 43%;
+        left: 76%;
+    }
+}
+
+@media (max-width: 640px) {
+    #mainCadastrar {
+        height: calc(100vh - 56px);
+    }
+
+    #divCadastro {
+        margin-top: auto;
+        height: 80vh;
+    }
+
+    #divLogo img {
+        width: auto;
+        height: 14vh;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 16%;
+        left: 75%;
+    }
 }

@@ -1,7 +1,7 @@
 import filtroIco from '../assets/img/ico/filtroIco.ico'
 import logo from '../assets/img/logotipo2.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/estoquefilter.css'
+import '../styles/estoqueFilter.css'
 import { useEffect, useRef, useState } from 'react'
 
 function EstoqueFilter({ onFormFilter }) {
