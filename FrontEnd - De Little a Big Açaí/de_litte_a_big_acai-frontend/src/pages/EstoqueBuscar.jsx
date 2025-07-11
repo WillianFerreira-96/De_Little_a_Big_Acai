@@ -7,10 +7,10 @@ import LoadModel from '../components/LoadModel'
 import AbrirLoadModel from '../utils/AbrirLoadModel';
 import FecharLoadModel from '../utils/FecharLoadModel';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/pageBuscarEstoque.css';
+import '../styles/estoqueBuscar.css';
 
 
-function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
+function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
     const [divVisivel, setDivVisivel] = useState(false)
     const [itens, setItens] = useState([])
     const [notFound, setNotFound] = useState([])
@@ -174,4 +174,4 @@ function PageBuscarEstoque({ liftingNomeOuID, formFilter }) {
     )
 }
 
-export default PageBuscarEstoque;
+export default EstoqueBuscar;

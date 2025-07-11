@@ -1,18 +1,37 @@
+import { Routes, Route } from 'react-router-dom'
+import EstoqueBuscar from './pages/EstoqueBuscar'
+import EstoqueCadastrar from './pages/EstoqueCadastrar'
+
 import { useState } from 'react'
-import NavBarEstoque from './components/NavBarEstoque'
-import PageBuscarEstoque from './pages/PageBuscarEstoque'
-import FilterEstoque from './components/FilterEstoque'
+import EstoqueNavBar from './components/EstoqueNavBar'
+import EstoqueFilter from './components/EstoqueFilter'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 function App() {
   const [nomeOuID, setNomeOuID] = useState(null)
   const [formData, setFormData] = useState(null)
   return (
-    <>      
-      <NavBarEstoque onLiftingNomeOuID={setNomeOuID} />
-      <PageBuscarEstoque liftingNomeOuID={nomeOuID} formFilter={formData} />
-      <FilterEstoque onFormFilter={setFormData}/>
-    </>
+    <Routes>
+      <Route path='/estoque/buscar'
+        element={
+          <>
+            <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
+            <EstoqueBuscar liftingNomeOuID={nomeOuID} formFilter={formData} />
+            <EstoqueFilter onFormFilter={setFormData} />
+          </>
+        }
+      />
+
+      <Route path='/estoque/cadastrar'
+        element={
+          <>
+            <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
+            <EstoqueCadastrar />
+          </>
+        }
+      />
+
+    </Routes>
   )
 }
 

@@ -1,10 +1,10 @@
 import filtroIco from '../assets/img/ico/filtroIco.ico'
 import logo from '../assets/img/logotipo2.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../styles/filterEstoque.css'
+import '../styles/estoquefilter.css'
 import { useEffect, useRef, useState } from 'react'
 
-function FilterEstoque({ onFormFilter }) {
+function EstoqueFilter({ onFormFilter }) {
     const formFiltro = useRef(null)
     const bntClose = useRef(null)
     const btnLimparRef = useRef(null)
@@ -228,4 +228,4 @@ function FilterEstoque({ onFormFilter }) {
     )
 }
 
-export default FilterEstoque;
+export default EstoqueFilter;

@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '/src/styles/navBarEstoque.css'
+import '/src/styles/estoqueNavBar.css'
 import logomarca from '../assets/img/mascote.png'
 import { useState, useEffect } from 'react';
 import { useRef } from 'react';
 
-function NavBarEstoque({ onLiftingNomeOuID }) {
+function EstoqueNavBar({ onLiftingNomeOuID }) {
 
     var [nomeOuID, setNomeOuID] = useState('')
     const toggleRef = useRef(null)
@@ -84,4 +84,4 @@ function NavBarEstoque({ onLiftingNomeOuID }) {
     );
 }
 
-export default NavBarEstoque;
+export default EstoqueNavBar;
