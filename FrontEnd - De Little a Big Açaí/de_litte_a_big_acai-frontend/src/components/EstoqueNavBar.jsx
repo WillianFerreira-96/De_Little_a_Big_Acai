@@ -3,16 +3,19 @@ import '/src/styles/estoqueNavBar.css'
 import logomarca from '../assets/img/mascote.png'
 import { useState, useEffect } from 'react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function EstoqueNavBar({ onLiftingNomeOuID }) {
 
     var [nomeOuID, setNomeOuID] = useState('')
     const toggleRef = useRef(null)
     const menuRef = useRef(null)
+    const navigate = useNavigate();
 
     //State Up para a PageBuscarEstoque
     function StateUpNomeOuID(e) {
         e.preventDefault()
+        navigate('/estoque/buscar');
         onLiftingNomeOuID(nomeOuID)
         toggleRef.current.click();
     }
@@ -64,12 +67,7 @@ function EstoqueNavBar({ onLiftingNomeOuID }) {
                             </li>
                             <li className="nav-item">
                                 <a id="activeSaida" className="nav-link" href="#">
-                                    <p className="offcanvas-collapse-text mb-0">Saída de Item</p>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a id="activeEditar" className="nav-link" href="#">
-                                    <p className="offcanvas-collapse-text mb-0">Editar Item</p>
+                                    <p className="offcanvas-collapse-text mb-0">Retirada de Item</p>
                                 </a>
                             </li>
                         </ul>

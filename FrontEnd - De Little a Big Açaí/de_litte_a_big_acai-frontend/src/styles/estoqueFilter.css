@@ -3,6 +3,15 @@
     background-size: contain;    
 }
 
+.offcanvas-body {
+    overflow-y: hidden;
+}
+
+#divOverflow{
+    overflow-y: auto;
+    height: 45vh;
+}
+
 /*Rage*/
 .form-range::-webkit-slider-thumb {
     background-color: #ff00fe; /* Cor do pino */
@@ -50,33 +59,33 @@
     font-size: 0.7rem;
 }
 
-.offcanvas-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   background: #d17bd3;
   border-radius: 30px;
 }
 
-.offcanvas-body::-webkit-scrollbar-thumb {  
+::-webkit-scrollbar-thumb {  
   border-radius: 4px;
   border: 15px solid transparent;
   background-clip: content-box;
 }
 
-.offcanvas-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 13px;
 }
 
-.offcanvas-body::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: #d17bd3;
   border-radius: 30px;
 }
 
-.offcanvas-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #68016c;
   border-radius: 30px;
   border: 2px solid transparent;
 }
 
-.offcanvas-body::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover{
   background-color: #7d247e;
   border-radius: 30px;
   border: 2px solid transparent;

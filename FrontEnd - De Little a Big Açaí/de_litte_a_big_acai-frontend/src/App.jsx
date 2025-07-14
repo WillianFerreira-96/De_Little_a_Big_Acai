@@ -5,6 +5,7 @@ import EstoqueCadastrar from './pages/EstoqueCadastrar'
 import { useState } from 'react'
 import EstoqueNavBar from './components/EstoqueNavBar'
 import EstoqueFilter from './components/EstoqueFilter'
+import EstoqueInforItem from './components/EstoqueInforItem'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path='/estoque/buscar'
         element={
           <>
+            <EstoqueInforItem />
             <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
             <EstoqueBuscar liftingNomeOuID={nomeOuID} formFilter={formData} />
             <EstoqueFilter onFormFilter={setFormData} />

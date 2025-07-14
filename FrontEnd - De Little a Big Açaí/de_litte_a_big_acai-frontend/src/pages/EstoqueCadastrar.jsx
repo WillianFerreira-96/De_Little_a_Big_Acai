@@ -6,8 +6,10 @@ import logotipo from '../assets/img/logotipo3.png'
 function EstoqueCadastrar() {
     //Ativar elemento 'Cadastrar' da NavBar
     useEffect(() => {
+        const activeBuscar = document.getElementById('activeBuscar')
         const activeCadastrar = document.getElementById('activeCadastrar')
         activeCadastrar.className = 'nav-link activated'
+        activeBuscar.className = 'nav-link'
     })
 
     return <>
@@ -17,14 +19,14 @@ function EstoqueCadastrar() {
                     <div id="divCadastro" className="col-12 col-xl-6 d-flex flex-xl-column align-items-center justify-content-center">
                         <div className='bg-form pt-4 pb-4 p-sm-5 rounded'>
                             <h2 className="text-center mb-3 fs-1 fw-bolder text-wrap">Cadastrar<h5>Novo Item</h5></h2>
-                            
+
                             <form id="formulario" className="d-flex flex-column align-items-center" enctype="multipart/form-data">
                                 <div className='overflow p-3'>
                                     <div className="mb-3">{/*<!--Foto-->*/}
                                         <input className="form-control" type="file" id="imagemItem" name="imagemItem" />
                                     </div>
                                     <div className="form-floating mb-3">{/*<!--Nome-->*/}
-                                        <input type="text" className="form-control" id="nomeItem" name="nomeItem" required/>
+                                        <input type="text" className="form-control" id="nomeItem" name="nomeItem" required />
                                         <label className="form-label" for="nomeItem">Nome</label>
                                     </div>
                                     <div className="form-floating mb-3">{/*<!--Marca-->*/}

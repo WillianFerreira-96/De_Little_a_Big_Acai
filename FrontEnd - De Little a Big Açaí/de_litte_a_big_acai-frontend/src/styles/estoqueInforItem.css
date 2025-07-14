@@ -1,0 +1,24 @@
+#inforItemOffcanvas   {
+    width: 100vw;
+    height: 100vh;
+}
+
+.offcanvas-body {
+    overflow-y: hidden;
+}
+
+
+#inforItemOffcanvas .form-control,
+#inforItemOffcanvas .form-select {
+    color: #3f0460;
+    background-color: #ffffff;
+    border: var(--bs-border-width) solid #3f0460;
+}
+
+.form-label {
+    color: #fff !important;
+}
+
+.form-floating .form-label {
+    color: #3f0460 !important;
+}
