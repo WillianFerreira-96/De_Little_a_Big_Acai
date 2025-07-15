@@ -3,10 +3,41 @@
     height: 100vh;
 }
 
+.col{
+    height: 100vh;
+}
+
+.descricoes{
+    height: 80vh;
+}
+
+#divBtns{
+    height: 20vh;
+}
+
+.card{
+    height: 90vh;
+    width: 85%;
+}
+
+.container-img{
+    width: 100%;
+    height: 50vh;
+
+}
+
+.card-img-top{
+    max-height: 90%;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+}
+
+
+
 .offcanvas-body {
     overflow-y: hidden;
 }
-
 
 #inforItemOffcanvas .form-control,
 #inforItemOffcanvas .form-select {
