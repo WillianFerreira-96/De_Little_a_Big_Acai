@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba19e3f6-0de2-4e0b-b722-40e93768349b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/assets/img/logotipo6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/services/CadastrarItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueInforItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueInforItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/EstoqueBuscar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/EstoqueBuscar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/EstoqueCadastrar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/pages/EstoqueCadastrar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/services/BuscaComFiltro.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/services/BuscaComFiltro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/estoqueBuscar.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/estoqueBuscar.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1752546331540</updated>
       <workItem from="1752546334025" duration="1354000" />
-      <workItem from="1752605297719" duration="1503000" />
+      <workItem from="1752605297719" duration="4535000" />
     </task>
     <servers />
   </component>

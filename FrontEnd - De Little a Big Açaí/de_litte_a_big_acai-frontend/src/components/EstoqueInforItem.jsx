@@ -15,7 +15,7 @@ function EstoqueInforItem({ onFormFilter }) {
         const formData = new FormData(formFiltro.current)
         onFormFilter(formData)
 
-        bntClose.current.click() //fecha o filterOffcanvas
+        bntClose.current.click()
     }
 
     return (
@@ -24,7 +24,7 @@ function EstoqueInforItem({ onFormFilter }) {
                 <form ref={formFiltro} onSubmit={dadosFormulario} className='row'>
                     <div className="col-4 d-flex align-items-center justify-content-end">
 
-                        <div className="card">
+                        <div className="card shadow">
                             <div className='container-img bg-info p-0 rounded d-flex align-items-center justify-content-center'>
                                 <img src={logo} className="card-img-top bg-white rounded p-3" alt="..." />{/*<!--Imagem-->*/}
                             </div>

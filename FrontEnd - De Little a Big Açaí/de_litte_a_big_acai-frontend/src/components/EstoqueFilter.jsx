@@ -17,7 +17,7 @@ function EstoqueFilter({ onFormFilter }) {
         const formData = new FormData(formFiltro.current)
         onFormFilter(formData)
 
-        bntClose.current.click() //fecha o filterOffcanvas
+        bntClose.current.click()
     }
 
     useEffect(() => {

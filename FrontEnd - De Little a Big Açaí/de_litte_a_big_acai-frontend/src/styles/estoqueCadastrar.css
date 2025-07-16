@@ -92,6 +92,25 @@ h2 {
     position: static;
 }
 
+#divSwal{
+    color: #000000;
+    background-color: rgba(128, 128, 128, 0.062);
+    padding: 2vh 3vw 2vh;
+    border-radius: 5px;
+    text-align: start;
+    font-weight: lighter;
+    font-size: medium;
+    box-shadow: #0000003f -2px 2px 2px;
+    cursor: default;
+}
+
+#divSwal b:hover {
+    font-weight: bold;
+    color: #0a9700;
+    text-decoration: none;    
+}
+
+
 @media (max-width: 1200px) {
 
     #divLogo img {

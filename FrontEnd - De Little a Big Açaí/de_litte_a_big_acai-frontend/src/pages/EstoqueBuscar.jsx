@@ -8,6 +8,7 @@ import AbrirLoadModel from '../utils/AbrirLoadModel';
 import FecharLoadModel from '../utils/FecharLoadModel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/estoqueBuscar.css';
+import imagemVazia from '../assets/img/logotipo4.png'
 
 
 function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
@@ -16,7 +17,6 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
     const [notFound, setNotFound] = useState([])
 
     const overFlowDiv = useRef(null)
-    const btnInforItem = useRef(null)
 
     //Ativar elemento 'Buscar' da NavBar
     useEffect(() => {
@@ -71,17 +71,17 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                 setItens(result)
                 FecharLoadModel()
             }
-        }, 250);
+        }, 150);
     }
 
     return <>
         <LoadModel />
         <main>
             <div id="overFlowDiv" ref={overFlowDiv}>
-                <table className="table table-head mt-1 table-hover">
+                <table className="table align-middle table-head mt-1 table-hover">
                     <thead className='sticky-top'>
                         <tr>
-                            <th>Imagem</th>
+                            <th className='ps-5'>Imagem</th>
                             <th className="text-nowrap">Em Estoque</th>
                             <th className="text-nowrap">ID</th>
                             <th className="text-nowrap">Nome</th>
@@ -101,7 +101,9 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {itens.map((i) => {
+                        {itens.map((i) => {                    
+
+
                             //Em Estoque
                             var emEstoqueValor
                             var emEstoqueClass
@@ -149,25 +151,35 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                                 dataSaidString = FormatarData(i.dataSaid, true)
                             }
 
-                            return <tr className={emEstoqueClass} key={i.idItem} data-bs-toggle="offcanvas" data-bs-target="#inforItemOffcanvas" aria-controls="inforItemOffcanvas">
-                                <td>{i.imagemItem}</td>
-                                <td className="text-nowrap">{emEstoqueValor}</td>
-                                <td>000{i.idItem}</td>
-                                <td className="text-nowrap">{i.nomeItem}</td>
-                                <td className="text-nowrap">{i.marca}</td>
-                                <td className="text-nowrap">{i.descricaoItem}</td>
-                                <td className="text-nowrap">{i.categoria}</td>
-                                <td className="text-nowrap">{dataEntrString}</td>
-                                <td className="text-nowrap">{preco}</td>
-                                <td className="text-nowrap">{`${i.quant} unidade(s)`}</td>
-                                <td className="text-nowrap">{valorTotal}</td>
-                                <td className="text-nowrap">{volume}</td>
-                                <td className="text-nowrap">{dataValidadeString}</td>
-                                <td className="text-nowrap">{i.lote}</td>
-                                <td className="text-nowrap">{i.enderecoArmazen}</td>
-                                <td className="text-nowrap">{i.motivoSaida}</td>
-                                <td className="text-nowrap">{dataSaidString}</td>
-                            </tr>
+                            return <>
+                                <tr className={emEstoqueClass} key={i.idItem} data-bs-toggle="offcanvas" data-bs-target="#inforItemOffcanvas" aria-controls="inforItemOffcanvas">
+
+                                    <td>
+                                        
+                                        <img className='miniImagem ps-5'
+                                            src={i.imagemItem!=''?`data:image;base64,${i.imagemItem}`:imagemVazia}
+                                        />
+                                        
+                                    </td>
+                                    <td className="text-nowrap">{emEstoqueValor}</td>
+                                    <td>000{i.idItem}</td>
+                                    <td className="text-nowrap">{i.nomeItem}</td>
+                                    <td className="text-nowrap">{i.marca}</td>
+                                    <td className="text-nowrap">{i.descricaoItem}</td>
+                                    <td className="text-nowrap">{i.categoria}</td>
+                                    <td className="text-nowrap">{dataEntrString}</td>
+                                    <td className="text-nowrap">{preco}</td>
+                                    <td className="text-nowrap">{`${i.quant} unidade(s)`}</td>
+                                    <td className="text-nowrap">{valorTotal}</td>
+                                    <td className="text-nowrap">{volume}</td>
+                                    <td className="text-nowrap">{dataValidadeString}</td>
+                                    <td className="text-nowrap">{i.lote}</td>
+                                    <td className="text-nowrap">{i.enderecoArmazen}</td>
+                                    <td className="text-nowrap">{i.motivoSaida}</td>
+                                    <td className="text-nowrap">{dataSaidString}</td>
+                                </tr>
+                            </>
+
                         })}
                     </tbody>
                 </table>
