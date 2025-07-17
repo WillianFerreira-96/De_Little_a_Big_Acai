@@ -11,14 +11,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 function App() {
   const [nomeOuID, setNomeOuID] = useState(null)
   const [formData, setFormData] = useState(null)
+  const [dadosItem, setDadosItem] = useState(null)
   return (
     <Routes>
       <Route path='/estoque/buscar'
         element={
           <>
-            <EstoqueInforItem />
+            <EstoqueInforItem dadosItemLifting={dadosItem} />
             <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
-            <EstoqueBuscar liftingNomeOuID={nomeOuID} formFilter={formData} />
+            <EstoqueBuscar onDadosItemLifting={setDadosItem} liftingNomeOuID={nomeOuID} formFilter={formData} />
             <EstoqueFilter onFormFilter={setFormData} />
           </>
         }

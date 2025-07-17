@@ -11,12 +11,13 @@ import '../styles/estoqueBuscar.css';
 import imagemVazia from '../assets/img/logotipo4.png'
 
 
-function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
+function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     const [divVisivel, setDivVisivel] = useState(false)
     const [itens, setItens] = useState([])
     const [notFound, setNotFound] = useState([])
 
     const overFlowDiv = useRef(null)
+    const btnInforItem = useRef(null)
 
     //Ativar elemento 'Buscar' da NavBar
     useEffect(() => {
@@ -74,6 +75,11 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
         }, 150);
     }
 
+    function mostrarItem(item) {
+        onDadosItemLifting(item)
+        btnInforItem.current.click()
+    }
+
     return <>
         <LoadModel />
         <main>
@@ -100,10 +106,8 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                             <th className="text-nowrap">Data de Saída</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {itens.map((i) => {                    
-
-
+                    <tbody>                        
+                        {itens.map((i) => {
                             //Em Estoque
                             var emEstoqueValor
                             var emEstoqueClass
@@ -126,6 +130,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                             //Preço por Unidade
                             var [intero, decimal] = i.precoUni.toFixed(2).toString().split(".")
                             var preco = "R$ " + intero + "," + decimal
+                            i.preco = preco
 
                             //Valor Total
                             var [intero, decimal] = (i.precoUni * i.quant).toFixed(2).toString().split(".")
@@ -151,15 +156,10 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                                 dataSaidString = FormatarData(i.dataSaid, true)
                             }
 
-                            return <>
-                                <tr className={emEstoqueClass} key={i.idItem} data-bs-toggle="offcanvas" data-bs-target="#inforItemOffcanvas" aria-controls="inforItemOffcanvas">
-
+                            return <>                                
+                                <tr onDoubleClick={()=>{mostrarItem(i)}} className={emEstoqueClass} key={i.idItem} style={{cursor: 'pointer'}}>
                                     <td>
-                                        
-                                        <img className='miniImagem ps-5'
-                                            src={i.imagemItem!=''?`data:image;base64,${i.imagemItem}`:imagemVazia}
-                                        />
-                                        
+                                        <img className='miniImagem ps-5' src={i.imagemItem!=''?`data:image;base64,${i.imagemItem}` : imagemVazia} />
                                     </td>
                                     <td className="text-nowrap">{emEstoqueValor}</td>
                                     <td>000{i.idItem}</td>
@@ -183,6 +183,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter }) {
                         })}
                     </tbody>
                 </table>
+                <button ref={btnInforItem} className='d-none' data-bs-toggle="offcanvas" data-bs-target="#inforItemOffcanvas" aria-controls="inforItemOffcanvas"></button>
                 <div style={{ display: divVisivel ? 'block' : 'none' }} className="h2 text-center mt-5">{notFound}</div>
             </div>
         </main>

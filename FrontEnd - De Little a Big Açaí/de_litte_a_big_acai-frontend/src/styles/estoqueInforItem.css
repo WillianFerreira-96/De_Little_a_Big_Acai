@@ -46,10 +46,7 @@
     border: var(--bs-border-width) solid #3f0460;
 }
 
-.form-label {
-    color: #fff !important;
-}
 
 .form-floating .form-label {
-    color: #3f0460 !important;
+    color: #c5c5c5 !important;
 }
