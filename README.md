@@ -84,7 +84,7 @@ npm run dev
 ```
 
 ## 📸 Imagens
-<p float="left"> <img src="screenshots/busca.jpg" height="200"/> <img src="screenshots/busca responsiva.jpeg" height="200"/> <img src="screenshots/pequisa exemplo.jpg" height="200"/> <img src="screenshots/navbar responsiva.jpeg" height="200"/> <img src="screenshots/filtro.jpg" height="200"/> <img src="screenshots/filtro responsivo.jpeg" height="200"/>  </p>
+<p float="left"> <img src="screenshots/versão Jul-25/busca.jpg" height="200"/> <img src="screenshots/versão Jul-25/busca responsiva.jpeg" height="200"/> <img src="screenshots/versão Jul-25/pequisa exemplo.jpg" height="200"/> <img src="screenshots/versão Jul-25/navbar responsiva.jpeg" height="200"/> <img src="screenshots/versão Jul-25/filtro.jpg" height="200"/> <img src="screenshots/versão Jul-25/filtro responsivo.jpeg" height="200"/>  </p>
 
 ## 👨‍💻 Desenvolvedor
 Este projeto foi desenvolvido integralmente por:

@@ -48,6 +48,8 @@ function EstoqueInforItem({ dadosItemLifting }) {
         setArmazenamento(item?.enderecoArmazen)
         setDataSaida(item?.dataSaid?.slice(0, 16) || '')
         setMotivoSaida(item?.motivoSaida || 'nao retirado')
+
+        console.log(item?.imagemItem)
     }, [item])
 
 
@@ -60,10 +62,13 @@ function EstoqueInforItem({ dadosItemLifting }) {
     return (
         <>
             <div id="inforItemOffcanvas" className="offcanvas offcanvas-start bg-primary-subtle" tabIndex="-1">
-                <form ref={formFiltro} onSubmit={dadosFormulario} className='row'>
-                    <div className="col-4 d-flex align-items-center justify-content-end">
+                <form ref={formFiltro} onSubmit={dadosFormulario} className='row overflow-auto'>
+                    <div id='divClose' className="d-flex justify-content-end align-items-center">
+                        <button ref={bntClose} type="button" className="btn-close pe-3 pe-xl-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div className="col-xl-4 d-flex align-items-center justify-content-center justify-content-lx-end">
                         <div className="card shadow">
-                            <div className='container-img bg-info p-0 rounded d-flex align-items-center justify-content-center'>
+                            <div className='container-img bg-info rounded d-flex align-items-center justify-content-center'>
                                 <img src={item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}` : imagemVazia} className="card-img-top bg-white rounded p-3" alt="..." />{/*<!--Imagem-->*/}
                             </div>
                             <div className="card-body p-5">
@@ -81,10 +86,10 @@ function EstoqueInforItem({ dadosItemLifting }) {
                         </div>
 
                     </div>
-                    <div className="col-7 ">
-                        <div className='row'>
-                            <div className="col-6 descricoes">
-                                <div className="atributosItens pt-5 pb-5 ps-5 pe-2">
+                    <div className="col-8 ">
+                        <div className='row ps-5'>
+                            <div className="col-12 col-xl-6">
+                                <div className="d-flex flex-column">
                                     <div className="form-floating mb-3">{/*<!--Em Estoque-->*/}
                                         <select className="form-select" id="inforEstoque" name="inforEstoque" value={emEstoque} onChange={(e) => setEmEstoque(e.target.value)} disabled={!isEditable} >
                                             <option value="Em Estoque">Em Estoque</option>
@@ -142,8 +147,8 @@ function EstoqueInforItem({ dadosItemLifting }) {
 
 
 
-                            <div className="col descricoes">
-                                <div className="atributosItens pt-5 pb-5 pe-5 ps-2">
+                            <div className="col-12 col-xl-6">
+                                <div className="row pe-5">
 
                                     <fieldset className="mb-3">{/*<!--Valor Total-->*/}
                                         <div className="form-floating">
@@ -207,9 +212,6 @@ function EstoqueInforItem({ dadosItemLifting }) {
                                 <button type="submit" className="btn btn-outline-primary col-12 fw-bold">Editar</button>
                             </div>
                         </div>
-                    </div>
-                    <div id='divClose' className="col p-3 d-flex justify-content-end">
-                        <button ref={bntClose} type="button" className="btn-close p-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                 </form >
             </div>

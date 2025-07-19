@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ba19e3f6-0de2-4e0b-b722-40e93768349b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueInforItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/components/EstoqueInforItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/estoqueInforItem.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../FrontEnd - De Little a Big Açaí/de_litte_a_big_acai-frontend/src/styles/estoqueInforItem.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +81,9 @@
       <workItem from="1752605297719" duration="4535000" />
       <workItem from="1752694785675" duration="541000" />
       <workItem from="1752703218677" duration="1912000" />
+      <workItem from="1752763866022" duration="1330000" />
+      <workItem from="1752816911392" duration="1152000" />
+      <workItem from="1752951229972" duration="2813000" />
     </task>
     <servers />
   </component>

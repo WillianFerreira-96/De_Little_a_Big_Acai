@@ -3,12 +3,17 @@
     height: 100vh;
 }
 
-.col{
-    height: 100vh;
+#divClose{
+    height: 5vh;
+    font-size: .8rem;
 }
 
-.descricoes{
-    height: 80vh;
+.col{
+    height: 95vh;
+}
+
+#inforItemOffcanvas .col-6 {
+    height: 75vh;
 }
 
 #divBtns{
@@ -23,7 +28,6 @@
 .container-img{
     width: 100%;
     height: 50vh;
-
 }
 
 .card-img-top{
@@ -32,8 +36,6 @@
     width: auto;
     height: auto;
 }
-
-
 
 .offcanvas-body {
     overflow-y: hidden;
@@ -47,6 +49,6 @@
 }
 
 
-.form-floating .form-label {
+#inforItemOffcanvas .form-floating .form-label {    
     color: #c5c5c5 !important;
 }
