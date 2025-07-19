@@ -24,6 +24,13 @@ Com a implementação dessas soluções, espera-se que a Little Açaí aumente s
 
 ---
 
+## 🌐 Acesse a Aplicação Online
+
+> 💻 Aplicação disponível para testes e demonstrações:  
+🔗 [https://de-little-a-big-acai.vercel.app/estoque/cadastrar](https://de-little-a-big-acai.vercel.app/estoque/cadastrar)
+
+---
+
 ## 🧩 Tecnologias Utilizadas
 
 ### Frontend
@@ -84,7 +91,15 @@ npm run dev
 ```
 
 ## 📸 Imagens
-<p float="left"> <img src="screenshots/versão Jul-25/busca.jpg" height="200"/> <img src="screenshots/versão Jul-25/busca responsiva.jpeg" height="200"/> <img src="screenshots/versão Jul-25/pequisa exemplo.jpg" height="200"/> <img src="screenshots/versão Jul-25/navbar responsiva.jpeg" height="200"/> <img src="screenshots/versão Jul-25/filtro.jpg" height="200"/> <img src="screenshots/versão Jul-25/filtro responsivo.jpeg" height="200"/>  </p>
+<p float="left"> 
+    <img src="screenshots/versão Jul-25/cadastro.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Jul-25/cadastro-sucesso.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro-sucesso responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Jul-25/cadastro-alerta.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro-alerta responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Jul-25/busca.jpg" height="200"/> <img src="screenshots/versão Jul-25/busca responsiva.jpg" height="200"/>
+    <img src="screenshots/versão Jul-25/filtro.jpg" height="200"/> <img src="screenshots/versão Jul-25/filtro responsivo.jpg" height="200"/>                 
+    <img src="screenshots/versão Jul-25/detalhes.jpg" height="200"/> <img src="screenshots/versão Jul-25/detalhes responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Jul-25/navbar responsiva.jpg" height="200"/> 
+</p>
 
 ## 👨‍💻 Desenvolvedor
 Este projeto foi desenvolvido integralmente por:
