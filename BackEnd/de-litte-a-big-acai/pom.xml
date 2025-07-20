@@ -60,6 +60,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.5.0</version>
+				<configuration>
+					<mainClass>com.litte_acai.de_litte_a_big_acai.DeLitteABigAcaiApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
