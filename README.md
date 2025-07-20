@@ -34,22 +34,25 @@ Com a implementação dessas soluções, espera-se que a Little Açaí aumente s
 ## 🧩 Tecnologias Utilizadas
 
 ### Frontend
-- React.js
-- Bootstrap 5
-- Fetch API
-- React Router DOM
+React.js
+Bootstrap 5
+Fetch API
+React Router DOM
+Deploy via Vercel
 
 ### Backend
 - Spring Boot (Java)
 - API RESTful
 - JPA / Hibernate
+- Empacotado com Docker
+- Hospedado na plataforma Render
 
 ### Banco de Dados
 - MySQL
+- Fornecido via Railway
 
 ### Outros
 - Git e GitHub
-- Deploy (em breve)
 - Cloudflare Tunnel (para ambiente local)
 
 ---
@@ -67,15 +70,18 @@ Com a implementação dessas soluções, espera-se que a Little Açaí aumente s
 
 ## 🔧 Como Rodar o Projeto
 
-### Backend
+### Backend (Spring Boot + Docker)
 ```bash
 # Clone o repositório
 git clone https://github.com/WillianFerreira-96/De_Little_a_Big_Acai/tree/main/BackEnd%20-%20De%20Little%20a%20Big%20A%C3%A7a%C3%AD/de-litte-a-big-acai
 cd backend
 
-# # Execute com Maven (Windows)
-mvnw.cmd spring-boot:run
+# Build e execução com Docker
+docker build -t little-acai-backend .
+docker run -p 8080:8080 little-acai-backend
 ```
+
+>☁️ Em produção, o backend está hospedado no Render, com conexão ao banco de dados remoto via Railway.
 
 ### Frontend
 ```bash

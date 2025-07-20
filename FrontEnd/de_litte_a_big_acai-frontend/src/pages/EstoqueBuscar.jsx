@@ -30,6 +30,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Automática
     useEffect(() => {
         if (liftingNomeOuID === null) {
+            AbrirLoadModel()
             BuscaAutomatica().then((data) => {
                 MostrarBusca(data)
             })
@@ -39,6 +40,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca pela Barra de Navegação
     useEffect(() => {
         if (liftingNomeOuID != null) {
+            AbrirLoadModel()
             BuscaNavBar(liftingNomeOuID).then((data) => {
                 MostrarBusca(data)
             })
@@ -48,6 +50,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Com Filtro
     useEffect(() => {
         if (formFilter != null) {
+            AbrirLoadModel()
             BuscaComFiltro(formFilter).then((data) => {
                 MostrarBusca(data)
             })
@@ -58,8 +61,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     }, [formFilter])
 
     //Mostrar Resultados das Buscas
-    function MostrarBusca(result) {
-        AbrirLoadModel()
+    function MostrarBusca(result) {        
         setTimeout(() => {
             setItens([])
             setNotFound([])
