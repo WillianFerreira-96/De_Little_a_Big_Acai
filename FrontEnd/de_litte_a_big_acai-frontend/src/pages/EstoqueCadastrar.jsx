@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import logotipo from '../assets/img/logotipo3.png'
 import { CadastrarItem } from '../services/CadastrarItem'
 import Swal from 'sweetalert2'
-import LoadModel from '../components/LoadModel'
-import AbrirLoadModel from '../utils/AbrirLoadModel'
-import FecharLoadModel from '../utils/FecharLoadModel'
+import LoadModal from '../components/LoadModal'
+import AbrirLoadModal from '../utils/AbrirLoadModal'
+import FecharLoadModal from '../utils/FecharLoadModal'
 
 function EstoqueCadastrar() {
 
@@ -28,7 +28,7 @@ function EstoqueCadastrar() {
 
     useEffect(() => {
         if (mostrarSwal) {
-            FecharLoadModel()
+            FecharLoadModal()
             Swal.fire({
                 title: swalTitle,
                 html: swalMessage,
@@ -42,7 +42,7 @@ function EstoqueCadastrar() {
 
     async function cadastrar(e) {
         e.preventDefault()
-        AbrirLoadModel()
+        AbrirLoadModal()
 
         const formData = new FormData(formCadastro.current)
         const res = await CadastrarItem(formData)
@@ -86,7 +86,7 @@ function EstoqueCadastrar() {
     }
 
     return <>
-        <LoadModel />
+        <LoadModal />
         <main id='mainCadastrar'>
             <div className="container d-flex justify-content-center">
                 <div className="row flex-column-reverse flex-lg-row">

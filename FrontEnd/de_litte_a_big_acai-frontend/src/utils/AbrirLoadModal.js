@@ -1,4 +1,4 @@
-function AbrirLoadModel(){
+function AbrirLoadModal(){
     const loadModal = document.getElementById("loadModal")
     loadModal.classList.add("show");
     loadModal.style.display = "block";
@@ -12,4 +12,4 @@ function AbrirLoadModel(){
     document.body.appendChild(backdrop);
 }
 
-export default AbrirLoadModel
+export default AbrirLoadModal

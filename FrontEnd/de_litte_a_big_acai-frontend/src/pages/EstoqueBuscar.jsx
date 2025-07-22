@@ -3,9 +3,9 @@ import { BuscaAutomatica } from '../services/BuscaAutomatica';
 import { BuscaNavBar } from '../services/BuscaNavBar';
 import { BuscaComFiltro } from '../services/BuscaComFiltro';
 import { FormatarData } from '../utils/FormatarData';
-import LoadModel from '../components/LoadModel'
-import AbrirLoadModel from '../utils/AbrirLoadModel';
-import FecharLoadModel from '../utils/FecharLoadModel';
+import LoadModal from '../components/LoadModal'
+import AbrirLoadModal from '../utils/AbrirLoadModal';
+import FecharLoadModal from '../utils/FecharLoadModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/estoqueBuscar.css';
 import imagemVazia from '../assets/img/logotipo4.png'
@@ -30,7 +30,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Automática
     useEffect(() => {
         if (liftingNomeOuID === null) {
-            AbrirLoadModel()
+            AbrirLoadModal()
             BuscaAutomatica().then((data) => {
                 MostrarBusca(data)
             })
@@ -40,7 +40,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca pela Barra de Navegação
     useEffect(() => {
         if (liftingNomeOuID != null) {
-            AbrirLoadModel()
+            AbrirLoadModal()
             BuscaNavBar(liftingNomeOuID).then((data) => {
                 MostrarBusca(data)
             })
@@ -50,7 +50,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Com Filtro
     useEffect(() => {
         if (formFilter != null) {
-            AbrirLoadModel()
+            AbrirLoadModal()
             BuscaComFiltro(formFilter).then((data) => {
                 MostrarBusca(data)
             })
@@ -68,11 +68,11 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
             if (Array.isArray(result.listaVazia) && result.listaVazia.length == 0) {
                 setDivVisivel(true)
                 setNotFound(result.mensagem)
-                FecharLoadModel()
+                FecharLoadModal()
             } else {
                 setDivVisivel(false)
                 setItens(result)
-                FecharLoadModel()
+                FecharLoadModal()
             }
         }, 150);
     }
@@ -83,7 +83,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     }
 
     return <>
-        <LoadModel />
+        <LoadModal />
         <main>
             <div id="overFlowDiv" ref={overFlowDiv}>
                 <table className="table align-middle table-head mt-1 table-hover">

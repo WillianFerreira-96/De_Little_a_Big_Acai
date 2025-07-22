@@ -1,4 +1,4 @@
-function FecharLoadModel(){
+function FecharLoadModal(){
     const loadModal = document.getElementById("loadModal")
     loadModal.classList.remove("show");
     loadModal.style.display = "none";
@@ -10,4 +10,4 @@ function FecharLoadModel(){
     if (backdrop) backdrop.remove();
 }
 
-export default FecharLoadModel
+export default FecharLoadModal
