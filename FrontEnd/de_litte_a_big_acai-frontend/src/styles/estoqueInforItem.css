@@ -3,6 +3,18 @@
     height: 100vh;
 }
 
+.bg-primary{
+    background-color: #c997f0 !important;
+}
+
+.bg-card{
+    background-color: #652d90;
+}
+
+.bg-card-body{
+    background-color: #ecd5ff;
+}
+
 #divClose{
     height: 5vh;
     font-size: .8rem;
@@ -43,12 +55,16 @@
 
 #inforItemOffcanvas .form-control,
 #inforItemOffcanvas .form-select {
-    color: #3f0460;
+    color: #600404;
     background-color: #ffffff;
     border: var(--bs-border-width) solid #3f0460;
 }
 
-
 #inforItemOffcanvas .form-floating .form-label {    
     color: #c5c5c5 !important;
+}
+
+.fileBtnDisable::-webkit-file-upload-button {
+    background-color: #cecece !important; 
+    color: #ffffff !important;
 }

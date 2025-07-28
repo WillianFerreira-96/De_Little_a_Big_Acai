@@ -2,12 +2,11 @@ import { useEffect, useState } from "react"
 
 function LoadModal() {
   const [waintingMessage, setWaintingMessage] = useState('')
-  const [time, setTime] = useState(3000)
 
   useEffect(() => {    
     setTimeout(() => {
       setWaintingMessage('Aguardando resposta do servidor...')
-    }, time);
+    }, 5000);
   })
 
   return (
