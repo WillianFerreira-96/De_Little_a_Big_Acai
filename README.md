@@ -45,7 +45,7 @@ Deploy via Vercel
 - API RESTful
 - JPA / Hibernate
 - Empacotado com Docker
-- Hospedado na plataforma Render
+- Hospedado na plataforma Railway
 
 ### Banco de Dados
 - MySQL
@@ -53,7 +53,6 @@ Deploy via Vercel
 
 ### Outros
 - Git e GitHub
-- Cloudflare Tunnel (para ambiente local)
 
 ---
 
@@ -81,7 +80,7 @@ docker build -t little-acai-backend .
 docker run -p 8080:8080 little-acai-backend
 ```
 
->☁️ Em produção, o backend está hospedado no Render, com conexão ao banco de dados remoto via Railway.
+>☁️ Em produção, o backend está hospedado no Railway, com conexão ao banco de dados remoto, também  via Railway.
 
 ### Frontend
 ```bash

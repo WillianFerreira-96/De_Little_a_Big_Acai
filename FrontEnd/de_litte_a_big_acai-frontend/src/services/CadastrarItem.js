@@ -1,6 +1,6 @@
 export async function CadastrarItem(formData) {
     try {
-        const url = 'https://de-little-a-big-acai.onrender.com/estoque/adicionarItem';
+        const url = 'https://de-litte-a-big-acai-server-production.up.railway.app/estoque/adicionarItem';
         const response = await fetch(url, { method: "POST", body: formData })
         if(!response.ok)throw new Error("Erro na requisição")
         
