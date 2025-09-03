@@ -16,7 +16,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     const [itens, setItens] = useState([])
     const [notFound, setNotFound] = useState([])
 
-    const overFlowDiv = useRef(null)
+    const mainOverFlow_x = useRef(null)
     const btnInforItem = useRef(null)
 
     //Ativar elemento 'Buscar' da NavBar
@@ -55,13 +55,13 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
                 MostrarBusca(data)
             })
 
-            overFlowDiv.current.scrollTo({ left: 0, behavior: 'smooth' });
+            overFlowDiv-y.current.scrollTo({ left: 0, behavior: 'smooth' });
 
         }
     }, [formFilter])
 
     //Mostrar Resultados das Buscas
-    function MostrarBusca(result) {        
+    function MostrarBusca(result) {
         setTimeout(() => {
             setItens([])
             setNotFound([])
@@ -84,31 +84,30 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
 
     return <>
         <LoadModal />
-        <main>
-            <div id="overFlowDiv" ref={overFlowDiv}>
-                <table className="table align-middle table-head mt-1 table-hover">
-                    <thead className='sticky-top'>
+        <main ref={mainOverFlow_x} id='mainOverFlow_x'>
+                <table className="table align-middle table-hover">
+                    <thead className='sticky-top table-head'>
                         <tr>
-                            <th className='ps-5'>Imagem</th>
-                            <th className="text-nowrap">Em Estoque</th>
-                            <th className="text-nowrap">ID</th>
-                            <th className="text-nowrap">Nome</th>
-                            <th className="text-nowrap">Marca</th>
-                            <th className="text-nowrap">Descrição</th>
-                            <th className="text-nowrap">Categoria</th>
-                            <th className="text-nowrap">Data de Entrada</th>
-                            <th className="text-nowrap">Preço por unidade</th>
-                            <th className="text-nowrap">Quantidade</th>
-                            <th className="text-nowrap">Valor Total</th>
-                            <th className="text-nowrap">Volume por unidade</th>
-                            <th className="text-nowrap">Data de Validade</th>
-                            <th className="text-nowrap">Lote</th>
-                            <th className="text-nowrap">Endereço de Armazenamento</th>
-                            <th className="text-nowrap">Motivo da Saída</th>
-                            <th className="text-nowrap">Data de Saída</th>
+                            <th className='ps-5 text-center pt-4'>Imagem</th>
+                            <th className="text-nowrap pt-4">Em Estoque</th>
+                            <th className="text-nowrap pt-4">ID</th>
+                            <th className="text-nowrap pt-4">Nome</th>
+                            <th className="text-nowrap pt-4">Marca</th>
+                            <th className="text-nowrap pt-4">Descrição</th>
+                            <th className="text-nowrap pt-4">Categoria</th>
+                            <th className="text-nowrap pt-4">Data de Entrada</th>
+                            <th className="text-nowrap pt-4">Preço por unidade</th>
+                            <th className="text-nowrap pt-4">Quantidade</th>
+                            <th className="text-nowrap pt-4">Valor Total</th>
+                            <th className="text-nowrap pt-4">Volume por unidade</th>
+                            <th className="text-nowrap pt-4">Data de Validade</th>
+                            <th className="text-nowrap pt-4">Lote</th>
+                            <th className="text-nowrap pt-4">Endereço de Armazenamento</th>
+                            <th className="text-nowrap pt-4">Motivo da Saída</th>
+                            <th className="text-nowrap pt-4">Data de Saída</th>
                         </tr>
-                    </thead>
-                    <tbody>                        
+                    </thead>   
+                    <tbody>
                         {itens.map((i) => {
                             //Em Estoque
                             var emEstoqueValor
@@ -157,11 +156,12 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
                             } else {
                                 dataSaidString = FormatarData(i.dataSaid, true)
                             }
-
-                            return <>                                
-                                <tr onDoubleClick={()=>{mostrarItem(i)}} className={emEstoqueClass} key={i.idItem} style={{cursor: 'pointer'}}>
+                            return <>
+                                <tr onDoubleClick={() => { mostrarItem(i) }} className={emEstoqueClass + 'overflow-y-scroll'} key={i.idItem} style={{ cursor: 'pointer' }}>
                                     <td>
-                                        <img className='miniImagem ps-5' src={i.imagemItem!=''?`data:image;base64,${i.imagemItem}` : imagemVazia} />
+                                        <div className='d-flex justify-content-center'>
+                                            <img className='miniImagem ps-5' src={i.imagemItem != '' ? `data:image;base64,${i.imagemItem}` : imagemVazia} />
+                                        </div>
                                     </td>
                                     <td className="text-nowrap">{emEstoqueValor}</td>
                                     <td>000{i.idItem}</td>
@@ -181,13 +181,11 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
                                     <td className="text-nowrap">{dataSaidString}</td>
                                 </tr>
                             </>
-
                         })}
                     </tbody>
                 </table>
                 <button ref={btnInforItem} className='d-none' data-bs-toggle="offcanvas" data-bs-target="#inforItemOffcanvas" aria-controls="inforItemOffcanvas"></button>
-                <div style={{ display: divVisivel ? 'block' : 'none' }} className="h2 text-center mt-5">{notFound}</div>
-            </div>
+                <div style={{ display: divVisivel ? 'block' : 'none' }} className="h2 text-center mt-5">{notFound}</div>            
         </main>
     </>
 }

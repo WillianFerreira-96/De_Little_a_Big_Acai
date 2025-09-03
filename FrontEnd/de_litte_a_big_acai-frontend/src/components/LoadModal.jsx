@@ -2,10 +2,20 @@ import { useEffect, useState } from "react"
 
 function LoadModal() {
   const [waintingMessage, setWaintingMessage] = useState('')
+  const [count, setCount] = useState(30);
 
-  useEffect(() => {    
+  useEffect(() => {
+    if (count > 0) {
+      const timer = setTimeout(() => setCount(count - 1), 1000);
+      return () => clearTimeout(timer);
+    }else if(count == 0){
+      const timer = setTimeout(() => setCount(count + 30), 1000);
+    }
+  }, [count])
+
+  useEffect(() => {
     setTimeout(() => {
-      setWaintingMessage('Aguardando resposta do servidor...')
+      setWaintingMessage(`Requisitando dados ao Fly.io... ${count}s`)
     }, 5000);
   })
 

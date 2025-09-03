@@ -653,4 +653,23 @@ public class ItemServiceImpl implements ItemService {
 
         return resposta;
     }
+
+    @Override
+    public ResponseEntity<?> retirarItem(String idRetirar, String motivoRetirar) {
+        Item itemRetirado = new Item();
+        String idRetirarTrim =  idRetirar.trim().toLowerCase();
+
+        if (idRetirarTrim.matches("\\d+")){
+            long id = Long.parseLong(idRetirarTrim);
+
+            itemRetirado = itemRepository.findByIdItem(id);
+            itemRetirado.setDataSaid(LocalDateTime.now());
+            itemRetirado.setMotivoSaida(motivoRetirar);
+            itemRetirado.setEmEstoque(false);
+
+            return ResponseEntity.ok(itemRepository.save(itemRetirado));
+        }else {
+            return ResponseEntity.ok(notFound());
+        }
+    }
 }

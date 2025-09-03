@@ -11,6 +11,7 @@ import FecharLoadModal from '../utils/FecharLoadModal'
 function EstoqueCadastrar() {
 
     const formCadastro = useRef(null)
+    const overFlowDiv = useRef(null)
 
     const [mostrarSwal, setMostrarSwal] = useState(false);
     const [swalTitle, setSwalTitle] = useState('')
@@ -65,24 +66,24 @@ function EstoqueCadastrar() {
             `)
             setSwalIconColor('#11ff00')
             setSwalButtonColor('#0051ff')
+
+            const form = formCadastro.current
+            form['imagemItem'].value = '';
+            form['nomeItem'].value = '';
+            form['marca'].value = '';
+            form['descricaoItem'].value = '';
+            form['categoria'].value = '';
+            form['precoUni'].value = '';
+            form['quant'].value = '';
+            form['volumeUni'].value = '';
+            form['unidMedida'].value = '';
+            form['dataValidade'].value = '';
+            form['enderecoArmazen'].value = '';
+            form['lote'].value = '';
         }
 
         setMostrarSwal(true)
-
-        const form = formCadastro.current
-        form['imagemItem'].value = '';
-        form['nomeItem'].value = '';
-        form['marca'].value = '';
-        form['descricaoItem'].value = '';
-        form['categoria'].value = '';
-        form['precoUni'].value = '';
-        form['quant'].value = '';
-        form['volumeUni'].value = '';
-        form['unidMedida'].value = '';
-        form['dataValidade'].value = '';
-        form['enderecoArmazen'].value = '';
-        form['lote'].value = '';
-
+        overFlowDiv.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     return <>
@@ -96,7 +97,7 @@ function EstoqueCadastrar() {
                             <h5 className="text-center mb-3 fs-5 fw-bolder text-white">Novo Item</h5>
 
                             <form ref={formCadastro} onSubmit={cadastrar} className="d-flex flex-column align-items-center" encType="multipart/form-data">
-                                <div className='overflow p-3'>
+                                <div ref={overFlowDiv} className='overflow p-3'>
                                     <div className="mb-3">{/*<!--Foto-->*/}
                                         <input className="form-control" type="file" id="imagemItem" name="imagemItem" />
                                     </div>

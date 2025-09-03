@@ -4,11 +4,8 @@ import com.litte_acai.de_litte_a_big_acai.model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
@@ -38,7 +35,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByDataSaidBetween(LocalDateTime inicio, LocalDateTime fim);
     boolean existsByMotivoSaida(String filterMotivoSaida);
 
-    List<Item> findByIdItem(long itemId);
+    List<Item> findAllByOrderByIdItemDesc();
+    Item findByIdItem(long itemId);
     List<Item> findByNomeItem(String nomeItem);
     List<Item> findByMarca(String marca);
     List<Item> findByCategoria(String categoria);
@@ -63,7 +61,4 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByDataSaidBetween(LocalDateTime inicio, LocalDateTime fim);
     List<Item> findByDataSaidAfter(LocalDateTime dataSaidAfter);
     List<Item> findByMotivoSaida(String filterMotivoSaida);
-
-
-    List<Item> findAllByOrderByIdItemDesc();
 }

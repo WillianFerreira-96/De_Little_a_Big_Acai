@@ -9,4 +9,5 @@ public interface ItemService {
     ResponseEntity<?> buscarTodosDesc();
     ResponseEntity<?> buscarNomeOuID(String idNome);
     ResponseEntity<?> filtrarBusca(FiltroItem filtroItem);
+    ResponseEntity<?> retirarItem(String idRetirar, String motivoRetirar);
 }

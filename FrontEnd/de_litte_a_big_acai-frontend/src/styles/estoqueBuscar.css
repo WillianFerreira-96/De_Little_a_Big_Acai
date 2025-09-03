@@ -15,7 +15,7 @@
     --bs-table-bg-state: rgba(125, 36, 126, 0.702);
 }
 
-#overFlowDiv{
+#mainOverFlow_x{
     overflow: auto;
     height: calc(100vh - 56px);
     width: 100vw;

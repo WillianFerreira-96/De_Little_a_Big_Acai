@@ -20,7 +20,7 @@ public class ItemController{
     @Autowired
     ItemService itemService;
 
-    //initBinder para aceitar ponto ou virgula nas requisições Double ou Integer
+    //initBinder aceita ponto ou virgula nas requisições Double ou Integer
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Double.class, new PropertyEditorSupport() {
@@ -132,6 +132,12 @@ public class ItemController{
         item.setDataValidade(dataValidade);
 
         return itemService.adicionarItem(item);
+    }
+
+    @PostMapping(path = "/retirarItem")
+    @ResponseBody
+    private ResponseEntity<?> retirarItem(@RequestParam String id, @RequestParam String motivo){
+        return itemService.retirarItem(id, motivo);
     }
 
     //Paginas HTML--------------------------------------------------------------------------------------------

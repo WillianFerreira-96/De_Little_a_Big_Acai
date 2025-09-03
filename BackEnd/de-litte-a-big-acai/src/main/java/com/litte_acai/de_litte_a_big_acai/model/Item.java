@@ -14,37 +14,53 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item")
     private long idItem;
+
     @Lob
     @Column(name = "imagemItem", columnDefinition = "LONGBLOB")
     private byte[] imagemItem;
+
     @Column(name = "nome_item", length = 50, nullable = false)
     private String nomeItem;
+
     @Column(length = 50, nullable = false)
     private String marca;
+
     @Column(name = "descricao_item", length = 300, nullable = false)
     private String descricaoItem;
+
     @Column(length = 50, nullable = false)
     private String categoria;
+
     @Column(name = "preco_uni", nullable = false)
     private double precoUni;
+
     @Column(nullable = false)
     private int quant;
+
     @Column(name = "volume_uni", nullable = false)
     private double volumeUni;
+
     @Column(name = "unid_medida", length = 20, nullable = false)
     private String unidMedida;
+
     @Column(name = "data_validade", nullable = true)
     private LocalDateTime  dataValidade;
+
     @Column(length = 50, nullable = false)
     private String lote;
+
     @Column(name = "endereco_armazen", length = 100, nullable = false)
     private String enderecoArmazen;
+
     @Column(name = "data_entr", nullable = true)
     private LocalDateTime  dataEntr;
+
     @Column(name = "data_said", nullable = true)
     private LocalDateTime  dataSaid;
+
     @Column(name = "motivo_saida", length = 30, nullable = false)
     private String motivoSaida;
+
     @Column(length = 30, nullable = false)
     private Boolean emEstoque;
 
@@ -69,6 +85,10 @@ public class Item {
 
     public long getIdItem() {
         return idItem;
+    }
+
+    public void setIdItem(long idItem) {
+        this.idItem = idItem;
     }
 
     public byte[] getImagemItem() {
