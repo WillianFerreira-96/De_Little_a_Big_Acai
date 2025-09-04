@@ -22,30 +22,26 @@ Este sistema foi idealizado, desenvolvido e mantido **integralmente por mim, Wil
 
 Com a implementação dessas soluções, espera-se que a Little Açaí aumente sua eficiência operacional, melhore a previsibilidade financeira e fortaleça o relacionamento com os clientes. O projeto também se alinha aos princípios da **ODS 8 – Trabalho Decente e Crescimento Econômico**.
 
----
-
 ## 🌐 Acesse a Aplicação Online
 
-> 💻 Aplicação disponível para testes e demonstrações:  
-🔗 [https://de-little-a-big-acai.vercel.app/estoque/cadastrar](https://de-little-a-big-acai.vercel.app/estoque/cadastrar)
-
----
+>###### Aplicação disponível para testes e demonstrações:  
+>↗️<a href="https://de-little-a-big-acai.vercel.app/estoque/cadastrar" target="_blank">De Little a Big Açaí - Online</a>
 
 ## 🧩 Tecnologias Utilizadas
 
 ### Frontend
-React.js
-Bootstrap 5
-Fetch API
-React Router DOM
-Deploy via Vercel
+- React.js
+- Bootstrap 5
+- Fetch API
+- React Router DOM
+- Deploy via Vercel
 
 ### Backend
 - Spring Boot (Java)
 - API RESTful
 - JPA / Hibernate
 - Empacotado com Docker
-- Hospedado na plataforma Railway
+- Hospedado na plataforma Fly.io
 
 ### Banco de Dados
 - MySQL
@@ -80,7 +76,7 @@ docker build -t little-acai-backend .
 docker run -p 8080:8080 little-acai-backend
 ```
 
->☁️ Em produção, o backend está hospedado no Railway, com conexão ao banco de dados remoto, também  via Railway.
+>☁️ Em produção, o backend está hospedado no Fly.io, com conexão ao banco de dados remoto Railway.
 
 ### Frontend
 ```bash
@@ -97,13 +93,13 @@ npm run dev
 
 ## 📸 Imagens
 <p float="left"> 
-    <img src="screenshots/versão Jul-25/cadastro.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro responsivo.jpg" height="200"/>
-    <img src="screenshots/versão Jul-25/cadastro-sucesso.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro-sucesso responsivo.jpg" height="200"/>
-    <img src="screenshots/versão Jul-25/cadastro-alerta.jpg" height="200"/> <img src="screenshots/versão Jul-25/cadastro-alerta responsivo.jpg" height="200"/>
-    <img src="screenshots/versão Jul-25/busca.jpg" height="200"/> <img src="screenshots/versão Jul-25/busca responsiva.jpg" height="200"/>
-    <img src="screenshots/versão Jul-25/filtro.jpg" height="200"/> <img src="screenshots/versão Jul-25/filtro responsivo.jpg" height="200"/>                 
-    <img src="screenshots/versão Jul-25/detalhes.jpg" height="200"/> <img src="screenshots/versão Jul-25/detalhes responsivo.jpg" height="200"/>
-    <img src="screenshots/versão Jul-25/navbar responsiva.jpg" height="200"/> 
+    <img src="screenshots/versão Set-25/cadastro.jpg" height="200"/> <img src="screenshots/versão Set-25/cadastro responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Set-25/cadastro-sucesso.jpg" height="200"/> <img src="screenshots/versão Set-25/cadastro-sucesso responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Set-25/cadastro-alerta.jpg" height="200"/> <img src="screenshots/versão Set-25/cadastro-alerta responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Set-25/busca.jpg" height="200"/> <img src="screenshots/versão Set-25/busca responsiva.jpg" height="200"/>
+    <img src="screenshots/versão Set-25/filtro.jpg" height="200"/> <img src="screenshots/versão Set-25/filtro responsivo.jpg" height="200"/>                 
+    <img src="screenshots/versão Set-25/detalhes.jpg" height="200"/> <img src="screenshots/versão Set-25/detalhes responsivo.jpg" height="200"/>
+    <img src="screenshots/versão Set-25/navbar responsiva.jpg" height="200"/> 
 </p>
 
 ## 👨‍💻 Desenvolvedor
