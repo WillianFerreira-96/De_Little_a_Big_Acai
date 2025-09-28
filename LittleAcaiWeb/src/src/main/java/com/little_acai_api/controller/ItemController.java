@@ -134,6 +134,40 @@ public class ItemController{
         return itemService.adicionarItem(item);
     }
 
+    @PostMapping(path = "/editarItem")
+    private ResponseEntity<?> editarItem(
+            @RequestPart(required = false) MultipartFile imagemItem,
+            @RequestPart(required = false) String InforId,
+            @RequestPart(required = false) String inforNome,
+            @RequestPart(required = false) String inforMarca,
+            @RequestPart(required = false) String inforDescricao,
+            @RequestPart(required = false) String inforCategoria,
+            @RequestParam(required = false) Double inforPrecoUni,
+            @RequestParam(required = false) Double inforQuant,
+            @RequestParam(required = false) Double inforVol,
+            @RequestPart(required = false) String inforUnidMedida,
+            @RequestParam(required = false) LocalDate inforDataValidade,
+            @RequestPart(required = false) String inforLote,
+            @RequestPart(required = false) String inforEnderecoArmazen)throws IOException {
+
+        Item itemEditado = new Item();
+        itemEditado.setImagemItem(imagemItem.getBytes());
+        itemEditado.setIdItem(Long.parseLong(InforId));
+        itemEditado.setNomeItem(inforNome);
+        itemEditado.setMarca(inforMarca);
+        itemEditado.setDescricaoItem(inforDescricao);
+        itemEditado.setCategoria(inforCategoria);
+        itemEditado.setUnidMedida(inforUnidMedida);
+        itemEditado.setLote(inforLote);
+        itemEditado.setEnderecoArmazen(inforEnderecoArmazen);
+        itemEditado.setPrecoUni(inforPrecoUni);
+        itemEditado.setQuant(inforQuant);
+        itemEditado.setVolumeUni(inforVol);
+        itemEditado.setDataValidade(inforDataValidade);
+
+        return itemService.editarItem(itemEditado);
+    }
+
     @PostMapping(path = "/retirarItem")
     @ResponseBody
     private ResponseEntity<?> retirarItem(@RequestParam String id, @RequestParam String motivo){

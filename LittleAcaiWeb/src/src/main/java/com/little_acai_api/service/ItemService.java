@@ -10,4 +10,5 @@ public interface ItemService {
     ResponseEntity<?> buscarNomeOuID(String idNome);
     ResponseEntity<?> filtrarBusca(FiltroItem filtroItem);
     ResponseEntity<?> retirarItem(String idRetirar, String motivoRetirar);
+    ResponseEntity<?> editarItem(Item itemEditado);
 }

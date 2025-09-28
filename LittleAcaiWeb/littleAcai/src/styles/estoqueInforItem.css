@@ -68,3 +68,8 @@
     background-color: #cecece !important; 
     color: #ffffff !important;
 }
+
+#switchCheckEditar .form-switch .form-check-input {
+    width: 4em;
+    height: 1.7em;
+}

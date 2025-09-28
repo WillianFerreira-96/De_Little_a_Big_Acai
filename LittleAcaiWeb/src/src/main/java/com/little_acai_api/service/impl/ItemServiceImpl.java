@@ -5,6 +5,7 @@ import com.little_acai_api.model.Item;
 import com.little_acai_api.repository.ItemRepository;
 import com.little_acai_api.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.MultipartProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,26 +21,33 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemRepository itemRepository;
 
+    @Autowired
+    private MultipartProperties multipartProperties;
+
     @Override
     public ResponseEntity<?> buscarTodosDesc() {
         if (itemRepository.findAll().isEmpty()) {
             return ResponseEntity.ok(notFound());
         }else {
-                return ResponseEntity.ok().body(itemRepository.findAllByOrderByIdItemDesc());
+            return ResponseEntity.ok().body(itemRepository.findAllByOrderByIdItemDesc());
         }
     }
 
     @Override
     public ResponseEntity<?> adicionarItem(Item item){
+        item.setDataEntr(LocalDateTime.now());
         itemRepository.save(item);
         return ResponseEntity.ok().body(item);
     }
+
     @Override
     public ResponseEntity<?> buscarNomeOuID(String nomeOuID){
         String nomeOuIDLowcase =  nomeOuID.trim().toLowerCase();
         if (nomeOuIDLowcase.matches("\\d+")){
             if(itemRepository.existsByIdItem(Long.parseLong(nomeOuIDLowcase))){
-                return ResponseEntity.ok().body(itemRepository.findByIdItem(Long.parseLong(nomeOuIDLowcase)));
+                List<Item> itens = new ArrayList<>();
+                itens.add(itemRepository.findByIdItem(Long.parseLong(nomeOuIDLowcase)));
+                return ResponseEntity.ok().body(itens);
             }else {
                 return ResponseEntity.ok(notFound());
             }
@@ -63,6 +71,7 @@ public class ItemServiceImpl implements ItemService {
         if (filtro.getFilterNome() != null && !filtro.getFilterNome().isEmpty() && !filtro.getFilterNome().isBlank()){
             if(itemRepository.existsByNomeItem(filtro.getFilterNome())){
                 itensFiltrados.addAll(itemRepository.findByNomeItem(filtro.getFilterNome()));
+                itensFiltrados.forEach((item)->{System.out.println(item.getIdItem() + " " +  item.getNomeItem());});
                 isFistSearch = false;
             }else {
                 return ResponseEntity.ok(notFound());
@@ -671,5 +680,31 @@ public class ItemServiceImpl implements ItemService {
         }else {
             return ResponseEntity.ok(notFound());
         }
+    }
+
+    @Override
+    public ResponseEntity<?> editarItem(Item itemEditado) {
+
+        Item itemExistente = itemRepository.findByIdItem(itemEditado.getIdItem());
+
+        itemExistente.setIdItem(itemEditado.getIdItem());
+        if (itemEditado.getImagemItem() != null && itemEditado.getImagemItem().length > 0) {
+            itemExistente.setImagemItem(itemEditado.getImagemItem());
+        }
+        if(!itemEditado.getNomeItem().isBlank()){
+            itemExistente.setNomeItem(itemEditado.getNomeItem());
+        }
+        itemExistente.setMarca(itemEditado.getMarca().isBlank() ? " " : itemEditado.getMarca());
+        itemExistente.setDescricaoItem(itemEditado.getDescricaoItem().isBlank() ? " " : itemEditado.getDescricaoItem());
+        itemExistente.setCategoria(itemEditado.getCategoria().isBlank() ? " " : itemEditado.getCategoria());
+        itemExistente.setUnidMedida(itemEditado.getUnidMedida().isBlank() ? " " : itemEditado.getUnidMedida());
+        itemExistente.setLote(itemEditado.getLote().isBlank() ? " " : itemEditado.getLote());
+        itemExistente.setEnderecoArmazen(itemEditado.getEnderecoArmazen().isBlank() ? " " : itemEditado.getEnderecoArmazen());
+        itemExistente.setPrecoUni(itemEditado.getPrecoUni());
+        itemExistente.setQuant((double) itemEditado.getQuant());
+        itemExistente.setVolumeUni(itemEditado.getVolumeUni());
+        itemExistente.setDataValidade(itemEditado.getDataValidade());
+
+        return ResponseEntity.ok().body(itemRepository.save(itemExistente));
     }
 }

@@ -77,7 +77,7 @@ public class Item {
         dataValidade = null;
         lote = "";
         enderecoArmazen = "";
-        dataEntr = LocalDateTime.now();
+        dataEntr = null;
         dataSaid = null;
         motivoSaida = "";
         emEstoque = true;
@@ -116,11 +116,11 @@ public class Item {
     public void setMarca(String marca) {
         if (marca != null && !marca.isEmpty()) {
             this.marca = marca.trim().toLowerCase();
-        }        ;
+        }
     }
 
-    public String getDescricaoItem() {
-        return descricaoItem;
+    public String getDescricaoItem(){
+        return this.descricaoItem;
     }
 
     public void setDescricaoItem(String descricaoItem) {
@@ -190,6 +190,10 @@ public class Item {
         }
     }
 
+    public void setDataValidade(LocalDateTime dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
     public String getLote() {
         return lote;
     }
@@ -212,6 +216,10 @@ public class Item {
 
     public LocalDateTime  getDataEntr() {
         return dataEntr;
+    }
+
+    public void setDataEntr(LocalDateTime  dataEntr) {
+        this.dataEntr = dataEntr;
     }
 
     public LocalDateTime  getDataSaid() {

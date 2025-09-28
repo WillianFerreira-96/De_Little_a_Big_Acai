@@ -1,6 +1,8 @@
 export async function BuscaAutomatica() {
+    const urlDev = "http://localhost:8080"
+    const urlDeploy = "https://de-little-a-big-acai.fly.dev"
     try {
-        const response = await fetch("https://de-little-a-big-acai.fly.dev/estoque/buscarTodos")
+        const response = await fetch(urlDev + "/estoque/buscarTodos")
         if (!response.ok) throw new Error("Erro na requisição") 
         return await response.json()
     } catch (error) {

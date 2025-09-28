@@ -35,8 +35,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByDataSaidBetween(LocalDateTime inicio, LocalDateTime fim);
     boolean existsByMotivoSaida(String filterMotivoSaida);
 
-    List<Item> findAllByOrderByIdItemDesc();
     Item findByIdItem(long itemId);
+    List<Item> findAllByOrderByIdItemDesc();
     List<Item> findByNomeItem(String nomeItem);
     List<Item> findByMarca(String marca);
     List<Item> findByCategoria(String categoria);

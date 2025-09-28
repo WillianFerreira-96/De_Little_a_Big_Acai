@@ -2,15 +2,24 @@ import imagemVazia from '../assets/img/logotipo4.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/estoqueInforItem.css'
 import { useEffect, useRef, useState } from 'react'
+import { EditarItem } from '../services/EditarItem'
+import ConfirmaEdicaoModal from './ConfirmaEdicaoModal'
+import AbrirConfirmaEdicaoModal from '../utils/AbrirConfirmaEdicaoModal'
 
 function EstoqueInforItem({ dadosItemLifting }) {
+
     const formFiltro = useRef(null)
     const bntClose = useRef(null)
-
+    const switchEdicao = useRef(null)
+    const fileInputRef = useRef(null)
+    
     const [isEditable, setIsEditable] = useState(false)
+    const [preview, setPreview] = useState(imagemVazia)
 
     const [border, setBorder] = useState(' border ')
     const [fileBtn, setFileBtn] = useState(' fileBtnDisable text-secondary ')
+    const [btns_deEdicao, setBtns_deEdicao] = useState(' d-none ')
+    const [itemEditado, setItemEditado] = useState(null)
 
     const item = dadosItemLifting
     const [nome, setNome] = useState('')
@@ -22,7 +31,6 @@ function EstoqueInforItem({ dadosItemLifting }) {
     const [validade, setValidade] = useState('')
     const [preco, setPreco] = useState('')
     const [quant, setQuant] = useState('')
-    const [valorTotal, setValorTotal] = useState('')
     const [volume, setVolume] = useState('')
     const [medida, setMedida] = useState('')
     const [lote, setLote] = useState('')
@@ -31,6 +39,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
     const [motivoSaida, setMotivoSaida] = useState('')
 
     useEffect(() => {
+        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}`: imagemVazia)
         setNome(item?.nomeItem)
         setMarca(item?.marca)
         setEmEstoque(item?.emEstoque ? 'Em Estoque' : 'Item Retirado')
@@ -40,50 +49,80 @@ function EstoqueInforItem({ dadosItemLifting }) {
         setValidade(item?.dataValidade?.slice(0, 10) || '')
         setPreco(item?.precoUni.toFixed(2))
         setQuant(item?.quant)
-        setValorTotal((item?.precoUni * item?.quant).toFixed(2))
         setVolume(item?.volumeUni)
         setMedida(item?.unidMedida || '')
         setLote(item?.lote)
         setArmazenamento(item?.enderecoArmazen)
         setDataSaida(item?.dataSaid?.slice(0, 16) || '')
         setMotivoSaida(item?.motivoSaida || 'nao retirado')
-
-        console.log(item?.imagemItem)
     }, [item])
-
-
-    function dadosFormulario(e) {
-        e.preventDefault()
-        const formData = new FormData(formFiltro.current)
-        bntClose.current.click()
-    }
 
     function btnEditar() {
         if (!isEditable) {
             setIsEditable(true)
             setBorder("border-2")
             setFileBtn("")
+            setBtns_deEdicao('d-flex flex-column ms-5')
         } else {
             setIsEditable(false)
             setBorder(' border ')
             setFileBtn(' fileBtnDisable text-secondary ')
+            setBtns_deEdicao('d-none')
         }
     }
 
+    function cancelarEdicao() {
+        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}`: imagemVazia)
+        setNome(item?.nomeItem)
+        setMarca(item?.marca)
+        setDescricao(item?.descricaoItem)
+        setCategoria(item?.categoria || 'sem categoria')
+        setValidade(item?.dataValidade?.slice(0, 10) || '')
+        setPreco(item?.precoUni.toFixed(2))
+        setQuant(item?.quant)
+        setVolume(item?.volumeUni)
+        setMedida(item?.unidMedida || '')
+        setLote(item?.lote)
+        setArmazenamento(item?.enderecoArmazen)
+
+        setIsEditable(false)
+        setBorder(' border ')
+        setFileBtn(' fileBtnDisable text-secondary ')
+        setBtns_deEdicao('d-none')
+
+        fileInputRef.current.value = null
+
+        switchEdicao.current.click()
+    }
+
+    function confirmarEdicao(e){
+        e.preventDefault()
+        setItemEditado(new FormData(formFiltro.current))
+        AbrirConfirmaEdicaoModal()
+    }
+
+    function previsualizar(e) {
+        const file = e.target.files[0];
+        const previewUrl = URL.createObjectURL(file);
+        setPreview(previewUrl);
+    }
+
     return (
-        <>
+        <>  
+            <ConfirmaEdicaoModal itemEditado={itemEditado} />
             <div id="inforItemOffcanvas" className="offcanvas offcanvas-start bg-primary" tabIndex="-1">
-                <form ref={formFiltro} onSubmit={dadosFormulario} className='row overflow-y-auto overflow-x-hidden'>
+                <form ref={formFiltro} onSubmit={confirmarEdicao} className='row overflow-y-auto overflow-x-hidden'>
                     <div id='divClose' className="d-flex justify-content-end align-items-center">
                         <button ref={bntClose} type="button" className="btn-close pe-3 pe-xl-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="col-xl-4 p-0 d-flex align-items-center justify-content-center justify-content-lx-end">
                         <div className="card shadow">
                             <div className='container-img bg-card rounded d-flex align-items-center justify-content-center'>
-                                <img src={item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}` : imagemVazia} className="card-img-top bg-white rounded p-3" alt="..." />{/*<!--Imagem-->*/}
+                                <img src={preview} className="card-img-top bg-white rounded p-3" alt="..." />{/*<!--Imagem-->*/}
                             </div>
                             <div className="card-body bg-card-body p-5">
                                 <h3 className="card-title">ID: {item?.idItem}</h3>
+                                <input type="hidden" name="InforId" value={item?.idItem} />
                                 <div className="form-floating mb-3">{/*<!--Nome-->*/}
                                     <input type="text" className={"form-control " + border} id='inforNome' name="inforNome" value={nome} onChange={(e) => setNome(e.target.value)} disabled={!isEditable} />
                                     <label className="form-label" htmlFor="inforNome">Nome</label>
@@ -92,7 +131,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
                                     <input type="text" className={"form-control " + border} id="inforMarca" name="inforMarca" value={marca} onChange={(e) => setMarca(e.target.value)} disabled={!isEditable} />
                                     <label className="form-label" htmlFor="inforMarca">Marca</label>
                                 </div>
-                                <input className={"form-control " + border + fileBtn} type="file" id="imagemItem" name="imagemItem" disabled={!isEditable} />
+                                <input ref={fileInputRef} className={"form-control " + border + fileBtn} type="file" id="imagemItem" name="imagemItem" onChange={previsualizar} disabled={!isEditable} />
                             </div>
                         </div>
 
@@ -102,10 +141,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
                             <div className="col-12 col-xl-6">
                                 <div className="d-flex flex-column ps-0 pe-0 ps-md-5 pe-md-5 ps-xl-5 pe-xl-0">
                                     <div className="form-floating mb-3">{/*<!--Em Estoque-->*/}
-                                        <select className={"form-select " + border} id="inforEstoque" name="inforEstoque" value={emEstoque} onChange={(e) => setEmEstoque(e.target.value)} disabled={!isEditable} >
-                                            <option value="Em Estoque">Em Estoque</option>
-                                            <option value="Item Retirado">Item Retirado</option>
-                                        </select>
+                                        <input className="form-control border" id="inforEstoque" name="inforEstoque" value={emEstoque} disabled />
                                         <label className="form-label" htmlFor="inforEstoque">Em Estoque</label>
                                     </div>
 
@@ -126,7 +162,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
 
                                     <fieldset>{/*<!--Data de entrada-->*/}
                                         <div className="form-floating mb-3">
-                                            <input className={"form-control text-dark " + border} type="datetime-local" id="inforDataEntr" name="inforDataEntr" value={dataEntr} onChange={(e) => setDataEntr(e.target.value)} disabled={!isEditable} />
+                                            <input className="form-control text-dark border" type="datetime-local" id="inforDataEntr" name="inforDataEntr" value={dataEntr} disabled />
                                             <label htmlFor="inforDataEntr" className="form-label">Data de entrada</label>
                                         </div>
                                     </fieldset>
@@ -158,7 +194,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
                                 <div className="d-flex flex-column ps-0 pe-0 ps-md-5 pe-md-5 ps-xl-0 pe-xl-5">
                                     <fieldset className="mb-3">{/*<!--Valor Total-->*/}
                                         <div className="form-floating">
-                                            <input className={"form-control " + border} type="number" step="any" id="inforValorTotal" name="inforValorTotal" value={valorTotal} onChange={(e) => setValorTotal(e.target.value)} disabled={!isEditable} />
+                                            <input className="form-control border" type="number" step="any" id="inforValorTotal" name="inforValorTotal" value={(quant * preco).toFixed(2)} disabled />
                                             <label htmlFor="inforValorTotal" className="form-label">Valor Total</label>
                                         </div>
                                     </fieldset>
@@ -195,27 +231,39 @@ function EstoqueInforItem({ dadosItemLifting }) {
 
                                     <fieldset className="mb-3">{/*<!--Data de Saída-->*/}
                                         <div className="form-floating">
-                                            <input className={"form-control text-dark " + border} type="datetime-local" id="inforDataSaid" name="inforDataSaid" value={dataSaida} onChange={(e) => setDataSaida(e.target.value)} disabled={!isEditable} />
+                                            <input className="form-control text-dark border" type="datetime-local" id="inforDataSaid" name="inforDataSaid" value={dataSaida} disabled />
                                             <label htmlFor="inforDataSaid" className="form-label">Data de saída</label>
                                         </div>
                                     </fieldset>
 
                                     <div className="form-floating mb-3">{/*<!--Motivo de Saída-->*/}
-                                        <select className={"form-select " + border} id="inforMotivoSaida" name="inforMotivoSaida" value={motivoSaida} onChange={(e) => setMotivoSaida(e.target.value)} disabled={!isEditable}>
-                                            <option value="nao retirado">Item Não Retirado</option>
-                                            <option value="perda">Perda</option>
-                                            <option value="produção">Produção</option>
-                                            <option value="devolução">Devolução</option>
-                                            <option value="vencido">Vencido</option>
-                                        </select>
+                                        <input className="form-control border" id="inforMotivoSaida" name="inforMotivoSaida" value={motivoSaida} disabled />
                                         <label className="form-label" htmlFor="inforMotivoSaida">Motivo de Saída</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div id='divBtns' className="col-12 justify-content-center p-5">
-                                <button type="button" className="btn btn-outline col-3 fw-bold" onClick={btnEditar} >Editar</button>
+                        <div id="modoEditar">
+                            <div id='switchCheckEditar' className="row p-5">
+                                <div className='d-flex align-items-end'>
+                                    <div className='d-flex flex-column align-items-center'>
+                                        <div className="form-switch">
+                                            <input id="switchCheckEditar"
+                                                ref={switchEdicao}
+                                                name="switchCheckEditar"
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                onClick={btnEditar} />
+                                            <input type="hidden" name="switchCheckEditar" />
+                                        </div>
+                                        <label className=" mt-2 text-black" style={{ fontSize: '.7rem', fontWeight: 'bolder' }} htmlFor="switchCheckEditar">Modo Editar</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={btns_deEdicao + ''}>
+                                <button type="submit" className="btn btn-outline-primary mt-4 col-3 fw-bold">Salvar</button>
+                                <button type="button" onClick={cancelarEdicao} className="btn btn-outline-danger mt-4 col-3 fw-bold">Cancelar</button>
                             </div>
                         </div>
                     </div>
