@@ -1,0 +1,75 @@
+############################################
+# LOGS
+############################################
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+############################################
+# DEPENDÊNCIAS E BUILD (Frontend/Node)
+############################################
+node_modules
+dist
+dist-ssr
+*.local
+
+############################################
+# DEPENDÊNCIAS E BUILD (Java/Maven/Gradle)
+############################################
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+build/
+
+# Mantém as pastas build/target dentro de src (não ignora)
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+############################################
+# EDITORES E IDEs
+############################################
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# STS (Spring Tool Suite)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Outros arquivos comuns de IDE
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+############################################
+# ARQUIVOS DO SISTEMA
+############################################
+.DS_Store   # macOS
+Thumbs.db   # Windows
