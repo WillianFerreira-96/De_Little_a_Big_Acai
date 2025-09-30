@@ -1,5 +1,5 @@
-function AbrirLoadModal(){
-    const loadModal = document.getElementById("loadModal")
+function AbrirModal(idModal){    
+    const loadModal = document.getElementById(idModal)
     loadModal.classList.add("show");
     loadModal.style.display = "block";
     loadModal.removeAttribute("aria-hidden");
@@ -12,4 +12,4 @@ function AbrirLoadModal(){
     document.body.appendChild(backdrop);
 }
 
-export default AbrirLoadModal
+export default AbrirModal

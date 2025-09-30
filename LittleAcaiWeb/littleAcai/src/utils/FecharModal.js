@@ -1,5 +1,5 @@
-function FecharConfirmaEdicaoModal(){
-    const loadModal = document.getElementById("staticBackdrop")
+function FecharModal(idModal){
+    const loadModal = document.getElementById(idModal)
     loadModal.classList.remove("show");
     loadModal.style.display = "none";
     loadModal.setAttribute("aria-hidden", "true");
@@ -10,4 +10,4 @@ function FecharConfirmaEdicaoModal(){
     if (backdrop) backdrop.remove();
 }
 
-export default FecharConfirmaEdicaoModal
+export default FecharModal

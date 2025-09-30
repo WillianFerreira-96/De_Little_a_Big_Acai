@@ -134,7 +134,7 @@ public class ItemController{
         return itemService.adicionarItem(item);
     }
 
-    @PostMapping(path = "/editarItem")
+    @PutMapping(path = "/editarItem")
     private ResponseEntity<?> editarItem(
             @RequestPart(required = false) MultipartFile imagemItem,
             @RequestPart(required = false) String InforId,
@@ -174,6 +174,12 @@ public class ItemController{
         return itemService.retirarItem(id, motivo);
     }
 
+    @DeleteMapping(path="/excluirItem/{id}")
+    @ResponseBody
+    private ResponseEntity<?> excluirItem(@PathVariable String id) {
+        return ResponseEntity.ok().body(itemService.excluirItem(id));
+    }
+
     //Paginas HTML--------------------------------------------------------------------------------------------
     @GetMapping(path = "/buscar")
     private String buscar(){
@@ -184,5 +190,4 @@ public class ItemController{
     private String cadastrar(){
         return "cadastrarEstoque";
     }
-
 }

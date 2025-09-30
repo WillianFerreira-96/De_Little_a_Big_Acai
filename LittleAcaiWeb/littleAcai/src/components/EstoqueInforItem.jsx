@@ -2,9 +2,8 @@ import imagemVazia from '../assets/img/logotipo4.png'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/estoqueInforItem.css'
 import { useEffect, useRef, useState } from 'react'
-import { EditarItem } from '../services/EditarItem'
-import ConfirmaEdicaoModal from './ConfirmaEdicaoModal'
-import AbrirConfirmaEdicaoModal from '../utils/AbrirConfirmaEdicaoModal'
+import ConfirmaModal from './ConfirmaModal'
+import AbrirModal from '../utils/AbrirModal'
 
 function EstoqueInforItem({ dadosItemLifting }) {
 
@@ -12,7 +11,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
     const bntClose = useRef(null)
     const switchEdicao = useRef(null)
     const fileInputRef = useRef(null)
-    
+
     const [isEditable, setIsEditable] = useState(false)
     const [preview, setPreview] = useState(imagemVazia)
 
@@ -39,7 +38,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
     const [motivoSaida, setMotivoSaida] = useState('')
 
     useEffect(() => {
-        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}`: imagemVazia)
+        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}` : imagemVazia)
         setNome(item?.nomeItem)
         setMarca(item?.marca)
         setEmEstoque(item?.emEstoque ? 'Em Estoque' : 'Item Retirado')
@@ -72,7 +71,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
     }
 
     function cancelarEdicao() {
-        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}`: imagemVazia)
+        setPreview(item?.imagemItem != '' ? `data:image;base64,${item?.imagemItem}` : imagemVazia)
         setNome(item?.nomeItem)
         setMarca(item?.marca)
         setDescricao(item?.descricaoItem)
@@ -95,10 +94,10 @@ function EstoqueInforItem({ dadosItemLifting }) {
         switchEdicao.current.click()
     }
 
-    function confirmarEdicao(e){
+    function confirmarEdicao(e) {
         e.preventDefault()
         setItemEditado(new FormData(formFiltro.current))
-        AbrirConfirmaEdicaoModal()
+        AbrirModal("EditarStaticBackdrop")
     }
 
     function previsualizar(e) {
@@ -107,9 +106,14 @@ function EstoqueInforItem({ dadosItemLifting }) {
         setPreview(previewUrl);
     }
 
+    function confirmarExclusao(){
+        AbrirModal("DeletarStaticBackdrop")
+    }
+
     return (
-        <>  
-            <ConfirmaEdicaoModal itemEditado={itemEditado} />
+        <>
+            <ConfirmaModal.Editar itemEditado={itemEditado} />
+            <ConfirmaModal.Deletar idDelete={item?.idItem} />
             <div id="inforItemOffcanvas" className="offcanvas offcanvas-start bg-primary" tabIndex="-1">
                 <form ref={formFiltro} onSubmit={confirmarEdicao} className='row overflow-y-auto overflow-x-hidden'>
                     <div id='divClose' className="d-flex justify-content-end align-items-center">
@@ -261,14 +265,20 @@ function EstoqueInforItem({ dadosItemLifting }) {
                                 </div>
                             </div>
 
-                            <div className={btns_deEdicao + ''}>
-                                <button type="submit" className="btn btn-outline-primary mt-4 col-3 fw-bold">Salvar</button>
-                                <button type="button" onClick={cancelarEdicao} className="btn btn-outline-danger mt-4 col-3 fw-bold">Cancelar</button>
+                            <div className={btns_deEdicao}>
+                                <div className="row">
+                                    <button type="submit" className="btn btn-outline-primary mt-4 col-3 fw-bold">Salvar</button>
+                                </div>
+                                <div className="row justify-content-between">
+                                    <button type="button" onClick={cancelarEdicao} className="btn btn-outline-danger mt-4 col-3 fw-bold">Cancelar</button>
+                                    <button type="button" onClick={confirmarExclusao} className="btn btn-outline-dark mt-4 col-1 me-5 fw-bold">Deletar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </form >
-            </div>
+            </div >
         </>
     )
 }

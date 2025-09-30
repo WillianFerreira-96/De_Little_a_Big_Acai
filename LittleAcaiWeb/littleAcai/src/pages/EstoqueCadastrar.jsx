@@ -5,8 +5,8 @@ import logotipo from '../assets/img/logotipo3.png'
 import { CadastrarItem } from '../services/CadastrarItem'
 import Swal from 'sweetalert2'
 import LoadModal from '../components/LoadModal'
-import AbrirLoadModal from '../utils/AbrirLoadModal'
-import FecharLoadModal from '../utils/FecharLoadModal'
+import AbrirModal from '../utils/AbrirModal'
+import FecharModal from '../utils/FecharModal'
 
 function EstoqueCadastrar() {
 
@@ -29,7 +29,7 @@ function EstoqueCadastrar() {
 
     useEffect(() => {
         if (mostrarSwal) {
-            FecharLoadModal()
+            FecharModal("loadModal")
             Swal.fire({
                 title: swalTitle,
                 html: swalMessage,
@@ -43,7 +43,7 @@ function EstoqueCadastrar() {
 
     async function cadastrar(e) {
         e.preventDefault()
-        AbrirLoadModal()
+        AbrirModal("loadModal")
 
         const formData = new FormData(formCadastro.current)
         const res = await CadastrarItem(formData)

@@ -3,7 +3,7 @@ export async function BuscaNavBar(nomeOuID) {
     const urlDeploy = "https://de-little-a-big-acai.fly.dev"
     
     try {
-        const response = await fetch(`${urlDev}/estoque/buscarNomeOuID?nomeOuID=${nomeOuID}`)
+        const response = await fetch(`${urlDeploy}/estoque/buscarNomeOuID?nomeOuID=${nomeOuID}`)
         if (!response.ok) throw new Error("Erro na requisição")
         return await response.json()
     } catch (error) {

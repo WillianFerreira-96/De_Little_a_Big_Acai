@@ -4,8 +4,8 @@ import { BuscaNavBar } from '../services/BuscaNavBar';
 import { BuscaComFiltro } from '../services/BuscaComFiltro';
 import { FormatarData } from '../utils/FormatarData';
 import LoadModal from '../components/LoadModal'
-import AbrirLoadModal from '../utils/AbrirLoadModal';
-import FecharLoadModal from '../utils/FecharLoadModal';
+import AbrirModal from '../utils/AbrirModal';
+import FecharModal from '../utils/FecharModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/estoqueBuscar.css';
 import imagemVazia from '../assets/img/logotipo4.png'
@@ -30,7 +30,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Automática
     useEffect(() => {
         if (liftingNomeOuID === null) {
-            AbrirLoadModal()
+            AbrirModal("loadModal")
             BuscaAutomatica().then((data) => {
                 MostrarBusca(data)
             })
@@ -40,7 +40,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca pela Barra de Navegação
     useEffect(() => {
         if (liftingNomeOuID != null) {
-            AbrirLoadModal()
+            AbrirModal("loadModal")
             BuscaNavBar(liftingNomeOuID).then((data) => {
                 MostrarBusca(data)
             })
@@ -50,7 +50,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     //Busca Com Filtro
     useEffect(() => {
         if (formFilter != null) {
-            AbrirLoadModal()
+            AbrirModal("loadModal")
             BuscaComFiltro(formFilter).then((data) => {
                 MostrarBusca(data)
             })
@@ -64,11 +64,11 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
         if (Array.isArray(result.listaVazia) && result.listaVazia.length == 0) {
             setDivVisivel(true)
             setNotFound(result.mensagem)
-            FecharLoadModal()
+            FecharModal("loadModal")
         } else {
             setDivVisivel(false)
             setItens(result)
-            FecharLoadModal()
+            FecharModal("loadModal")
         }
     }
 

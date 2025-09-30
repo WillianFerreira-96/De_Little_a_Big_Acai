@@ -707,4 +707,14 @@ public class ItemServiceImpl implements ItemService {
 
         return ResponseEntity.ok().body(itemRepository.save(itemExistente));
     }
+
+    @Override
+    public ResponseEntity<?> excluirItem(String idExcluir) {
+        if(itemRepository.existsByIdItem(Long.parseLong(idExcluir))){
+            Item itemExcluido = itemRepository.findByIdItem(Long.parseLong(idExcluir));
+            itemRepository.delete(itemExcluido);
+            return ResponseEntity.status(200).body("Item excluido com sucesso");
+        }
+        return ResponseEntity.ok().body(notFound());
+    }
 }
