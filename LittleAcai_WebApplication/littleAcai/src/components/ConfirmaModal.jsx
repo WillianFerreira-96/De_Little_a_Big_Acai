@@ -1,15 +1,17 @@
-import { EditarItem } from "../services/EditarItem"
+
 import FecharModal from "../utils/FecharModal"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { ExcluirItem } from "../services/ExcluirItem"
+import EstoqueServices from "../services/EstoqueServices"
 
 function Editar({ itemEditado }) {
 
     function salvarEdicao(e) {
         e.preventDefault()
-        EditarItem(itemEditado)
-        window.location.reload()
+        EstoqueServices.EditarItem(itemEditado).then((res) => {
+            console.log(res)
+            window.location.reload()
+        })
     }
 
     return <>
@@ -24,7 +26,7 @@ function Editar({ itemEditado }) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" onClick={salvarEdicao} className="btn btn-primary">Salvar Edição</button>
-                        <button type="button" onClick={()=>{FecharModal('EditarStaticBackdrop')}} className="btn btn-outline-danger fw-medium" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" onClick={() => { FecharModal('EditarStaticBackdrop') }} className="btn btn-outline-danger fw-medium" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -32,12 +34,14 @@ function Editar({ itemEditado }) {
     </>
 }
 
-function Deletar({idDelete}) {
+function Deletar({ idDelete }) {
 
     function deletarItem(e) {
         e.preventDefault()
-        ExcluirItem(idDelete)
-        window.location.reload()
+        EstoqueServices.ExcluirItem(idDelete).then((res) => {
+            console.log(res)
+            window.location.reload()
+        })
     }
 
     return <>
@@ -45,7 +49,7 @@ function Deletar({idDelete}) {
             <div className="modal-dialog">
                 <div className="modal-content bg-dark">
                     <div className="modal-header ">
-                        <FontAwesomeIcon className="fs-1 text-danger" icon={faTriangleExclamation}/>
+                        <FontAwesomeIcon className="fs-1 text-danger" icon={faTriangleExclamation} />
                         <h5 className="modal-title text-white fs-3" id="DeletarStaticBackdropLabel">Danger Zone!</h5>
                     </div>
                     <div className="modal-body">
@@ -54,7 +58,7 @@ function Deletar({idDelete}) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" onClick={deletarItem} className="btn btn-outline-danger col-5">Excluir Item</button>
-                        <button type="button" onClick={()=>{FecharModal('DeletarStaticBackdrop')}} className="btn btn-outline-secondary fw-medium" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" onClick={() => { FecharModal('DeletarStaticBackdrop') }} className="btn btn-outline-secondary fw-medium" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>

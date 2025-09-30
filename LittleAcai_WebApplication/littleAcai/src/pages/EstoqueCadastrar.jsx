@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/estoqueCadastrar.css'
 import { useEffect, useRef, useState } from "react"
 import logotipo from '../assets/img/logotipo3.png'
-import { CadastrarItem } from '../services/CadastrarItem'
+import EstoqueServices from '../services/EstoqueServices';
 import Swal from 'sweetalert2'
 import LoadModal from '../components/LoadModal'
 import AbrirModal from '../utils/AbrirModal'
@@ -46,7 +46,7 @@ function EstoqueCadastrar() {
         AbrirModal("loadModal")
 
         const formData = new FormData(formCadastro.current)
-        const res = await CadastrarItem(formData)
+        const res = await EstoqueServices.CadastrarItem(formData)
         if (res.erro) {
             setSwalTitle("Erro!")
             setSwalMessage(`<h6>${res.erro}</h6>`)

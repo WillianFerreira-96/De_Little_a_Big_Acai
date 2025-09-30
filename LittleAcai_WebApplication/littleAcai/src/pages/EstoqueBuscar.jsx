@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { BuscaAutomatica } from '../services/BuscaAutomatica';
-import { BuscaNavBar } from '../services/BuscaNavBar';
-import { BuscaComFiltro } from '../services/BuscaComFiltro';
+import EstoqueServices from '../services/EstoqueServices';
 import { FormatarData } from '../utils/FormatarData';
 import LoadModal from '../components/LoadModal'
 import AbrirModal from '../utils/AbrirModal';
@@ -31,7 +29,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     useEffect(() => {
         if (liftingNomeOuID === null) {
             AbrirModal("loadModal")
-            BuscaAutomatica().then((data) => {
+            EstoqueServices.AutoBusca().then((data) => {
                 MostrarBusca(data)
             })
         }
@@ -41,7 +39,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     useEffect(() => {
         if (liftingNomeOuID != null) {
             AbrirModal("loadModal")
-            BuscaNavBar(liftingNomeOuID).then((data) => {
+            EstoqueServices.BuscaNavBar(liftingNomeOuID).then((data) => {
                 MostrarBusca(data)
             })
         }
@@ -51,7 +49,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     useEffect(() => {
         if (formFilter != null) {
             AbrirModal("loadModal")
-            BuscaComFiltro(formFilter).then((data) => {
+            EstoqueServices.BuscaFiltro(formFilter).then((data) => {
                 MostrarBusca(data)
             })
         }
