@@ -52,7 +52,7 @@ function EstoqueNavBar({ onLiftingNomeOuID }) {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 nav nav-pills">
                             <li className="nav-item">
                                 <a id="activeDashboard" className="nav-link" href="#">
-                                    <p className="offcanvas-collapse-text mb-0">Dashboard</p>
+                                    {/*<p className="offcanvas-collapse-text mb-0">Dashboard</p>*/}
                                 </a>
                             </li>
                             <li className="nav-item">
@@ -67,7 +67,7 @@ function EstoqueNavBar({ onLiftingNomeOuID }) {
                             </li>
                             <li className="nav-item">
                                 <a id="activeSaida" className="nav-link" href="#">
-                                    <p className="offcanvas-collapse-text mb-0">Retirada de Item</p>
+                                    {/*<p className="offcanvas-collapse-text mb-0">Retirada de Item</p>*/}
                                 </a>
                             </li>
                         </ul>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import EstoqueServices from '../services/EstoqueServices';
 import { FormatarData } from '../utils/FormatarData';
 import LoadModal from '../components/LoadModal'
@@ -76,7 +76,7 @@ function EstoqueBuscar({ liftingNomeOuID, formFilter, onDadosItemLifting }) {
     }
 
     return <>
-        <LoadModal />
+        <LoadModal />        
         <main ref={mainOverFlow_x} id='mainOverFlow_x'>
             <table className="table align-middle table-hover">
                 <thead className='sticky-top table-head'>

@@ -179,15 +179,4 @@ public class ItemController{
     private ResponseEntity<?> excluirItem(@PathVariable String id) {
         return ResponseEntity.ok().body(itemService.excluirItem(id));
     }
-
-    //Paginas HTML--------------------------------------------------------------------------------------------
-    @GetMapping(path = "/buscar")
-    private String buscar(){
-        return "buscarEstoque";
-    }
-
-    @GetMapping(path = "/cadastrar")
-    private String cadastrar(){
-        return "cadastrarEstoque";
-    }
 }

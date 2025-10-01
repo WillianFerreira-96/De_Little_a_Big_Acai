@@ -111,7 +111,7 @@ function EstoqueInforItem({ dadosItemLifting }) {
     }
 
     return (
-        <>
+        <>        
             <ConfirmaModal.Editar itemEditado={itemEditado} />
             <ConfirmaModal.Deletar idDelete={item?.idItem} />
             <div id="inforItemOffcanvas" className="offcanvas offcanvas-start bg-primary" tabIndex="-1">

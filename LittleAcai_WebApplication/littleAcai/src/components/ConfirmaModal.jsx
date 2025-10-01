@@ -5,7 +5,6 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import EstoqueServices from "../services/EstoqueServices"
 
 function Editar({ itemEditado }) {
-
     function salvarEdicao(e) {
         e.preventDefault()
         EstoqueServices.EditarItem(itemEditado).then((res) => {
@@ -35,7 +34,6 @@ function Editar({ itemEditado }) {
 }
 
 function Deletar({ idDelete }) {
-
     function deletarItem(e) {
         e.preventDefault()
         EstoqueServices.ExcluirItem(idDelete).then((res) => {
