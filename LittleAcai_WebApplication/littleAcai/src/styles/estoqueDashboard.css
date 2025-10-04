@@ -1,0 +1,21 @@
+main{
+    height: calc(100vh - 56px);
+    overflow: hidden;
+}
+
+#coluna1{
+    width: 35vw;
+}
+
+#coluna2{
+    width: 65vw;
+}
+
+#divTabelaAlerta{
+    height: 30vh;
+    background-color: aquamarine;
+}
+
+thead{
+    width: 100%;
+}

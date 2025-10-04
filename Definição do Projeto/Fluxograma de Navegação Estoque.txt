@@ -6,8 +6,10 @@ Fluxograma de Navegação Estoque
 	→ [Estoque]
 		→ [Tela Inicial Estoque: Análise de Estoque - Dashboards]
 
-			-Total de itens em estoque
+			-Tamanho do estoque em itens
 			-Valor total do estoque (preço × quantidade)
+			
+			-Total de perdas (dia)
 			-Total de perdas (Mês)
 			-Total de perdas (Ano)		
 

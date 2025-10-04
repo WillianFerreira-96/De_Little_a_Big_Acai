@@ -1,7 +1,7 @@
 const localhost = "http://localhost:8080"
 const remotehost = "https://de-little-a-big-acai.fly.dev"
 
-const hostname = remotehost
+const hostname = localhost
 
 const AutoBusca = async () => {
     try {
