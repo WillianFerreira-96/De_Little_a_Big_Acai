@@ -1,20 +1,31 @@
-# fly.toml app configuration file generated for api-little-acai on 2026-02-15T18:54:38-03:00
+# fly.toml app configuration file generated for database-little-acai on 2026-02-15T19:14:01-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'api-little-acai'
+app = 'database-little-acai'
 primary_region = 'gru'
 
 [build]
 
+[[mounts]]
+  source = 'volume_little_acai'
+  destination = '/var/lib/mysql'
+
 [http_service]
-  internal_port = 8080
+  internal_port = 3306
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 3306
+
+  [[services.ports]]
+    port = 3306
 
 [[vm]]
   memory = '1gb'
