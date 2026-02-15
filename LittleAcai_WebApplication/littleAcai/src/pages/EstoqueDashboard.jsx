@@ -69,21 +69,21 @@ const linha = {
 function EstoqueDashboard() {
   return <>
     <main className="">
-      <div className="row">
-        <div id='coluna1' className="col-4">
-
-          {/*--- Tabela de Alertas ---*/}
-          <div id='divTabelaAlerta' className="row overflow-y-auto ms-1 mt-2">
-            <button type="button" class="btn btn-primary position-relative" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-              Itens com baixa quantidade
+      <div className="row main-row1 m-0 p-0">
+        <div id='coluna1' className="col-4 m-0 p-0">
+        {/*--- Tabela de Alertas ---*/}
+          <div id='divTabelaAlerta' className="row overflow-y-auto ps-5 pe-5 pt-4 pb-1 m-0">
+          {/*--- Vencidos ---*/}
+            <button type="button" class="btn btn-danger position-relative mb-3" data-bs-toggle="collapse" href="#collapseVencidos" role="button" aria-expanded="false" aria-controls="collapseVencidos">
+              Itens Vencidos
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 99+
                 <span class="visually-hidden">unread messages</span>
               </span>
             </button>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseVencidos">
               <table className='table table-light table-hover'>
-                <thead className='table-head table-dark rounded'>
+                <thead className='table-dark rounded'>
                   <tr>
                     <th>ID</th>
                     <th>Nome</th>
@@ -106,90 +106,147 @@ function EstoqueDashboard() {
                     <td>asdf</td>
                     <td>asdf</td>
                   </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-
                 </tbody>
               </table>
             </div>
-          </div>
 
-          {/*--- Distribuição por Categoria ---*/}
-          <div className="row">
-            <Pie data={pizza} />
+            {/*--- Baixa Quantidade ---*/}
+            <button type="button" class="btn btn-warning position-relative mb-3" data-bs-toggle="collapse" href="#collapseBaixaQuant" role="button" aria-expanded="false" aria-controls="collapseBaixaQuant">
+              Itens em Baixa Quantidade
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <div class="collapse" id="collapseBaixaQuant">
+              <table className='table table-light table-hover'>
+                <thead className='table-dark rounded'>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className=''>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                  <tr>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                  <tr>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/*--- Proximo do Vencimento ---*/}
+            <button type="button" class="btn btn-secondary position-relative mb-3" data-bs-toggle="collapse" href="#collapseProximoVenc" role="button" aria-expanded="false" aria-controls="collapseProximoVenc">
+              Itens Próximo do Vencimento
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+            <div class="collapse" id="collapseProximoVenc">
+              <table className='table table-light table-hover'>
+                <thead className='table-dark rounded'>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className=''>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                  <tr>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                  <tr>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                    <td>asdf</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>            
+
+          </div>          
+          
+        {/*--- Distribuição por Categoria ---*/}
+          <div className="row p-5 bg-danger m-0 p-0">
+            <div id="grafico-categoria" className='d-flex justify-content-center m-0 p-0'>
+              <Pie data={pizza} />
+            </div>
           </div>
 
         </div>
-        <div id='coluna2' className="col-8">
-          <div className="row">
+        <div id='coluna2' className="col-8 m-0 p-0">
+          <div className="row m-0 p-0">
 
-            {/*--- Tamanho do Estoque ---*/}
-            <div className="col-6">
-              <Line data={linha} />
+            {/*--- Itens em estoque ---*/}
+            <div className="col-6 bg-primary">
+              <div className="text-center p-3 " id="grafico-tamanho-estoque">
+                <h2 className="text-black">Itens em Estoque</h2>
+                <h2 className="text-primary fs-1 fw-bold">72 Itens</h2>
+              </div>
             </div>
 
             {/*--- Valor do Estoque ---*/}
-            <div className="col-6">
-              <Line data={linha} />
+            <div className="col-6 bg-secondary-subtle">
+               <div className="text-center p-3 " id="grafico-valor-estoque">
+                <h2 className="text-black">Valor do Estoque</h2>
+                <h2 className="text-primary fs-1 fw-bold">R$ 500,00</h2>
+              </div>
             </div>
 
           </div>
 
           {/*--- Evolução do estoque ---*/}
-          <div className="row">
-            <Line data={linha} />
+          <div className="row bg-warning m-0 p-3">
+            <div id="grafico-evolucao-estoque" className='d-flex justify-content-center p-3'>
+              <Line data={linha} />
+            </div>
           </div>
 
         </div>
       </div>
-      <div className="row">
+
+      
+      <div className="row main-row2 bg-dark">
 
         {/*--- Total de Perca (Dia) ---*/}
-        <div className="col-4">
-          <Bar data={barra} />
+        <div className="col-4 bg-primary d-flex justify-content-end align-items-lg-center">
+          <div>            
+            <Bar id="perca-dia" data={barra} />
+          </div>
         </div>
 
         {/*--- Total de Perca (Mês) ---*/}
-        <div className="col-4">
-          <Line data={linha} />
+        <div className="col-4 bg-secondary d-flex justify-content-center align-items-lg-center">
+          <div>            
+            <Line id="perca-mes" data={linha} />
+          </div>
         </div>
 
         {/*--- Total de Perca (Ano) ---*/}
-        <div className="col-4">
-          <Line data={linha} />
+        <div className="col-4 bg-info d-flex justify-content-start align-items-lg-center">
+          <div>            
+            <Line id="perca-ano" data={linha} />
+          </div>
         </div>
 
       </div>
