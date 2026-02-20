@@ -36,6 +36,9 @@ ChartJS.register(
 function EstoqueDashboard() {
 
   const [itens, setItens] = useState([])
+  const [vencidos, setVencidos] = useState([])
+  const [quantVencidos, setQuantVencidos] = useState(0)
+  const [displayPopUpVenc, setDisplayPopUpVenc] = useState("d-none ")
   const [quantItens, setQuantItens] = useState(0)
   const [valorItens, setValortItens] = useState(0)
 
@@ -47,13 +50,24 @@ function EstoqueDashboard() {
   }, [])
 
   useEffect(() => {
+    //Quant. de Itens
     const somaQuantItens = itens.reduce((soma, item) => soma + item.quant, 0)
     setQuantItens(somaQuantItens)
 
+    //Valor em estoque
     const somaValorItens = itens.reduce((soma, i) => i.precoUni * i.quant + soma, 0)
     var [intero, decimal] = somaValorItens.toFixed(2).toString().split(".")
     var total = "R$ " + intero + "," + decimal
     setValortItens(total)
+
+    //Itens Vencidos
+    const agora = new Date().toISOString().slice(0, 19);
+    const itensVenc = itens.filter(i => i.dataValidade < agora)
+    setVencidos(itensVenc)
+    setQuantVencidos(itensVenc.length)
+    if (itensVenc.length > 0) {
+      setDisplayPopUpVenc("")
+    }
 
   }, [itens]);
 
@@ -103,9 +117,9 @@ function EstoqueDashboard() {
             {/*--- Vencidos ---*/}
             <button type="button" className="btn btn-danger position-relative mb-3" data-bs-toggle="collapse" href="#collapseVencidos" role="button" aria-expanded="false" aria-controls="collapseVencidos">
               Itens Vencidos
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                99+
-                <span className="visually-hidden">unread messages</span>
+              <span className={displayPopUpVenc + " position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"}>
+                {quantVencidos}
+                <span className="visually-hidden"></span>
               </span>
             </button>
             <div className="collapse" id="collapseVencidos">
@@ -117,23 +131,15 @@ function EstoqueDashboard() {
                     <th>Quantidade</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className=''>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                </tbody>
+                {vencidos.map((i) => {
+                  return <tbody>
+                    <tr className=''>
+                      <td>{i.idItem}</td>
+                      <td>{i.nomeItem}</td>
+                      <td>{i.quant}</td>
+                    </tr>
+                  </tbody>
+                })}
               </table>
             </div>
 
