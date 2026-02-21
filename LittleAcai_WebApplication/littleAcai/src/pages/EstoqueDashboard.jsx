@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/estoqueDashboard.css'
 import EstoqueServices from '../services/EstoqueServices';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { Bar } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
@@ -36,11 +36,22 @@ ChartJS.register(
 function EstoqueDashboard() {
 
   const [itens, setItens] = useState([])
+  const [quantItens, setQuantItens] = useState(0)
+  const [valorItens, setValortItens] = useState(0)
+
   const [vencidos, setVencidos] = useState([])
   const [quantVencidos, setQuantVencidos] = useState(0)
   const [displayPopUpVenc, setDisplayPopUpVenc] = useState("d-none ")
-  const [quantItens, setQuantItens] = useState(0)
-  const [valorItens, setValortItens] = useState(0)
+
+  const [baixaQuant, setBaixaQuant] = useState([])
+  const [quantMin, setQuantMin] = useState(2)
+  const [quantBaixaQuant, setQuantBaixaQuant] = useState(0)
+  const [displayPopUpBaixaQuant, setDisplayPopUpBaixaQuant] = useState("d-none ")
+
+  const [proximoVenc, setProximoVenc] = useState([])
+  const [quantSemana, setQuantSemana] = useState(1)
+  const [quantProximoVenc, setQuantProximoVenc] = useState(0)
+  const [displayPopUpProximoVenc, setDisplayPopUpProximoVenc] = useState("d-none ")
 
   useEffect(() => {
     EstoqueServices.AutoBusca().then((data) => {
@@ -62,12 +73,25 @@ function EstoqueDashboard() {
 
     //Itens Vencidos
     const agora = new Date().toISOString().slice(0, 19);
-    const itensVenc = itens.filter(i => i.dataValidade < agora)
+    const itensVenc = itens.filter(i => i.dataValidade <= agora)
     setVencidos(itensVenc)
     setQuantVencidos(itensVenc.length)
-    if (itensVenc.length > 0) {
-      setDisplayPopUpVenc("")
-    }
+    if (itensVenc.length > 0) setDisplayPopUpVenc("")
+
+    //Itens em Baixa quantidade
+    const itensBaixaQuant = itens.filter(i => i.quant < quantMin)
+    setBaixaQuant(itensBaixaQuant)
+    setQuantBaixaQuant(itensBaixaQuant.length)
+    if (itensVenc.length > 0) setDisplayPopUpBaixaQuant("")
+
+    //Itens Proximo do Vencimento
+    const proximosDias = new Date()
+    proximosDias.setDate(new Date().getDate() + quantSemana * 7)
+
+    const itensProximoVenc = itens.filter(i => !(!i.dataValidade) && i.dataValidade > agora && new Date(i.dataValidade) < proximosDias)
+    setProximoVenc(itensProximoVenc)
+    setQuantProximoVenc(itensProximoVenc.length)
+    if (itensProximoVenc.length > 0) setDisplayPopUpProximoVenc("")
 
   }, [itens]);
 
@@ -113,7 +137,7 @@ function EstoqueDashboard() {
       <div className="row main-row1 m-0 p-0">
         <div id='coluna1' className="col-4 m-0 p-0">
           {/*--- Tabela de Alertas ---*/}
-          <div id='divTabelaAlerta' className="row overflow-y-auto ps-5 pe-5 pt-4 pb-1 m-0">
+          <div id='divTabelaAlerta' className="row overflow-y-scroll ps-5 pe-5 pt-4 pb-1 m-0">
             {/*--- Vencidos ---*/}
             <button type="button" className="btn btn-danger position-relative mb-3" data-bs-toggle="collapse" href="#collapseVencidos" role="button" aria-expanded="false" aria-controls="collapseVencidos">
               Itens Vencidos
@@ -133,7 +157,7 @@ function EstoqueDashboard() {
                 </thead>
                 {vencidos.map((i) => {
                   return <tbody>
-                    <tr className=''>
+                    <tr>
                       <td>{i.idItem}</td>
                       <td>{i.nomeItem}</td>
                       <td>{i.quant}</td>
@@ -145,10 +169,10 @@ function EstoqueDashboard() {
 
             {/*--- Baixa Quantidade ---*/}
             <button type="button" className="btn btn-warning position-relative mb-3" data-bs-toggle="collapse" href="#collapseBaixaQuant" role="button" aria-expanded="false" aria-controls="collapseBaixaQuant">
-              Itens em Baixa Quantidade
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                99+
-                <span className="visually-hidden">unread messages</span>
+              Itens em Baixa Quantidade <span className='text-secondary'> | Menor que {quantMin}</span>
+              <span className={displayPopUpBaixaQuant + " position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"}>
+                {quantBaixaQuant}
+                <span className="visually-hidden"></span>
               </span>
             </button>
             <div className="collapse" id="collapseBaixaQuant">
@@ -160,32 +184,24 @@ function EstoqueDashboard() {
                     <th>Quantidade</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className=''>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                </tbody>
+                {baixaQuant.map((i) => {
+                  return <tbody>
+                    <tr>
+                      <td>{i.idItem}</td>
+                      <td>{i.nomeItem}</td>
+                      <td>{i.quant}</td>
+                    </tr>
+                  </tbody>
+                })}
               </table>
             </div>
 
             {/*--- Proximo do Vencimento ---*/}
             <button type="button" className="btn btn-secondary position-relative mb-3" data-bs-toggle="collapse" href="#collapseProximoVenc" role="button" aria-expanded="false" aria-controls="collapseProximoVenc">
-              Itens Próximo do Vencimento
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                99+
-                <span className="visually-hidden">unread messages</span>
+              Itens Próximo do Vencimento <span className='text-dark'> | {quantSemana} semana(s)</span>
+              <span className={displayPopUpProximoVenc + " position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"}>
+                {quantProximoVenc}
+                <span className="visually-hidden"></span>
               </span>
             </button>
             <div className="collapse" id="collapseProximoVenc">
@@ -197,26 +213,17 @@ function EstoqueDashboard() {
                     <th>Quantidade</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr className=''>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                  <tr>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                    <td>asdf</td>
-                  </tr>
-                </tbody>
+                {proximoVenc.map((i) => {
+                  return <tbody>
+                    <tr>
+                      <td>{i.idItem}</td>
+                      <td>{i.nomeItem}</td>
+                      <td>{i.quant}</td>
+                    </tr>
+                  </tbody>
+                })}
               </table>
             </div>
-
           </div>
 
           {/*--- Distribuição por Categoria ---*/}
