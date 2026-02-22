@@ -53,6 +53,10 @@ function EstoqueDashboard() {
   const [quantProximoVenc, setQuantProximoVenc] = useState(0)
   const [displayPopUpProximoVenc, setDisplayPopUpProximoVenc] = useState("d-none ")
 
+  const [quantFruta, setQuantFruta] = useState(0)
+  const [quantMassas, setQuantMassas] = useState(0)
+  const [quantComplementos, setQuantComplementos] = useState(0)
+
   useEffect(() => {
     EstoqueServices.AutoBusca().then((data) => {
       setItens(data)
@@ -93,7 +97,56 @@ function EstoqueDashboard() {
     setQuantProximoVenc(itensProximoVenc.length)
     if (itensProximoVenc.length > 0) setDisplayPopUpProximoVenc("")
 
+    //Distribuição por Categoria
+    const frutas = itens.reduce((soma, i) => {
+      if (i.categoria == 'frutas') {
+        soma += i.quant
+      }
+      return soma
+    }, 0)
+    const massas = itens.reduce((soma, i) => {
+      if (i.categoria == 'bases/massas') {
+        soma += i.quant
+      }
+      return soma
+    }, 0)
+    const complementos = itens.reduce((soma, i) => {
+      if (i.categoria == 'complementos') {
+        soma += i.quant
+      }
+      return soma
+    }, 0)
+    setQuantFruta(frutas)
+    setQuantMassas(massas)
+    setQuantComplementos(complementos)
+
   }, [itens]);
+
+  const porCategoria = {
+    labels: ["Frutas", "Bases/Massas", "Complementos"],
+    datasets: [
+      {
+        label: "Quantidade",
+        data: [quantFruta, quantMassas, quantComplementos],
+        backgroundColor: ["#36a2eb", "#ff6384", "#ffce56"],
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  const evolucaoEstoque = {
+    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    datasets: [
+      {
+        label: "Vendas",
+        data: [5, 10, 7, 15, 54, 4, 65, 13, 23, 41,29, 78],
+        borderColor: "#36a2eb",
+        backgroundColor: "rgba(54,162,235,0.2)",
+        fill: true,
+        tension: 0.3, // deixa a linha suavizada
+      },
+    ],
+  };
 
   const barra = {
     labels: ["Janeiro", "Fevereiro", "Março"],
@@ -106,31 +159,6 @@ function EstoqueDashboard() {
     ]
   };
 
-  const pizza = {
-    labels: ["Maçã", "Banana", "Uva"],
-    datasets: [
-      {
-        label: "Frutas vendidas",
-        data: [12, 19, 7],
-        backgroundColor: ["#ff6384", "#36a2eb", "#ffce56"],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const linha = {
-    labels: ["Janeiro", "Fevereiro", "Março", "Abril"],
-    datasets: [
-      {
-        label: "Vendas",
-        data: [5, 10, 7, 15],
-        borderColor: "#36a2eb",
-        backgroundColor: "rgba(54,162,235,0.2)",
-        fill: true,
-        tension: 0.3, // deixa a linha suavizada
-      },
-    ],
-  };
 
   return <>
     <main className="">
@@ -227,9 +255,12 @@ function EstoqueDashboard() {
           </div>
 
           {/*--- Distribuição por Categoria ---*/}
-          <div className="row p-5 bg-danger m-0 p-0">
-            <div id="grafico-categoria" className='d-flex justify-content-center m-0 p-0'>
-              <Pie data={pizza} />
+          <div className="row bg-danger m-0 p-0">
+            <div id="divGraficoCategoria" className='d-flex flex-column justify-content-start align-items-center m-0 p-0'>
+              <b className='text-nowrap text-decoration-none fs-4 p-0 mb-3'>Distribuição por Categoria</b>
+              <div>
+                <Pie id="grafico-categoria" data={porCategoria} />
+              </div>
             </div>
           </div>
 
@@ -256,12 +287,15 @@ function EstoqueDashboard() {
           </div>
 
           {/*--- Evolução do estoque ---*/}
-          <div className="row bg-warning m-0 p-3">
-            <div id="grafico-evolucao-estoque" className='d-flex justify-content-center p-3'>
-              <Line data={linha} />
+          <div className="row bg-warning m-0 p-0">
+            <div id="divGraficoEvolucao" className='d-flex flex-column justify-content-start align-items-center m-0 p-3'>
+              <b className='text-nowrap text-decoration-none fs-4 p-0 mb-3'>Evolução do Estoque ao longo do Ano (R$) </b>
+                <div className='d-flex justify-content-start align-items-center'>
+                  <Line id="grafico-evolucao" data={evolucaoEstoque} />
+                </div>
             </div>
           </div>
-
+          
         </div>
       </div>
 
@@ -278,14 +312,14 @@ function EstoqueDashboard() {
         {/*--- Total de Perca (Mês) ---*/}
         <div className="col-4 bg-secondary d-flex justify-content-center align-items-lg-center">
           <div>
-            <Line id="perca-mes" data={linha} />
+            <Line id="perca-mes" data={evolucaoEstoque} />
           </div>
         </div>
 
         {/*--- Total de Perca (Ano) ---*/}
         <div className="col-4 bg-info d-flex justify-content-start align-items-lg-center">
           <div>
-            <Line id="perca-ano" data={linha} />
+            <Line id="perca-ano" data={evolucaoEstoque} />
           </div>
         </div>
 
