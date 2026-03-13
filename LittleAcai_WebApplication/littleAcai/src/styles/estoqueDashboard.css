@@ -1,6 +1,7 @@
-main{
+#mainDashdoard{
     height: calc(100vh - 56px);
     overflow: hidden;   
+    background-color: #311f4b;
 }
 .main-row1{
     height: calc(70vh - 56px);
@@ -9,19 +10,18 @@ main{
         width: 25vw;
     }
         #divTabelaAlerta{
-            height: 25vh;            
-            background-color: aquamarine;
+            height: calc(70vh - 56px);            
         }
         #divGraficoCategoria{
             height: calc(45vh - 56px);
         }
-            #grafico-categoria{
-                height: 95%;
-            }
     #coluna2{
         width: 75vw;
 
     }
+        .text-green{
+            color: #8cc63e;
+        }
         #divGraficoEvolucao{
             height: calc(56vh - 56px);
         }
@@ -31,11 +31,6 @@ main{
 .main-row2{
     height: 30vh;
 }
-    #perca-dia, #perca-mes, #perca-ano{
+    #perda-dia, #perda-mes, #perda-ano{
         height: 25vh;
     }
-
-
-/*thead{
-    width: 100%;
-}*/
