@@ -1,0 +1,36 @@
+#mainDashdoard{
+    height: calc(100vh - 56px);
+    overflow: hidden;   
+    background-color: #311f4b;
+}
+.main-row1{
+    height: calc(70vh - 56px);
+}
+    #coluna1{
+        width: 25vw;
+    }
+        #divTabelaAlerta{
+            height: calc(70vh - 56px);            
+        }
+        #divGraficoCategoria{
+            height: calc(45vh - 56px);
+        }
+    #coluna2{
+        width: 75vw;
+
+    }
+        .text-green{
+            color: #8cc63e;
+        }
+        #divGraficoEvolucao{
+            height: calc(56vh - 56px);
+        }
+            #grafico-evolucao{
+                height: 40vh;
+            }
+.main-row2{
+    height: 30vh;
+}
+    #perda-dia, #perda-mes, #perda-ano{
+        height: 25vh;
+    }

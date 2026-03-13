@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import EstoqueBuscar from './pages/EstoqueBuscar'
 import EstoqueCadastrar from './pages/EstoqueCadastrar'
+import EstoqueDashboard from './pages/EstoqueDashboard'
 
 import { useState } from 'react'
 import EstoqueNavBar from './components/EstoqueNavBar'
@@ -12,6 +13,7 @@ function App() {
   const [nomeOuID, setNomeOuID] = useState(null)
   const [formData, setFormData] = useState(null)
   const [dadosItem, setDadosItem] = useState(null)
+  
   return (
     <Routes>
       <Route path='/estoque/buscar'
@@ -30,6 +32,15 @@ function App() {
           <>
             <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
             <EstoqueCadastrar />
+          </>
+        }
+      />
+
+      <Route path='/estoque/dashboard'
+        element={
+          <>
+            <EstoqueNavBar onLiftingNomeOuID={setNomeOuID} />
+            <EstoqueDashboard />
           </>
         }
       />
